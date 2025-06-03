@@ -1,0 +1,25 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "src/main"
+    },
+    {
+      "path": "src/shared"
+    },
+    {
+      "path": "src/renderer"
+    },
+    {
+      "path": "src-mvp/server"
+    },
+    {
+      "path": "src-mvp/web"
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "stl\\node_modules\\typescript\\lib"
+  }
+}

@@ -1,10 +1,10 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm'
 
 @Entity()
 export class ConfigEntity {
-    @PrimaryColumn()
-    key: string;
+  @PrimaryColumn()
+  key: string
 
-    @Column()
-    value: string;
+  @Column()
+  value: string
 }
