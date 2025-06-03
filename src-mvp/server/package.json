@@ -1,0 +1,32 @@
+{
+    "name": "stl-organizer-server",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "type": "commonjs",
+    "scripts": {
+        "dev": "nodemon",
+        "start": "node dist/index.js",
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@types/node-7z": "^2.1.10",
+        "adm-zip": "^0.5.16",
+        "cors": "^2.8.5",
+        "express": "^5.1.0",
+        "fs-extra": "^11.3.0",
+        "image-size": "^2.0.2",
+        "node-7z": "^3.0.0",
+        "node-stream-zip": "^1.15.0",
+        "node-unrar-js": "^2.0.2",
+        "reflect-metadata": "^0.2.2",
+        "sqlite3": "^5.1.7",
+        "typeorm": "^0.3.24"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.2",
+        "@types/node": "^22.15.24",
+        "nodemon": "^3.1.10",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.3"
+    }
+}
