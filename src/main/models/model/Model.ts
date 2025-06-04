@@ -13,6 +13,7 @@ import { ModelStatus } from '@shared/enums/model'
 
 import { _AbstractEntity } from '../abstract/core/_AbstractEntity'
 import { Category } from '../common/Category'
+import { InputDir } from '../common/InputDir'
 import { Tag } from '../common/Tag'
 
 import { ModelAuthor } from './ModelAuthor'
@@ -53,6 +54,9 @@ export class Model extends _AbstractEntity {
     inverseJoinColumn: { name: 'tagId', referencedColumnName: 'id' }
   })
   tags!: Tag[]
+
+  @ManyToOne(() => InputDir, { nullable: true })
+  sourceInputDir?: InputDir
 
   @UpdateDateColumn()
   updatedAt!: Date
