@@ -1,4 +1,4 @@
-export enum ArchiveExtensiions {
+export enum ArchiveExtensions {
   ZIP = 'zip',
   RAR = 'rar',
   S_ZIP = '7z'

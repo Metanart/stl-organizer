@@ -10,5 +10,5 @@ export class ModelAuthor extends _AbstractEntity {
   name!: string
 
   @OneToMany(() => Model, (model) => model.author)
-  models!: Model
+  models!: Model[]
 }

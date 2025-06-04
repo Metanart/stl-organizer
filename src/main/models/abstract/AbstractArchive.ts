@@ -1,10 +1,10 @@
 import { Column } from 'typeorm'
 
-import { ArchiveExtensiions } from '@shared/enums/extensions'
+import { ArchiveExtensions } from '@shared/enums/extensions'
 
 import { _AbstractFile } from './core/_AbstractFile'
 
 export abstract class AbstractArchive extends _AbstractFile {
-  @Column({ type: 'enum', enum: ArchiveExtensiions })
+  @Column({ type: 'enum', enum: ArchiveExtensions })
   extension!: string
 }

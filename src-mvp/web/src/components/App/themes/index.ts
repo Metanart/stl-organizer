@@ -1,1 +1,0 @@
-export { darkGreenTheme } from './darkGreenTheme'
