@@ -1,8 +1,9 @@
-import eslintConfigPrettier from '@electron-toolkit/eslint-config-prettier'
 import tseslint from '@electron-toolkit/eslint-config-ts'
+import eslintConfigPrettier from '@electron-toolkit/eslint-config-prettier'
 import eslintPluginReact from 'eslint-plugin-react'
 import eslintPluginReactHooks from 'eslint-plugin-react-hooks'
 import eslintPluginReactRefresh from 'eslint-plugin-react-refresh'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import unusedImports from 'eslint-plugin-unused-imports'
 
 export default tseslint.config(
@@ -22,7 +23,8 @@ export default tseslint.config(
     plugins: {
       'react-hooks': eslintPluginReactHooks,
       'react-refresh': eslintPluginReactRefresh,
-      'unused-imports': unusedImports
+      'unused-imports': unusedImports,
+      'simple-import-sort': simpleImportSort
     },
     rules: {
       ...eslintPluginReactHooks.configs.recommended.rules,
@@ -37,6 +39,26 @@ export default tseslint.config(
           varsIgnorePattern: '^_',
           args: 'after-used',
           argsIgnorePattern: '^_'
+        }
+      ],
+      'simple-import-sort/exports': 'error',
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [
+            // 1. node built-ins
+            ['^node:'],
+            // 2. external packages
+            ['^react', '^@?\\w'],
+            // 3. internal aliases
+            ['^@shared/', '^@/'],
+            // 4. parent imports
+            ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
+            // 5. sibling imports
+            ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
+            // 6. style imports
+            ['^.+\\.s?css$']
+          ]
         }
       ]
     }

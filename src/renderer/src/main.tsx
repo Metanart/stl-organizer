@@ -1,11 +1,22 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import ReactDOM from 'react-dom/client'
+import { HashRouter, Route, Routes } from 'react-router-dom'
 
-import App from './App'
+import { ConfigPage } from './pages/ConfigPage'
+import { App } from './App'
+
 import './assets/main.css'
 
-createRoot(document.getElementById('root')!).render(
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+
+root.render(
   <StrictMode>
-    <App />
+    <HashRouter>
+      <App>
+        <Routes>
+          <Route path="/" element={<ConfigPage />} />
+        </Routes>
+      </App>
+    </HashRouter>
   </StrictMode>
 )
