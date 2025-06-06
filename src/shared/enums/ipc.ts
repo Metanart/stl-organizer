@@ -3,5 +3,8 @@ export enum IPC_ENTITY {
 }
 
 export enum IPC_ACTION {
-  GET_ALL = 'getAll'
+  GET_ALL = 'getAll',
+  CREATE = 'create',
+  UPDATE = 'update',
+  DELETE = 'delete'
 }
