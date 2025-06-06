@@ -1,8 +1,14 @@
 import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge } from 'electron'
 
+import { IPC_ENTITY } from '@shared/enums/ipc'
+
+import { SourceFoldersInvokers } from './ipc-invokers/SourceFoldersInvokers'
+
 // Custom APIs for renderer
-const api = {}
+const api = {
+  [IPC_ENTITY.SOURCE_FOLDERS]: SourceFoldersInvokers
+}
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise

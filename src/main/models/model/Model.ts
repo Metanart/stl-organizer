@@ -13,7 +13,7 @@ import { ModelStatus } from '@shared/enums/model'
 
 import { _AbstractEntity } from '../abstract/core/_AbstractEntity'
 import { Category } from '../common/Category'
-import { InputDir } from '../common/InputDir'
+import { SourceFolder } from '../common/SourceFolder'
 import { Tag } from '../common/Tag'
 
 import { ModelAuthor } from './ModelAuthor'
@@ -55,8 +55,8 @@ export class Model extends _AbstractEntity {
   })
   tags!: Tag[]
 
-  @ManyToOne(() => InputDir, { nullable: true })
-  sourceInputDir?: InputDir
+  @ManyToOne(() => SourceFolder, { nullable: true })
+  sourceFolder?: SourceFolder
 
   @UpdateDateColumn()
   updatedAt!: Date

@@ -1,5 +1,5 @@
 import { FC, JSX, PropsWithChildren } from 'react'
-import { Box, Toolbar } from '@mui/material'
+import { Box } from '@mui/material'
 
 type Props = PropsWithChildren & {
   navigationWidth: number
@@ -18,7 +18,6 @@ export const AppContent: FC<Props> = (props): JSX.Element => {
         transition: 'width 0.3s'
       }}
     >
-      <Toolbar />
       {children}
     </Box>
   )

@@ -1,7 +1,6 @@
 import { FC, memo } from 'react'
 import { Route, Routes } from 'react-router-dom'
-
-import { ROUTES } from '../../routes'
+import { ROUTES } from '@renderer/routes'
 
 export const AppRoutes: FC = () => (
   <Routes>

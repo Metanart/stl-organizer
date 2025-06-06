@@ -13,7 +13,7 @@
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
+      "@main/*": [
         "src/main/*"
       ],
       "@shared/*": [

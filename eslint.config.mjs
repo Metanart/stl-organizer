@@ -46,6 +46,7 @@ export default tseslint.config(
         'error',
         {
           groups: [
+            ['reflect-metadata'],
             // 1. node built-ins
             ['^node:'],
             // 2. external packages

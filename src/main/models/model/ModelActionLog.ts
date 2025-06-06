@@ -1,6 +1,6 @@
 import { Entity, ManyToOne } from 'typeorm'
 
-import { AbstractActionLog } from '@/models/abstract/AbstractActionLog'
+import { AbstractActionLog } from '../abstract/AbstractActionLog'
 
 import { Model } from './Model'
 

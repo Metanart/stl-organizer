@@ -1,7 +1,9 @@
 import { ReactElement } from 'react'
+import FormatListBulletedAddIcon from '@mui/icons-material/FormatListBulletedAdd'
 import HomeIcon from '@mui/icons-material/Home'
 import SettingsIcon from '@mui/icons-material/Settings'
 
+import { ConfigPage } from './domains/Config/ConfigPage'
 import { HomePage } from './domains/Home/HomePage'
 import { SourcesPage } from './domains/SourceFolders/SourceFoldersPage'
 
@@ -18,8 +20,15 @@ export const ROUTES: AppRoute[] = [
   {
     id: 'RouteSources',
     text: 'Sources',
-    icon: <SettingsIcon />,
+    icon: <FormatListBulletedAddIcon />,
     path: '/sources',
     element: <SourcesPage />
+  },
+  {
+    id: 'RouteConfig',
+    text: 'Config',
+    icon: <SettingsIcon />,
+    path: '/config',
+    element: <ConfigPage />
   }
 ]

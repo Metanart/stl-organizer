@@ -1,8 +1,12 @@
+import 'reflect-metadata'
+
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { app, BrowserWindow, shell } from 'electron'
 import { join } from 'path'
 
 import icon from '../../resources/icon.png?asset'
+
+import { AppDataSource } from './AppDataSource'
 
 function createWindow(): void {
   // Create the browser window.
@@ -57,6 +61,17 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+})
+
+app.whenReady().then(async () => {
+  try {
+    await AppDataSource.initialize()
+    console.log('📦 Database connected at', AppDataSource.options.database)
+    await createWindow()
+  } catch (err) {
+    console.error('❌ Failed to initialize database:', err)
+    app.quit()
+  }
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

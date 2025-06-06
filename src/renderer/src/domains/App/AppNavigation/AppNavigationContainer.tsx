@@ -1,6 +1,5 @@
 import { FC } from 'react'
-
-import { ROUTES } from '../../../routes'
+import { ROUTES } from '@renderer/routes'
 
 import { AppNavigation } from './AppNavigation'
 import { AppNavigationParams } from './AppNavigation.types'
