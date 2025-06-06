@@ -2,12 +2,8 @@ import { AppDataSource } from '@main/AppDataSource'
 import { SourceFolder } from '@main/models/common/SourceFolder'
 import { ipcMain } from 'electron'
 
-import { IPC_ACTION, IPC_ENTITY } from '@shared/enums/ipc'
-import { getIpcTag } from '@shared/utils/getIpcTag'
-
-ipcMain.handle(getIpcTag(IPC_ENTITY.SOURCE_FOLDERS, IPC_ACTION.GET_ALL), async () => {
+ipcMain.handle('Config:getAll', async () => {
   const repo = AppDataSource.getRepository(SourceFolder)
-
   return await repo.find({
     relations: {
       config: true

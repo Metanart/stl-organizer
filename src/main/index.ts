@@ -8,6 +8,8 @@ import icon from '../../resources/icon.png?asset'
 
 import { AppDataSource } from './AppDataSource'
 
+import './ipc-handlers'
+
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({

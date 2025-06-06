@@ -1,10 +1,13 @@
 import { FC } from 'react'
 
+import { useSourceFoldersGetAll } from './api/useSourceFoldersGetAll'
 import { SourceFolders } from './SourceFolders'
 import { SourceFoldersItem } from './SourceFolders.types'
 
 export const SourceFoldersContainer: FC = () => {
-  const folders: SourceFoldersItem[] = [
+  const { folders, isLoading } = useSourceFoldersGetAll()
+
+  const staticFolders: SourceFoldersItem[] = [
     {
       id: 1,
       path: '/path/to/folder',
@@ -25,5 +28,5 @@ export const SourceFoldersContainer: FC = () => {
     }
   ]
 
-  return <SourceFolders folders={folders} />
+  return <SourceFolders folders={isLoading || !folders ? staticFolders : folders} />
 }
