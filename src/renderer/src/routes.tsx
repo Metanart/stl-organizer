@@ -3,7 +3,7 @@ import HomeIcon from '@mui/icons-material/Home'
 import SettingsIcon from '@mui/icons-material/Settings'
 
 import { HomePage } from './domains/Home/HomePage'
-import { SourcesPage } from './domains/Sources/SourcesPage'
+import { SourcesPage } from './domains/SourceFolders/SourceFoldersPage'
 
 type AppRoute = {
   id: string

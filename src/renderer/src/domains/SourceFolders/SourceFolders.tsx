@@ -15,24 +15,17 @@ import {
   Typography
 } from '@mui/material'
 
-interface InputDirItem {
-  id: number
-  path: string
-  isEnabled: boolean
-  lastScannedAt?: string
-  comment?: string
-  sourceType: 'torrent' | 'manual' | 'download'
-}
+import { SourceFoldersItem } from './SourceFolders.types'
 
 type Props = {
-  inputDirs: InputDirItem[]
+  folders: SourceFoldersItem[]
 }
 
-export const Sources: FC<Props> = ({ inputDirs }) => {
+export const SourceFolders: FC<Props> = ({ folders }) => {
   return (
     <Grid container direction="column" spacing={4}>
-      {inputDirs.map((dir) => (
-        <Grid key={dir.id}>
+      {folders.map(({ id, isEnabled, comment, lastScannedAt, path, sourceType }) => (
+        <Grid key={id}>
           <Card variant="outlined">
             <CardContent>
               <Grid container spacing={2}>
@@ -40,24 +33,24 @@ export const Sources: FC<Props> = ({ inputDirs }) => {
                   <TextField
                     fullWidth
                     label="Path"
-                    defaultValue={dir.path}
+                    defaultValue={path}
                     placeholder="/path/to/folder"
                   />
                 </Grid>
 
                 <Grid size={12}>
                   <FormControlLabel
-                    control={<Switch defaultChecked={dir.isEnabled} />}
+                    control={<Switch defaultChecked={isEnabled} />}
                     label="Enabled"
                   />
                 </Grid>
 
                 <Grid size={12}>
                   <FormControl fullWidth>
-                    <InputLabel id={`source-type-label-${dir.id}`}>Source Type</InputLabel>
+                    <InputLabel id={`source-type-label-${id}`}>Source Type</InputLabel>
                     <Select
-                      labelId={`source-type-label-${dir.id}`}
-                      defaultValue={dir.sourceType}
+                      labelId={`source-type-label-${id}`}
+                      defaultValue={sourceType}
                       label="Source Type"
                     >
                       <MenuItem value="manual">Manual</MenuItem>
@@ -73,7 +66,7 @@ export const Sources: FC<Props> = ({ inputDirs }) => {
                     label="Comment"
                     multiline
                     rows={3}
-                    defaultValue={dir.comment || ''}
+                    defaultValue={comment || ''}
                     placeholder="Optional description..."
                   />
                 </Grid>
@@ -81,7 +74,7 @@ export const Sources: FC<Props> = ({ inputDirs }) => {
                 <Grid size={12}>
                   <Typography variant="body2" color="text.secondary">
                     Last scanned:{' '}
-                    {dir.lastScannedAt ? new Date(dir.lastScannedAt).toLocaleString() : 'Never'}
+                    {lastScannedAt ? new Date(lastScannedAt).toLocaleString() : 'Never'}
                   </Typography>
                 </Grid>
               </Grid>
