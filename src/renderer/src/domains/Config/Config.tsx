@@ -24,7 +24,23 @@ export const Config: React.FC = () => {
           fullWidth
           variant="outlined"
           name="outputFolder"
-          InputProps={{ readOnly: true }}
+          slotProps={{
+            input: {
+              readOnly: true
+            }
+          }}
+        />
+
+        <TextField
+          label="Temp Folder"
+          fullWidth
+          variant="outlined"
+          name="outputFolder"
+          slotProps={{
+            input: {
+              readOnly: true
+            }
+          }}
         />
 
         <TextField
@@ -33,7 +49,11 @@ export const Config: React.FC = () => {
           name="maxThreads"
           fullWidth
           variant="outlined"
-          InputProps={{ readOnly: true }}
+          slotProps={{
+            input: {
+              readOnly: true
+            }
+          }}
         />
 
         <FormControlLabel

@@ -12,6 +12,9 @@ export class Config extends _AbstractEntity {
   @Column({ type: 'varchar', nullable: true })
   outputFolder!: string
 
+  @Column({ type: 'varchar', nullable: true })
+  tempFolder!: string
+
   @Column({ type: 'int', default: 4 })
   maxThreads!: number
 
