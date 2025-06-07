@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm'
+import { Column, Entity, ManyToOne, OneToMany, OneToOne } from 'typeorm'
 
 import { _AbstractEntity } from '../abstract/core/_AbstractEntity'
+import { Task } from '../common/Task'
 
 import { Model } from './Model'
 import { ModelArchive } from './ModelArchive'
@@ -26,4 +27,7 @@ export class ModelVariant extends _AbstractEntity {
 
   @OneToMany(() => ModelArchive, (archive) => archive.modelVariant)
   archives!: ModelArchive[]
+
+  @OneToOne(() => Task, (task) => task.modelVariant)
+  task!: Task
 }

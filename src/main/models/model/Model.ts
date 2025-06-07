@@ -45,7 +45,7 @@ export class Model extends _AbstractEntity {
   author!: ModelAuthor
 
   @ManyToOne(() => Category, { cascade: true, nullable: true })
-  categories!: Category
+  category!: Category
 
   @ManyToMany(() => Tag, { cascade: true, nullable: true })
   @JoinTable({
