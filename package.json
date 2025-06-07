@@ -27,6 +27,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.1.1",
     "@mui/material": "^7.1.1",
+    "consola": "^3.4.2",
     "electron-updater": "^6.3.9",
     "react-router-dom": "^7.6.2",
     "reflect-metadata": "^0.2.2",

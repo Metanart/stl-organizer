@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { useSourceFoldersGetAll } from './api/useSourceFoldersGetAll'
+import { useSourceFoldersGetAll } from './SourceFoldersState/useSourceFoldersGetAll'
 import { SourceFolders } from './SourceFolders'
 import { SourceFoldersItem } from './SourceFolders.types'
 

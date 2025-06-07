@@ -14,6 +14,10 @@ declare global {
         ) => IpcResponse<SourceFolder>
         [IPC_ACTION.DELETE]: (id: number) => IpcResponse<null>
       }
+      [IPC_ENTITY.CONFIG]: {
+        [IPC_ACTION.GET_ALL]: () => IpcResponse<ConfigState>
+        [IPC_ACTION.UPDATE]: (payload: Partial<ConfigState>) => IpcResponse<ConfigState>
+      }
     }
   }
 }

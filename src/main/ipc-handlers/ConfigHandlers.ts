@@ -1,13 +1,24 @@
 import { AppDataSource } from '@main/AppDataSource'
-import { SourceFolder } from '@main/models/common/SourceFolder'
-import { ipcMain } from 'electron'
+import { Config } from '@main/models/common/Config'
 
-ipcMain.handle('Config:getAll', async () => {
-  const repo = AppDataSource.getRepository(SourceFolder)
-  return await repo.find({
-    relations: {
-      config: true
-    },
-    order: { createdAt: 'DESC' }
-  })
+import { IPC_ACTION, IPC_ENTITY } from '@shared/enums/ipc'
+import { getIpcTag } from '@shared/utils/getIpcTag'
+
+import { registerHandler } from './utils/registerHandlers'
+
+const baseTag = IPC_ENTITY.CONFIG
+
+registerHandler<Config | null>(getIpcTag(baseTag, IPC_ACTION.GET), async () => {
+  const repo = AppDataSource.getRepository(Config)
+  return await repo.findOne({})
 })
+
+registerHandler<Config, Partial<Config>>(
+  getIpcTag(baseTag, IPC_ACTION.UPDATE),
+  async (_event, payload: Partial<Config>) => {
+    const repo = AppDataSource.getRepository(Config)
+    const existing = await repo.findOne({})
+    const instance = existing ? repo.merge(existing, payload) : repo.create(payload)
+    return await repo.save(instance)
+  }
+)

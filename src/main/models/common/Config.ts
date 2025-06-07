@@ -1,14 +1,7 @@
-import { Column, Entity, OneToMany, UpdateDateColumn } from 'typeorm'
-
-import { _AbstractEntity } from '../abstract/core/_AbstractEntity'
-
-import { SourceFolder } from './SourceFolder'
+import { Column, Entity, UpdateDateColumn } from 'typeorm'
 
 @Entity()
-export class Config extends _AbstractEntity {
-  @OneToMany(() => SourceFolder, (sourceFolder) => sourceFolder.config, { cascade: true })
-  sourceFolders!: SourceFolder[]
-
+export class Config {
   @Column({ type: 'varchar', nullable: true })
   outputFolder!: string
 
