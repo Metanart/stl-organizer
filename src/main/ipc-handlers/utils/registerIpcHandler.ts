@@ -7,7 +7,10 @@ type IpcHandler<T, P = void> = P extends void
   ? () => Promise<T>
   : (event: IpcMainInvokeEvent, payload: P) => Promise<T>
 
-export function registerHandler<T, P = void>(channel: string, handlerFn: IpcHandler<T, P>): void {
+export function registerIpcHandler<T, P = void>(
+  channel: string,
+  handlerFn: IpcHandler<T, P>
+): void {
   const logger = consola.withTag(channel)
 
   ipcMain.handle(channel, async (event, ...args): Promise<Response<T>> => {

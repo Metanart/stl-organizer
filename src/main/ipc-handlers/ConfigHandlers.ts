@@ -4,16 +4,16 @@ import { Config } from '@main/models/common/Config'
 import { IPC_ACTION, IPC_ENTITY } from '@shared/enums/ipc'
 import { getIpcTag } from '@shared/utils/getIpcTag'
 
-import { registerHandler } from './utils/registerHandlers'
+import { registerIpcHandler } from './utils/registerIpcHandler'
 
 const baseTag = IPC_ENTITY.CONFIG
 
-registerHandler<Config | null>(getIpcTag(baseTag, IPC_ACTION.GET), async () => {
+registerIpcHandler<Config | null>(getIpcTag(baseTag, IPC_ACTION.GET), async () => {
   const repo = AppDataSource.getRepository(Config)
   return await repo.findOne({})
 })
 
-registerHandler<Config, Partial<Config>>(
+registerIpcHandler<Config, Partial<Config>>(
   getIpcTag(baseTag, IPC_ACTION.UPDATE),
   async (_event, payload: Partial<Config>) => {
     const repo = AppDataSource.getRepository(Config)

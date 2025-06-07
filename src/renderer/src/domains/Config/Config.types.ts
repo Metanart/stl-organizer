@@ -13,4 +13,5 @@ export type ConfigContextType = {
   config: Partial<ConfigState>
   isLoading: boolean
   error?: string
+  update: (payload: Partial<ConfigState>) => Promise<void>
 }

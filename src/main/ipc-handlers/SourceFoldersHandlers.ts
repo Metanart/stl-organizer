@@ -5,18 +5,18 @@ import { DeleteResult } from 'typeorm'
 import { IPC_ACTION, IPC_ENTITY } from '@shared/enums/ipc'
 import { getIpcTag } from '@shared/utils/getIpcTag'
 
-import { registerHandler } from './utils/registerHandlers'
+import { registerIpcHandler } from './utils/registerIpcHandler'
 
 const baseTag = IPC_ENTITY.SOURCE_FOLDERS
 
-registerHandler<SourceFolder[]>(getIpcTag(baseTag, IPC_ACTION.GET_ALL), async () => {
+registerIpcHandler<SourceFolder[]>(getIpcTag(baseTag, IPC_ACTION.GET_ALL), async () => {
   const repo = AppDataSource.getRepository(SourceFolder)
   return await repo.find({
     order: { createdAt: 'DESC' }
   })
 })
 
-registerHandler<SourceFolder, Partial<SourceFolder>>(
+registerIpcHandler<SourceFolder, Partial<SourceFolder>>(
   getIpcTag(baseTag, IPC_ACTION.CREATE),
   async (_event, payload: Partial<SourceFolder>) => {
     const repo = AppDataSource.getRepository(SourceFolder)
@@ -25,7 +25,7 @@ registerHandler<SourceFolder, Partial<SourceFolder>>(
   }
 )
 
-registerHandler<SourceFolder, Partial<SourceFolder> & { id: number }>(
+registerIpcHandler<SourceFolder, Partial<SourceFolder> & { id: number }>(
   getIpcTag(baseTag, IPC_ACTION.UPDATE),
   async (_event, payload: Partial<SourceFolder> & { id: number }) => {
     const repo = AppDataSource.getRepository(SourceFolder)
@@ -35,7 +35,7 @@ registerHandler<SourceFolder, Partial<SourceFolder> & { id: number }>(
   }
 )
 
-registerHandler<DeleteResult, { id: number }>(
+registerIpcHandler<DeleteResult, { id: number }>(
   getIpcTag(baseTag, IPC_ACTION.DELETE),
   async (_event, payload: { id: number }) => {
     const repo = AppDataSource.getRepository(SourceFolder)
