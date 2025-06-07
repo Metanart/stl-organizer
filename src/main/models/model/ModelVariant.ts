@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, OneToOne } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm'
 
 import { _AbstractEntity } from '../abstract/core/_AbstractEntity'
 import { Task } from '../common/Task'
@@ -16,6 +16,9 @@ export class ModelVariant extends _AbstractEntity {
   @Column()
   name!: string
 
+  @Column()
+  normalizedName!: string
+
   @ManyToOne(() => Model, (model) => model.variants, { onDelete: 'CASCADE' })
   model!: Model
 
@@ -28,6 +31,9 @@ export class ModelVariant extends _AbstractEntity {
   @OneToMany(() => ModelArchive, (archive) => archive.modelVariant)
   archives!: ModelArchive[]
 
-  @OneToOne(() => Task, (task) => task.modelVariant)
+  @OneToOne(() => Task, (task) => task.modelVariant, {
+    cascade: true
+  })
+  @JoinColumn({ name: 'taskId' })
   task!: Task
 }

@@ -9,7 +9,7 @@ type LogType = 'info' | 'warning' | 'error'
 @Entity()
 export class TaskLog extends AbstractActionLog {
   @ManyToOne(() => Task, (task) => task.logs, { onDelete: 'CASCADE' })
-  task!: Task[]
+  task!: Task
 
   @Column({ type: 'varchar' })
   message!: string

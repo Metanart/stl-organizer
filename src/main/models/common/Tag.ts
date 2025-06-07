@@ -1,10 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm'
+
+import { Model } from '../model/Model'
 
 @Entity()
-export abstract class Tag {
+export class Tag {
   @PrimaryGeneratedColumn()
   id!: number
 
   @Column({ unique: true })
   name!: string
+
+  @ManyToMany(() => Model, (model) => model.tags)
+  models!: Model[]
 }

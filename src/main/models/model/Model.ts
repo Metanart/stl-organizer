@@ -1,6 +1,8 @@
 import {
   Column,
   Entity,
+  Index,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
@@ -22,9 +24,20 @@ import { ModelSourceImage } from './ModelSourceImage'
 import { ModelVariant } from './ModelVariant'
 
 @Entity()
+@Index(['status'])
+@Index(['author'])
+@Index(['category'])
+@Index(['createdAt'])
+@Index(['normalizedName'])
+@Index(['category', 'status'])
 export class Model extends _AbstractEntity {
   @Column()
+  @Index()
   name!: string
+
+  @Column()
+  @Index()
+  normalizedName!: string
 
   @Column()
   path!: string
@@ -32,7 +45,10 @@ export class Model extends _AbstractEntity {
   @Column({ type: 'enum', enum: ModelStatus, default: ModelStatus.NEW })
   status!: ModelStatus
 
-  @OneToOne(() => ModelSourceArchive, (sourceArchive) => sourceArchive.model)
+  @OneToOne(() => ModelSourceArchive, (sourceArchive) => sourceArchive.model, {
+    cascade: true
+  })
+  @JoinColumn({ name: 'sourceArchiveId' })
   sourceArchive!: ModelSourceArchive
 
   @OneToMany(() => ModelSourceImage, (image) => image.model)
@@ -42,6 +58,7 @@ export class Model extends _AbstractEntity {
   variants!: ModelVariant[]
 
   @ManyToOne(() => ModelAuthor, { nullable: true })
+  @JoinColumn({ name: 'authorId' })
   author!: ModelAuthor
 
   @ManyToOne(() => Category, { cascade: true, nullable: true })
