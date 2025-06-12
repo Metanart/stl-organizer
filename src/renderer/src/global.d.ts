@@ -1,4 +1,4 @@
-import { SourceFolder } from '@main/models/common/SourceFolder'
+import { SourceFolder } from '@main/database/models/common/SourceFolder'
 
 import { IPC_ACTION, IPC_ENTITY } from '@shared/enums/ipc'
 import { Response } from '@shared/types/common'

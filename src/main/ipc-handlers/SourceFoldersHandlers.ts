@@ -1,5 +1,5 @@
-import { AppDataSource } from '@main/AppDataSource'
-import { SourceFolder } from '@main/models/common/SourceFolder'
+import { AppDataSource } from '@main/database/AppDataSource'
+import { SourceFolder } from '@main/database/models/common/SourceFolder'
 import { DeleteResult } from 'typeorm'
 
 import { IPC_ACTION, IPC_ENTITY } from '@shared/enums/ipc'

@@ -1,5 +1,5 @@
-import { AppDataSource } from '@main/AppDataSource'
-import { Config } from '@main/models/common/Config'
+import { AppDataSource } from '@main/database/AppDataSource'
+import { Config } from '@main/database/models/common/Config'
 
 import { IPC_ACTION, IPC_ENTITY } from '@shared/enums/ipc'
 import { getIpcTag } from '@shared/utils/getIpcTag'
