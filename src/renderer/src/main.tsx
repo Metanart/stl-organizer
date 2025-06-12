@@ -1,20 +1,20 @@
-import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { HashRouter } from 'react-router-dom'
 
 import { AppContainer } from './domains/App/AppContainer'
-import { AppRoutes } from './domains/App/AppRoutes'
+import { AppRoutesContainerMemo } from './domains/App/AppRoutesContainer'
+import { ConfigProvider } from './domains/Config/ConfigState/ConfigProvider'
 
 import 'reset.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
-  <StrictMode>
-    <HashRouter>
-      <AppContainer>
-        <AppRoutes />
-      </AppContainer>
-    </HashRouter>
-  </StrictMode>
+  <HashRouter>
+    <AppContainer>
+      <ConfigProvider>
+        <AppRoutesContainerMemo />
+      </ConfigProvider>
+    </AppContainer>
+  </HashRouter>
 )

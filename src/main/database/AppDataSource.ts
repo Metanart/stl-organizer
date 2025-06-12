@@ -12,5 +12,6 @@ export const AppDataSource = new DataSource({
   database: dbPath,
   entities: [Config, SourceFolder],
   synchronize: true, // 🔧 DEV FLAG
-  logging: false
+  logging: false,
+  cache: false
 })

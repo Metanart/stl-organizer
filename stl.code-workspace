@@ -15,6 +15,9 @@
     {
       "name": "shared",
       "path": "src/shared"
+    },
+    {
+      "path": "src/preload"
     }
   ],
   "settings": {

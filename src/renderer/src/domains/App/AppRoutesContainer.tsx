@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { ROUTES } from '@renderer/routes'
 
-export const AppRoutes: FC = () => (
+export const AppRoutesContainer: FC = () => (
   <Routes>
     {ROUTES.map(({ id, path, element }) => (
       <Route key={id} path={path} element={element} />
@@ -10,4 +10,4 @@ export const AppRoutes: FC = () => (
   </Routes>
 )
 
-export const AppRoutesMemoized = memo(AppRoutes)
+export const AppRoutesContainerMemo = memo(AppRoutesContainer)

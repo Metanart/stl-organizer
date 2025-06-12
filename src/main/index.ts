@@ -4,12 +4,18 @@ import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { app, BrowserWindow, shell } from 'electron'
 import { join } from 'path'
 
+import { logger } from '@shared/utils/logger'
+
 import icon from '../../resources/icon.png?asset'
 
 import { AppDataSource } from './database/AppDataSource'
+import { initDefaultConfig } from './ipc-handlers/utils/initDefaultConfig'
 
 import './ipc-handlers/ConfigHandlers'
 import './ipc-handlers/SourceFoldersHandlers'
+import 'dotenv/config'
+
+const log = logger.withTag('main')
 
 function createWindow(): void {
   // Create the browser window.
@@ -52,10 +58,13 @@ app.whenReady().then(async () => {
 
   try {
     await AppDataSource.initialize()
-    console.log('📦 Database connected at', AppDataSource.options.database)
+    log.success('Database connected at', AppDataSource.options.database)
+
+    await initDefaultConfig()
+
     await createWindow()
   } catch (err) {
-    console.error('❌ Failed to initialize database:', err)
+    log.error('Failed to initialize database:', err)
     app.quit()
   }
 

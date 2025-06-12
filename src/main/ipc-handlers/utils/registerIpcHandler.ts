@@ -22,7 +22,6 @@ export function registerIpcHandler<T, P = void>(
               event,
               args[0]
             )
-
       return { data: result }
     } catch (error) {
       logger.error(error)
