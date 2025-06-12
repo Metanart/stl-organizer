@@ -16,15 +16,9 @@ export const useSourceFoldersCreate = (): {
 
     try {
       const response = await window.api.sourceFolders.create(folder)
-
-      if (!response.success) {
-        throw new Error(response.error || 'Unknown error')
-      }
-
       return response.data
-    } catch (err) {
-      console.error('[useSourceFoldersCreate]', err)
-      setError((err as Error).message)
+    } catch (error) {
+      setError((error as Error).message)
     } finally {
       setIsLoading(false)
     }

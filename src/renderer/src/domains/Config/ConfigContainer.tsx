@@ -1,26 +1,35 @@
-import { FC, useContext, useEffect } from 'react'
+import { FC, JSX, useContext } from 'react'
 
-import { logger } from '@shared/utils/logger'
+import { ConfigState } from '@shared/types/config'
+
+import { Loader } from '../Common/Loader'
+import { Message } from '../Common/Message'
 
 import { ConfigContext } from './ConfigState/ConfigContext'
 import { Config } from './Config'
 
-const log = logger.withTag('ConfigContainer')
-
 export const ConfigContainer: FC = () => {
-  const { config, isLoading } = useContext(ConfigContext)
+  const { config, isLoading, update, error } = useContext(ConfigContext)
 
-  useEffect(() => {
-    log.log('Try to get config')
+  const handleSubmit = async (updatedConfig: ConfigState): Promise<void> => {
+    await update(updatedConfig)
+  }
 
+  const renderContent = (): JSX.Element => {
     if (isLoading) {
-      log.log('Config is loading...')
+      return <Loader />
     }
 
-    if (!isLoading && config) {
-      log.success('Config has been loaded:', config)
+    if (error) {
+      return <Message type="error" message={error} />
     }
-  }, [config, isLoading])
 
-  return <Config />
+    if (!config) {
+      return <Message type="error" message="Config not found" />
+    }
+
+    return <Config config={config} onSubmit={handleSubmit} />
+  }
+
+  return renderContent()
 }

@@ -1,17 +1,8 @@
-export type ConfigState = {
-  outputFolder: string | null
-  tempFolder: string | null
-  maxThreads: number
-  autoProcessOnScan: boolean
-  autoArchiveOnComplete: boolean
-  useMultithreading: boolean
-  debugMode: boolean
-  updatedAt: string
-}
+import { ConfigState } from '@shared/types/config'
 
 export type ConfigContextType = {
-  config: Partial<ConfigState>
+  config: ConfigState | null
   isLoading: boolean
-  error?: string
-  update: (payload: Partial<ConfigState>) => Promise<void>
+  error?: string | null
+  update: (payload: ConfigState) => Promise<void>
 }

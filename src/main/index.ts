@@ -4,18 +4,17 @@ import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { app, BrowserWindow, shell } from 'electron'
 import { join } from 'path'
 
-import { logger } from '@shared/utils/logger'
+import { createLog } from '@shared/utils/createLog'
 
 import icon from '../../resources/icon.png?asset'
 
 import { AppDataSource } from './database/AppDataSource'
-import { initDefaultConfig } from './ipc-handlers/utils/initDefaultConfig'
 
 import './ipc-handlers/ConfigHandlers'
 import './ipc-handlers/SourceFoldersHandlers'
 import 'dotenv/config'
 
-const log = logger.withTag('main')
+const log = createLog({ channel: 'main' })
 
 function createWindow(): void {
   // Create the browser window.
@@ -59,8 +58,6 @@ app.whenReady().then(async () => {
   try {
     await AppDataSource.initialize()
     log.success('Database connected at', AppDataSource.options.database)
-
-    await initDefaultConfig()
 
     await createWindow()
   } catch (err) {

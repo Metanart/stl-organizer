@@ -1,16 +1,13 @@
-import { consola } from 'consola'
-
 import { Response } from '@shared/types/common'
-import { logger } from '@shared/utils/logger'
-
-const log = logger.withTag('createApiHandler')
+import { IpcTag } from '@shared/types/ipc-tags'
+import { createLog } from '@shared/utils/createLog'
 
 type ApiHandler<T, P = void> = P extends void
   ? () => Promise<Response<T>>
   : (payload: P) => Promise<Response<T>>
 
-export function createApiHandler<T, P = void>(handlerFn: ApiHandler<T, P>, channel: string) {
-  const logger = consola.withTag(channel)
+export function createIpcHandler<T, P = void>(handlerFn: ApiHandler<T, P>, ipcTag: IpcTag) {
+  const log = createLog({ ipcTag })
 
   return async (payload?: P) => {
     try {
@@ -18,11 +15,15 @@ export function createApiHandler<T, P = void>(handlerFn: ApiHandler<T, P>, chann
         ? await (handlerFn as ApiHandler<T, P>)(payload)
         : await (handlerFn as ApiHandler<T>)()
 
-      log.log('Api handler result', result)
+      if (payload) {
+        log.info(`Called ${ipcTag} handler with payload`, payload)
+      }
 
-      return { data: result } as Response<T>
+      log.info(`Called ${ipcTag} handler with result`, result)
+
+      return result
     } catch (error) {
-      logger.error((error as Error).message)
+      log.error((error as Error).message)
       return { data: null, error: (error as Error).message } as Response<T>
     }
   }

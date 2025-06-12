@@ -1,24 +1,15 @@
 import { electronAPI } from '@electron-toolkit/preload'
-import { contextBridge, ipcRenderer } from 'electron'
+import { contextBridge } from 'electron'
 
-import { IPC_ACTION, IPC_ENTITY } from '@shared/enums/ipc'
-import { getIpcTag } from '@shared/utils/getIpcTag'
+import { ConfigState } from '@shared/types/config'
+
+import { invokeIpcHandler } from './utils/invokeIpcHandler'
 
 // Custom APIs for renderer
 const api = {
-  [IPC_ENTITY.CONFIG]: {
-    [IPC_ACTION.GET]: () => ipcRenderer.invoke(getIpcTag(IPC_ENTITY.CONFIG, IPC_ACTION.GET)),
-    [IPC_ACTION.UPDATE]: () => ipcRenderer.invoke(getIpcTag(IPC_ENTITY.CONFIG, IPC_ACTION.UPDATE))
-  },
-  [IPC_ENTITY.SOURCE_FOLDERS]: {
-    [IPC_ACTION.GET_ALL]: () =>
-      ipcRenderer.invoke(getIpcTag(IPC_ENTITY.SOURCE_FOLDERS, IPC_ACTION.GET_ALL)),
-    [IPC_ACTION.UPDATE]: () =>
-      ipcRenderer.invoke(getIpcTag(IPC_ENTITY.SOURCE_FOLDERS, IPC_ACTION.UPDATE)),
-    [IPC_ACTION.CREATE]: () =>
-      ipcRenderer.invoke(getIpcTag(IPC_ENTITY.SOURCE_FOLDERS, IPC_ACTION.CREATE)),
-    [IPC_ACTION.DELETE]: (id: number) =>
-      ipcRenderer.invoke(getIpcTag(IPC_ENTITY.SOURCE_FOLDERS, IPC_ACTION.DELETE), id)
+  config: {
+    get: invokeIpcHandler<void, ConfigState | null>('config:get'),
+    update: invokeIpcHandler<ConfigState, ConfigState>('config:update')
   }
 }
 
