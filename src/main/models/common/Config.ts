@@ -1,7 +1,9 @@
 import { Column, Entity, UpdateDateColumn } from 'typeorm'
 
+import { _AbstractEntity } from '../abstract/core/_AbstractEntity'
+
 @Entity()
-export class Config {
+export class Config extends _AbstractEntity {
   @Column({ type: 'varchar', nullable: true })
   outputFolder!: string
 

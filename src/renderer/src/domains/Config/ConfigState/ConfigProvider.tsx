@@ -19,9 +19,11 @@ export const ConfigProvider: FC<PropsWithChildren> = ({ children }) => {
   }
 
   const update = async (payload: Partial<ConfigState>): Promise<void> => {
+    setIsLoading(true)
     const response = await invokeConfigUpdate(payload)
     if (response.error) setError(response.error)
     if (response.data) setConfig(response.data)
+    setIsLoading(false)
   }
 
   useEffect(() => {
