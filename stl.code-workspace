@@ -1,22 +1,20 @@
 {
   "folders": [
     {
+      "name": "stl",
       "path": "."
     },
     {
+      "name": "main",
       "path": "src/main"
     },
     {
-      "path": "src/shared"
-    },
-    {
+      "name": "renderer",
       "path": "src/renderer"
     },
     {
-      "path": "src-mvp/server"
-    },
-    {
-      "path": "src-mvp/web"
+      "name": "shared",
+      "path": "src/shared"
     }
   ],
   "settings": {
