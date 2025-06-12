@@ -1,5 +1,5 @@
 import { electronAPI } from '@electron-toolkit/preload'
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 
 import { ConfigState } from '@shared/types/config'
 
@@ -18,7 +18,10 @@ const api = {
 // just add to the DOM global.
 if (process.contextIsolated) {
   try {
-    contextBridge.exposeInMainWorld('electron', electronAPI)
+    contextBridge.exposeInMainWorld('electron', {
+      ...electronAPI,
+      selectFolder: (): Promise<string | null> => ipcRenderer.invoke('dialog:select-folder')
+    })
     contextBridge.exposeInMainWorld('api', api)
   } catch (error) {
     console.error(error)

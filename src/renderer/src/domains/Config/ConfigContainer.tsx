@@ -2,11 +2,11 @@ import { FC, JSX, useContext } from 'react'
 
 import { ConfigState } from '@shared/types/config'
 
-import { Loader } from '../Common/Loader'
 import { Message } from '../Common/Message'
 
 import { ConfigContext } from './ConfigState/ConfigContext'
 import { Config } from './Config'
+import { ConfigSkeleton } from './ConfigSkeleton'
 
 export const ConfigContainer: FC = () => {
   const { config, isLoading, update, error } = useContext(ConfigContext)
@@ -16,17 +16,11 @@ export const ConfigContainer: FC = () => {
   }
 
   const renderContent = (): JSX.Element => {
-    if (isLoading) {
-      return <Loader />
-    }
+    if (isLoading) return <ConfigSkeleton />
 
-    if (error) {
-      return <Message type="error" message={error} />
-    }
+    if (error) return <Message type="error" message={error} />
 
-    if (!config) {
-      return <Message type="error" message="Config not found" />
-    }
+    if (!config) return <Message type="error" message="Config not found" />
 
     return <Config config={config} onSubmit={handleSubmit} />
   }
