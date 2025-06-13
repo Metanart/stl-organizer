@@ -1,12 +1,12 @@
 import { Column } from 'typeorm'
 
-import { ImageExtension } from '@shared/enums/extensions'
+import type { ImageExtensions } from '@shared/domains/Common/types/extensions.types'
 
 import { _AbstractFile } from './core/_AbstractFile'
 
 export abstract class AbstractImage extends _AbstractFile {
-  @Column({ type: 'enum', enum: ImageExtension })
-  extension!: string
+  @Column({ type: 'varchar' })
+  extension!: ImageExtensions
 
   @Column()
   width!: number

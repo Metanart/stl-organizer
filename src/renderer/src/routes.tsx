@@ -3,9 +3,9 @@ import FormatListBulletedAddIcon from '@mui/icons-material/FormatListBulletedAdd
 import HomeIcon from '@mui/icons-material/Home'
 import SettingsIcon from '@mui/icons-material/Settings'
 
-import { ConfigPage } from './domains/Config/ConfigPage'
-import { HomePage } from './domains/Home/HomePage'
-import { SourcesPage } from './domains/SourceFolders/SourceFoldersPage'
+import { ConfigPage } from './domains/Config/pages/ConfigPage'
+import { HomePage } from './domains/Home/pages/HomePage'
+import { SourcesPage } from './domains/Sources/pages/SourcesPage'
 
 type AppRoute = {
   id: string

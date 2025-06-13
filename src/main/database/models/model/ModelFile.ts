@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne } from 'typeorm'
 
-import { ModelFileExtension } from '@shared/enums/extensions'
+import type { ModelFileExtensions } from '@shared/domains/Common/types/extensions.types'
 
 import { _AbstractFile } from '../abstract/core/_AbstractFile'
 
@@ -8,8 +8,8 @@ import { ModelVariant } from './ModelVariant'
 
 @Entity()
 export class ModelFile extends _AbstractFile {
-  @Column({ type: 'enum', enum: ModelFileExtension })
-  extension!: ModelFileExtension
+  @Column({ type: 'varchar' })
+  extension!: ModelFileExtensions
 
   @ManyToOne(() => ModelVariant, (modelVariant) => modelVariant.files, { onDelete: 'CASCADE' })
   modelVariant!: ModelVariant

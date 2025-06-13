@@ -3,7 +3,7 @@ import path from 'path'
 import { DataSource } from 'typeorm'
 
 import { Config } from './models/common/Config'
-import { SourceFolder } from './models/common/SourceFolder'
+import { SourceFolder } from './models/common/Source'
 
 export const dbPath = path.join(app.getPath('userData'), 'stl-organizer.sqlite')
 

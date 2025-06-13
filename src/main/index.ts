@@ -10,9 +10,7 @@ import icon from '../../resources/icon.png?asset'
 
 import { AppDataSource } from './database/AppDataSource'
 
-import './ipc-handlers/ConfigHandlers'
-import './ipc-handlers/SourceFoldersHandlers'
-import './ipc-handlers/system/dialog-select-folder'
+import './utils/registerIpcHandlers'
 import 'dotenv/config'
 
 const log = createLog({ channel: 'main' })

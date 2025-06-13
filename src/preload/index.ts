@@ -1,17 +1,8 @@
 import { electronAPI } from '@electron-toolkit/preload'
-import { contextBridge, ipcRenderer } from 'electron'
+import { contextBridge } from 'electron'
 
-import { ConfigState } from '@shared/types/config'
-
-import { invokeIpcHandler } from './utils/invokeIpcHandler'
-
-// Custom APIs for renderer
-const api = {
-  config: {
-    get: invokeIpcHandler<void, ConfigState | null>('config:get'),
-    update: invokeIpcHandler<ConfigState, ConfigState>('config:update')
-  }
-}
+import { ipcBridgesCommon } from './domains/Common/ipc-bridges'
+import { ipcBridgesConfig } from './domains/Config/ipc-bridges'
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
@@ -20,9 +11,11 @@ if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld('electron', {
       ...electronAPI,
-      selectFolder: (): Promise<string | null> => ipcRenderer.invoke('dialog:select-folder')
+      ...ipcBridgesCommon
     })
-    contextBridge.exposeInMainWorld('api', api)
+    contextBridge.exposeInMainWorld('api', {
+      config: ipcBridgesConfig
+    })
   } catch (error) {
     console.error(error)
   }

@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, OneToOne, UpdateDateColumn } from 'typeorm'
 
-import type { TaskStatus } from '@shared/types/common'
+import type { TaskStatus } from '@shared/database/types'
 
 import { _AbstractEntity } from '../abstract/core/_AbstractEntity'
 import { ModelVariant } from '../model/ModelVariant'

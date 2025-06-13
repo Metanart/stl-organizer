@@ -11,11 +11,11 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 
-import { ModelStatus } from '@shared/enums/model'
+import type { ModelStatus } from '@shared/database/types'
 
 import { _AbstractEntity } from '../abstract/core/_AbstractEntity'
 import { Category } from '../common/Category'
-import { SourceFolder } from '../common/SourceFolder'
+import { SourceFolder } from '../common/Source'
 import { Tag } from '../common/Tag'
 
 import { ModelAuthor } from './ModelAuthor'
@@ -42,7 +42,7 @@ export class Model extends _AbstractEntity {
   @Column()
   path!: string
 
-  @Column({ type: 'enum', enum: ModelStatus, default: ModelStatus.NEW })
+  @Column({ type: 'varchar' })
   status!: ModelStatus
 
   @OneToOne(() => ModelSourceArchive, (sourceArchive) => sourceArchive.model, {
