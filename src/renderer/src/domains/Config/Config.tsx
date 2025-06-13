@@ -12,6 +12,7 @@ type Props = {
 
 export const Config: FC<Props> = ({ config, onSubmit }) => {
   const [formState, setFormState] = useState<ConfigState>(config)
+  const [initlalFormState, setInitialFormState] = useState<ConfigState>(config)
 
   function updateFormState(name: string, value: string, type?: string, checked?: boolean): void {
     setFormState((prevFormState) => {
@@ -19,8 +20,6 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
         ...prevFormState,
         [name]: type === 'checkbox' ? checked : value
       }
-
-      console.log('Updated form state', updatedFormState)
 
       return updatedFormState
     })
@@ -48,6 +47,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
           label="Output folder"
           name="outputFolder"
           value={formState.outputFolder}
+          isUpdated={formState.outputFolder !== initlalFormState.outputFolder}
           onSelect={handleSelectFolder}
           onChange={handleChange}
         />
