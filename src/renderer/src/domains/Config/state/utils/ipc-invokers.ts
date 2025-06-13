@@ -1,15 +1,13 @@
 import { createIpcInvoker } from '@renderer/utils/createIpcInvoker'
 
-import { ConfigDTO } from '@shared/domains/Config/types'
-
-import { ConfigState } from '../../types'
+import { ConfigDTO, ConfigInputDTO } from '@shared/domains/Config/types'
 
 export const invokeConfigGet = createIpcInvoker<ConfigDTO | null>(
   window.api.config.get,
   'config:get'
 )
 
-export const invokeConfigUpdate = createIpcInvoker<ConfigDTO, ConfigState>(
+export const invokeConfigUpdate = createIpcInvoker<ConfigDTO, ConfigInputDTO>(
   window.api.config.update,
   'config:update'
 )

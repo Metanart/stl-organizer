@@ -4,27 +4,23 @@ import {
   Card,
   CardActions,
   CardContent,
-  FormControl,
   FormControlLabel,
   Grid,
-  InputLabel,
-  MenuItem,
-  Select,
   Switch,
-  TextField,
-  Typography
+  TextField
 } from '@mui/material'
 
-import { Source } from '@shared/domains/Sources/types'
+import { SourcesItem } from '../state/types'
 
 type Props = {
-  sources: Source[]
+  sources: SourcesItem[]
+  onToggleAddNew: () => void
 }
 
-export const SourceFolders: FC<Props> = ({ sources }) => {
+export const SourcesList: FC<Props> = ({ sources, onToggleAddNew }) => {
   return (
     <Grid container direction="column" spacing={4}>
-      {sources.map(({ id, isEnabled, comment, lastScannedAt, path, sourceType }) => (
+      {sources.map(({ id, isEnabled, comment, path }) => (
         <Grid key={id}>
           <Card variant="outlined">
             <CardContent>
@@ -46,21 +42,6 @@ export const SourceFolders: FC<Props> = ({ sources }) => {
                 </Grid>
 
                 <Grid size={12}>
-                  <FormControl fullWidth>
-                    <InputLabel id={`source-type-label-${id}`}>Source Type</InputLabel>
-                    <Select
-                      labelId={`source-type-label-${id}`}
-                      defaultValue={sourceType}
-                      label="Source Type"
-                    >
-                      <MenuItem value="manual">Manual</MenuItem>
-                      <MenuItem value="torrent">Torrent</MenuItem>
-                      <MenuItem value="download">Download</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                <Grid size={12}>
                   <TextField
                     fullWidth
                     label="Comment"
@@ -69,13 +50,6 @@ export const SourceFolders: FC<Props> = ({ sources }) => {
                     defaultValue={comment || ''}
                     placeholder="Optional description..."
                   />
-                </Grid>
-
-                <Grid size={12}>
-                  <Typography variant="body2" color="text.secondary">
-                    Last scanned:{' '}
-                    {lastScannedAt ? new Date(lastScannedAt).toLocaleString() : 'Never'}
-                  </Typography>
                 </Grid>
               </Grid>
             </CardContent>
@@ -91,12 +65,11 @@ export const SourceFolders: FC<Props> = ({ sources }) => {
           </Card>
         </Grid>
       ))}
-
-      <Grid>
-        <Button variant="contained" color="secondary">
-          Add Folder
+      <CardActions sx={{ justifyContent: 'flex-end' }}>
+        <Button type="button" onClick={onToggleAddNew} variant="contained" color="primary">
+          Add new
         </Button>
-      </Grid>
+      </CardActions>
     </Grid>
   )
 }

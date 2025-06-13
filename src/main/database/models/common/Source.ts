@@ -3,7 +3,7 @@ import { Column, Entity } from 'typeorm'
 import { _AbstractEntity } from '../abstract/core/_AbstractEntity'
 
 @Entity()
-export class SourceFolder extends _AbstractEntity {
+export class Source extends _AbstractEntity {
   @Column({ type: 'varchar', unique: true })
   path!: string
 

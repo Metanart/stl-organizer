@@ -1,8 +1,12 @@
-export type Source = {
+export type SourceDTO = {
   id: number
   path: string
   isEnabled: boolean
-  lastScannedAt?: string
-  comment?: string
-  sourceType: 'torrent' | 'manual' | 'download'
+  comment: string | null
 }
+
+export type SourceInputDTO = Pick<SourceDTO, 'id' | 'path' | 'isEnabled' | 'comment'>
+
+export type SourcesDTO = SourceDTO[]
+
+export type SourcesInputDTO = SourceInputDTO[]

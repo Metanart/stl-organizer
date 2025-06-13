@@ -6,8 +6,8 @@ import { DBHandler } from '@main/types'
 import { ConfigDTO } from '@shared/domains/Config/types'
 import { createLog } from '@shared/utils/createLog'
 
-export const handleGetAll: DBHandler<ConfigDTO | null> = async function () {
-  const log = createLog({ ipcTag: 'config:getAll' })
+export const handleGet: DBHandler<ConfigDTO | null> = async function () {
+  const log = createLog({ ipcTag: 'config:get' })
 
   const repo = AppDataSource.getRepository(Config)
   const entity = await repo.findOne({ where: { id: 1 } })

@@ -2,7 +2,7 @@ import { ConfigDTO, ConfigInputDTO } from '@shared/domains/Config/types'
 
 import { ConfigState } from '../../types'
 
-export function mapDTOToConfigState(dto: ConfigDTO): ConfigState {
+export function mapFromDTOToConfigState(dto: ConfigDTO): ConfigState {
   return {
     outputFolder: dto.outputFolder,
     tempFolder: dto.tempFolder,
@@ -14,7 +14,7 @@ export function mapDTOToConfigState(dto: ConfigDTO): ConfigState {
   }
 }
 
-export function mapConfigStateToDTO(state: ConfigState): ConfigInputDTO {
+export function mapFromConfigStateToDTO(state: ConfigState): ConfigInputDTO {
   return {
     outputFolder: state.outputFolder,
     tempFolder: state.tempFolder,

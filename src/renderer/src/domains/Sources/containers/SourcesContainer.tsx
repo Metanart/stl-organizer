@@ -1,30 +1,31 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
+import { Stack } from '@mui/material'
 
-import { Source } from '@shared/domains/Sources/types'
-
-import { SourceFolders } from '../components/Sources'
+import { SourcesAddNew } from '../components/SourceAddNew'
+import { SourcesList } from '../components/SourcesList'
+import { SourcesItem } from '../state/types'
+import { useSourcesContext } from '../state/utils/hooks'
 
 export const SourceFoldersContainer: FC = () => {
-  const staticSources: Source[] = [
-    {
-      id: 1,
-      path: '/path/to/folder',
-      isEnabled: true,
-      sourceType: 'torrent'
-    },
-    {
-      id: 2,
-      path: '/path/to/folder',
-      isEnabled: true,
-      sourceType: 'manual'
-    },
-    {
-      id: 3,
-      path: '/path/to/folder',
-      isEnabled: true,
-      sourceType: 'download'
-    }
-  ]
+  const { sources, create } = useSourcesContext()
 
-  return <SourceFolders sources={staticSources} />
+  const [isAddNewVisible, setIsAddNewVisible] = useState(true)
+
+  const handleToggleAddNew = (): void => {
+    setIsAddNewVisible((prevState) => {
+      return !prevState
+    })
+  }
+
+  const handleCreateNew = async (newSource: SourcesItem): Promise<void> => {
+    await create(newSource)
+  }
+
+  return (
+    <Stack spacing={4}>
+      <SourcesList sources={sources || []} onToggleAddNew={handleToggleAddNew} />
+
+      {isAddNewVisible ? <SourcesAddNew onSubmit={handleCreateNew} /> : null}
+    </Stack>
+  )
 }

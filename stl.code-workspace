@@ -5,15 +5,12 @@
       "path": "."
     },
     {
-      "name": "main",
       "path": "src/main"
     },
     {
-      "name": "renderer",
       "path": "src/renderer"
     },
     {
-      "name": "shared",
       "path": "src/shared"
     },
     {

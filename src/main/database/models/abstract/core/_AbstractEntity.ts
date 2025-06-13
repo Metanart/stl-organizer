@@ -6,5 +6,5 @@ export abstract class _AbstractEntity {
 
   @CreateDateColumn()
   @Index()
-  createdAt!: Date
+  createdAt?: Date
 }

@@ -3,6 +3,7 @@ import { FC, PropsWithChildren, useEffect, useState } from 'react'
 import { ConfigState } from '../types'
 
 import { invokeConfigGet, invokeConfigUpdate } from './utils/ipc-invokers'
+import { mapFromConfigStateToDTO, mapFromDTOToConfigState } from './utils/mappers'
 import { ConfigContext } from './ConfigContext'
 
 export const ConfigProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -10,11 +11,11 @@ export const ConfigProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const load = async (): Promise<void> => {
+  const handleResponse = async (handlerFn): Promise<void> => {
     setIsLoading(true)
     setError(null)
 
-    const response = await invokeConfigGet()
+    const response = await handlerFn()
 
     if (response.error) {
       setError(response.error)
@@ -23,29 +24,18 @@ export const ConfigProvider: FC<PropsWithChildren> = ({ children }) => {
       setError('Empty config received')
       setConfig(null)
     } else {
-      setConfig(response.data)
+      setConfig(mapFromDTOToConfigState(response.data))
     }
 
     setIsLoading(false)
   }
 
-  const update = async (payload: ConfigState): Promise<void> => {
-    setIsLoading(true)
-    setError(null)
+  const load = async (): Promise<void> => {
+    handleResponse(async () => invokeConfigGet())
+  }
 
-    const response = await invokeConfigUpdate(payload)
-
-    if (response.error) {
-      setError(response.error)
-      setConfig(null)
-    } else if (!response.data) {
-      setError('Empty config received')
-      setConfig(null)
-    } else {
-      setConfig(response.data)
-    }
-
-    setIsLoading(false)
+  const update = async (state: ConfigState): Promise<void> => {
+    handleResponse(async () => invokeConfigUpdate(mapFromConfigStateToDTO(state)))
   }
 
   useEffect(() => {

@@ -1,6 +1,5 @@
 export type ConfigDTO = {
   id: number
-  createdAt: Date
   outputFolder: string
   tempFolder: string
   maxThreads: number

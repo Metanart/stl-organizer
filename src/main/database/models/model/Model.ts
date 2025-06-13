@@ -15,7 +15,7 @@ import type { ModelStatus } from '@shared/database/types'
 
 import { _AbstractEntity } from '../abstract/core/_AbstractEntity'
 import { Category } from '../common/Category'
-import { SourceFolder } from '../common/Source'
+import { Source } from '../common/Source'
 import { Tag } from '../common/Tag'
 
 import { ModelAuthor } from './ModelAuthor'
@@ -72,8 +72,8 @@ export class Model extends _AbstractEntity {
   })
   tags!: Tag[]
 
-  @ManyToOne(() => SourceFolder, { nullable: true })
-  sourceFolder?: SourceFolder
+  @ManyToOne(() => Source, { nullable: true })
+  Source?: Source
 
   @UpdateDateColumn()
   updatedAt!: Date

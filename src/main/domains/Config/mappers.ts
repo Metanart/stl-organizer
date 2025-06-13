@@ -6,7 +6,6 @@ import { ConfigDTO } from '@shared/domains/Config/types'
 export function mapConfigToDTO(config: Config): ConfigDTO {
   return {
     id: config.id,
-    createdAt: config.createdAt,
     updatedAt: config.updatedAt,
     outputFolder: config.outputFolder,
     tempFolder: config.tempFolder,

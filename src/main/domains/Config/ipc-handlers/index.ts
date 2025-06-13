@@ -3,10 +3,10 @@ import { ipcMain } from 'electron'
 
 import { ConfigDTO, ConfigInputDTO } from '@shared/domains/Config/types'
 
-import { handleGetAll } from './handleGetAll'
+import { handleGet } from './handleGet'
 import { handleUpdate } from './handleUpdate'
 
-ipcMain.handle('config:get', createIpcHandler<ConfigDTO | null>('config:get', handleGetAll))
+ipcMain.handle('config:get', createIpcHandler<ConfigDTO | null>('config:get', handleGet))
 
 ipcMain.handle(
   'config:update',
