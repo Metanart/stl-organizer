@@ -1,5 +1,11 @@
 import { FC, Fragment } from 'react'
 
+import { Page } from '../Common/Page'
+
 export const HomePage: FC = () => {
-  return <Fragment>Home page</Fragment>
+  return (
+    <Page title="Home">
+      <Fragment />
+    </Page>
+  )
 }

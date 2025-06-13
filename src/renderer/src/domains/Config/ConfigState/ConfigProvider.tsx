@@ -26,7 +26,6 @@ export const ConfigProvider: FC<PropsWithChildren> = ({ children }) => {
       setError('Empty config received')
       setConfig(null)
     } else {
-      log.success(`Loaded config`, response.data)
       setConfig(response.data)
     }
 
@@ -37,8 +36,6 @@ export const ConfigProvider: FC<PropsWithChildren> = ({ children }) => {
     setIsLoading(true)
     setError(null)
 
-    log.info(`Called update with payload`, payload)
-
     const response = await fetchConfigUpdate(payload)
 
     if (response.error) {
@@ -48,7 +45,6 @@ export const ConfigProvider: FC<PropsWithChildren> = ({ children }) => {
       setError('Empty config received')
       setConfig(null)
     } else {
-      log.success(`Updated config`, response.data)
       setConfig(response.data)
     }
 

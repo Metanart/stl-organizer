@@ -21,8 +21,6 @@ export const FolderInput: FC<Props> = (props) => {
     setIsDisabled(true)
     const selectedPath = await window.electron.selectFolder()
 
-    console.log(name, selectedPath)
-
     if (selectedPath) onSelect(name, selectedPath)
     setIsDisabled(false)
   }

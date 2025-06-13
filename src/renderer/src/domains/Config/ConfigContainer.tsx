@@ -11,6 +11,8 @@ import { ConfigSkeleton } from './ConfigSkeleton'
 export const ConfigContainer: FC = () => {
   const { config, isLoading, update, error } = useContext(ConfigContext)
 
+  // @TODO Add form data validation
+
   const handleSubmit = async (updatedConfig: ConfigState): Promise<void> => {
     await update(updatedConfig)
   }
