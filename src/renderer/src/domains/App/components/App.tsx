@@ -1,11 +1,6 @@
 import { FC, JSX, PropsWithChildren } from 'react'
-import { Box, CssBaseline } from '@mui/material'
+import { Box } from '@mui/material'
 
 export const App: FC<PropsWithChildren> = ({ children }): JSX.Element => {
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      {children}
-    </Box>
-  )
+  return <Box sx={{ display: 'flex' }}>{children}</Box>
 }
