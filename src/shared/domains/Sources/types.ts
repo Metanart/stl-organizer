@@ -8,13 +8,13 @@ export type SourceDTO = {
 export type SourceInputDTO = {
   id: number
   path: string
-  isEnabled?: boolean
+  isEnabled: boolean
   comment?: string | null
 }
 
 export type SourceCreateDTO = {
   path: string
-  isEnabled?: boolean
+  isEnabled: boolean
   comment?: string | null
 }
 

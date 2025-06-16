@@ -20,7 +20,7 @@ function fromInputDTO(dto: SourceInputDTO): SourceEntity {
   return {
     id: dto.id,
     path: dto.path,
-    isEnabled: dto.isEnabled === undefined ? true : dto.isEnabled,
+    isEnabled: dto.isEnabled,
     comment: dto.comment ?? null
   }
 }
@@ -28,7 +28,7 @@ function fromInputDTO(dto: SourceInputDTO): SourceEntity {
 function fromCreateDTO(dto: SourceCreateDTO): SourceEntityNew {
   return {
     path: dto.path,
-    isEnabled: dto.isEnabled === undefined ? true : dto.isEnabled,
+    isEnabled: dto.isEnabled,
     comment: dto.comment ?? null
   }
 }

@@ -16,14 +16,14 @@ import { Source } from '../state/types'
 type Props = {
   id: number
   path: string
-  isEnabled?: boolean
+  isEnabled: boolean
   comment?: string | null
   onRemove?: (sourceId: number) => void
   onSave: (source: Source) => void
 }
 
 export const SourcesCard: FC<Props> = (props) => {
-  const { id, path = '', isEnabled = true, comment = '', onSave, onRemove } = props
+  const { id, path = '', isEnabled, comment = '', onSave, onRemove } = props
 
   const [formState, setFormState] = useState<Source>({
     id,
@@ -80,8 +80,13 @@ export const SourcesCard: FC<Props> = (props) => {
 
               <Grid size={12}>
                 <FormControlLabel
-                  name="isEnabled"
-                  control={<Switch defaultChecked={formState.isEnabled} />}
+                  control={
+                    <Switch
+                      name="isEnabled"
+                      checked={formState.isEnabled}
+                      onChange={handleInputChange}
+                    />
+                  }
                   label="Enabled"
                 />
               </Grid>

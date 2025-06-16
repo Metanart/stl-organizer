@@ -30,7 +30,7 @@ function toInputDTO(item: Source): SourceInputDTO {
   return {
     id: item.id,
     path: item.path,
-    isEnabled: item.isEnabled ?? true,
+    isEnabled: item.isEnabled,
     comment: item.comment ?? null
   }
 }
@@ -38,7 +38,7 @@ function toInputDTO(item: Source): SourceInputDTO {
 function toCreateDTO(item: SourceNew): SourceCreateDTO {
   return {
     path: item.path,
-    isEnabled: item.isEnabled ?? true,
+    isEnabled: item.isEnabled,
     comment: item.comment ?? null
   }
 }
