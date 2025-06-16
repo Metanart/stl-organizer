@@ -1,5 +1,4 @@
 export type ConfigDTO = {
-  id: number
   outputFolder: string
   tempFolder: string
   maxThreads: number
@@ -7,7 +6,6 @@ export type ConfigDTO = {
   autoArchiveOnComplete: boolean
   useMultithreading: boolean
   debugMode: boolean
-  updatedAt: Date
 }
 
-export type ConfigInputDTO = Omit<ConfigDTO, 'id' | 'createdAt' | 'updatedAt'>
+export type ConfigInputDTO = ConfigDTO

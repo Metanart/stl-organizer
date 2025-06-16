@@ -1,4 +1,4 @@
-import { Column, Entity, UpdateDateColumn } from 'typeorm'
+import { Column, Entity } from 'typeorm'
 
 import { _AbstractEntity } from '../abstract/core/_AbstractEntity'
 
@@ -24,7 +24,6 @@ export class Config extends _AbstractEntity {
 
   @Column({ type: 'boolean', default: false })
   debugMode!: boolean
-
-  @UpdateDateColumn()
-  updatedAt!: Date
 }
+
+export type ConfigEntity = Config

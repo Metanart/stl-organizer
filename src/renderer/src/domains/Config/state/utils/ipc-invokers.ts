@@ -7,7 +7,7 @@ export const invokeConfigGet = createIpcInvoker<ConfigDTO | null>(
   'config:get'
 )
 
-export const invokeConfigUpdate = createIpcInvoker<ConfigDTO, ConfigInputDTO>(
+export const invokeConfigUpdate = createIpcInvoker<ConfigDTO | null, ConfigInputDTO>(
   window.api.config.update,
   'config:update'
 )

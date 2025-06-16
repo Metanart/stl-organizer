@@ -20,8 +20,8 @@ export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
     const response = await handleRequest(invokeSourcesGetAll)
 
     if (response.data !== null) {
-      const newState: SourcesState = SourcesMapper.fromDTOs(response.data)
-      setSources(newState)
+      const sourcesState: SourcesState = SourcesMapper.fromDTOs(response.data)
+      setSources(sourcesState)
     }
   }
 
@@ -31,12 +31,12 @@ export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
     const response = await handleRequest(async () => invokeSourcesUpdate(inputDTO))
 
     if (response.data !== null) {
-      const updatedItem = SourcesMapper.fromDTO(response.data)
+      const updatedSource = SourcesMapper.fromDTO(response.data)
 
       setSources((prevState) => {
         return {
           ...prevState,
-          [updatedItem.id]: updatedItem
+          [updatedSource.id]: updatedSource
         }
       })
     }
@@ -48,12 +48,12 @@ export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
     const response = await handleRequest(async () => invokeSourcesCreate(createDTO))
 
     if (response.data !== null) {
-      const createdItem = SourcesMapper.fromDTO(response.data)
+      const createdSource = SourcesMapper.fromDTO(response.data)
 
       setSources((prevState) => {
         return {
           ...prevState,
-          [createdItem.id]: createdItem
+          [createdSource.id]: createdSource
         }
       })
     }
@@ -64,11 +64,11 @@ export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
     const response = await handleRequest(async () => invokeSourcesRemove(removeDTO))
 
     if (response.data !== null) {
-      const removedItemId = response.data.id
+      const removedSourceId = response.data.id
 
       setSources((prevState) => {
-        if (prevState?.[removedItemId]) {
-          delete prevState[removedItemId]
+        if (prevState?.[removedSourceId]) {
+          delete prevState[removedSourceId]
           return { ...prevState }
         }
 
