@@ -19,5 +19,5 @@ ipcMain.handle(
 
 ipcMain.handle(
   'sources:create',
-  createIpcHandler<SourcesDTO | null, SourceInputDTO>('sources:create', handleCreate)
+  createIpcHandler<SourceDTO | null, SourceInputDTO>('sources:create', handleCreate)
 )

@@ -10,10 +10,10 @@ import {
   TextField
 } from '@mui/material'
 
-import { SourcesItem } from '../state/types'
+import { SourceItem } from '../state/types'
 
 type Props = {
-  sources: SourcesItem[]
+  sources: SourceItem[]
   onToggleAddNew: () => void
 }
 

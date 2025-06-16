@@ -15,6 +15,9 @@
       ],
       "@shared/*": [
         "src/shared/*"
+      ],
+      "@preload/*": [
+        "src/preload/*"
       ]
     }
   }

@@ -1,8 +1,8 @@
 import { SourceDTO, SourceInputDTO, SourcesDTO } from '@shared/domains/Sources/types'
 
-import { SourcesItem, SourcesState } from '../types'
+import { SourceItem, SourcesState } from '../types'
 
-export function mapFromDTOToSourcesItem(dto: SourceDTO): SourcesItem {
+export function mapFromDTOToSourcesItem(dto: SourceDTO): SourceItem {
   return {
     id: dto.id,
     path: dto.path,
@@ -11,7 +11,7 @@ export function mapFromDTOToSourcesItem(dto: SourceDTO): SourcesItem {
   }
 }
 
-export function mapFromSourcesItemToDTO(item: SourcesItem): SourceInputDTO {
+export function mapFromSourcesItemToDTO(item: SourceItem): SourceInputDTO {
   return {
     id: item.id,
     path: item.path,

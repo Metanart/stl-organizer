@@ -3,7 +3,7 @@ import { FC, PropsWithChildren, useEffect, useState } from 'react'
 import { invokeSourcesCreate, invokeSourcesGetAll, invokeSourcesUpdate } from './utils/ipc-invokers'
 import { mapFromDTOsToSourcesState, mapFromSourcesItemToDTO } from './utils/mappers'
 import { SourcesContext } from './SourcesContext'
-import { SourcesItem, SourcesState } from './types'
+import { SourceItem, SourcesState } from './types'
 
 export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
   const [sources, setSources] = useState<SourcesState | null>(null)
@@ -34,11 +34,11 @@ export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
     handleResponse(async () => invokeSourcesGetAll())
   }
 
-  const update = async (item: SourcesItem): Promise<void> => {
+  const update = async (item: SourceItem): Promise<void> => {
     handleResponse(async () => invokeSourcesUpdate(mapFromSourcesItemToDTO(item)))
   }
 
-  const create = async (newSource: SourcesItem): Promise<void> => {
+  const create = async (newSource: SourceItem): Promise<void> => {
     handleResponse(async () => invokeSourcesCreate(mapFromSourcesItemToDTO(newSource)))
   }
 

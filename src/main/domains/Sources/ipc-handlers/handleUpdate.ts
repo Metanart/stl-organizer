@@ -24,8 +24,8 @@ export const handleUpdate: DBHandler<SourceDTO | null, SourceInputDTO> = async f
     const saved = await repo.save(instance)
     log.success(`Saved`, saved)
     return mapSourceToDTO(saved)
-  } else {
-    log.warn(`Source "${payload.id}" is not found - skip`)
-    return null
   }
+
+  log.warn(`Source "${payload.id}" is not found - skip`)
+  return null
 }

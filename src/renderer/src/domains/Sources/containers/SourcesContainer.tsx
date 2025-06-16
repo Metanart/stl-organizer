@@ -3,7 +3,7 @@ import { Stack } from '@mui/material'
 
 import { SourcesAddNew } from '../components/SourceAddNew'
 import { SourcesList } from '../components/SourcesList'
-import { SourcesItem } from '../state/types'
+import { SourceItem } from '../state/types'
 import { useSourcesContext } from '../state/utils/hooks'
 
 export const SourceFoldersContainer: FC = () => {
@@ -17,7 +17,7 @@ export const SourceFoldersContainer: FC = () => {
     })
   }
 
-  const handleCreateNew = async (newSource: SourcesItem): Promise<void> => {
+  const handleCreateNew = async (newSource: SourceItem): Promise<void> => {
     await create(newSource)
   }
 

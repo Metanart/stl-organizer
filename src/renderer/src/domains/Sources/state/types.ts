@@ -1,8 +1,8 @@
 import { SourceInputDTO } from '@shared/domains/Sources/types'
 
-export type SourcesItem = SourceInputDTO
+export type SourceItem = SourceInputDTO
 
-export type SourcesState = SourcesItem[]
+export type SourcesState = SourceItem[]
 
 export type SourcesContextType = {
   sources: SourcesState | null
