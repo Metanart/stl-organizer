@@ -11,16 +11,16 @@ import {
 } from '@mui/material'
 import { FolderInput } from '@renderer/domains/Common/components/ui/FolderInput'
 
-import { SourceItemNew } from '../state/types'
+import { SourceNew } from '../state/types'
 
 type Props = {
-  onSave: (formState: SourceItemNew) => void
+  onSave: (formState: SourceNew) => void
 }
 
 export const SourcesAddNew: FC<Props> = (props) => {
   const { onSave } = props
 
-  const [formState, setFormState] = useState<SourceItemNew>({
+  const [formState, setFormState] = useState<SourceNew>({
     path: '',
     isEnabled: true,
     comment: ''

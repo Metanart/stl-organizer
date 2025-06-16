@@ -5,12 +5,17 @@ export type SourceDTO = {
   comment: string | null
 }
 
-export type SourceInputDTO = Pick<SourceDTO, 'id' | 'path' | 'isEnabled' | 'comment'>
+export type SourceInputDTO = {
+  id: number
+  path: string
+  isEnabled?: boolean
+  comment?: string | null
+}
 
-export type SourceCreateDTO = Pick<SourceDTO, 'path' | 'isEnabled' | 'comment'>
+export type SourceCreateDTO = {
+  path: string
+  isEnabled?: boolean
+  comment?: string | null
+}
 
-export type SourcesDTO = SourceDTO[]
-
-export type SourcesInputDTO = SourceInputDTO[]
-
-export type SourcesCreateDTO = SourceCreateDTO[]
+export type SourceRemoveDTO = { id: number }

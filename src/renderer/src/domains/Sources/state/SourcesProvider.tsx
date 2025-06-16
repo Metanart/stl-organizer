@@ -7,14 +7,9 @@ import {
   invokeSourcesRemove,
   invokeSourcesUpdate
 } from './utils/ipc-invokers'
-import {
-  mapFromDTOsToSourcesState,
-  mapFromDTOToSourcesItem,
-  mapFromSourcesItemToDTO,
-  mapNewItemToCreateDTO
-} from './utils/mappers'
 import { SourcesContext } from './SourcesContext'
-import { SourceItem, SourceItemNew, SourcesState } from './types'
+import { SourcesMapper } from './SourcesMapper'
+import { Source, SourceNew, SourceRemove, SourcesState } from './types'
 
 export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
   const [sources, setSources] = useState<SourcesState | null>(null)
@@ -25,18 +20,18 @@ export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
     const response = await handleRequest(invokeSourcesGetAll)
 
     if (response.data !== null) {
-      const newState = mapFromDTOsToSourcesState(response.data)
+      const newState: SourcesState = SourcesMapper.fromDTOs(response.data)
       setSources(newState)
     }
   }
 
-  const update = async (updatedItem: SourceItem): Promise<void> => {
-    const updateDTO = mapFromSourcesItemToDTO(updatedItem)
+  const update = async (source: Source): Promise<void> => {
+    const inputDTO = SourcesMapper.toInputDTO(source)
 
-    const response = await handleRequest(async () => invokeSourcesUpdate(updateDTO))
+    const response = await handleRequest(async () => invokeSourcesUpdate(inputDTO))
 
     if (response.data !== null) {
-      const updatedItem = mapFromDTOToSourcesItem(response.data)
+      const updatedItem = SourcesMapper.fromDTO(response.data)
 
       setSources((prevState) => {
         return {
@@ -47,13 +42,13 @@ export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   }
 
-  const create = async (newItem: SourceItemNew): Promise<void> => {
-    const createDTO = mapNewItemToCreateDTO(newItem)
+  const create = async (source: SourceNew): Promise<void> => {
+    const createDTO = SourcesMapper.toCreateDTO(source)
 
     const response = await handleRequest(async () => invokeSourcesCreate(createDTO))
 
     if (response.data !== null) {
-      const createdItem = mapFromDTOToSourcesItem(response.data)
+      const createdItem = SourcesMapper.fromDTO(response.data)
 
       setSources((prevState) => {
         return {
@@ -64,8 +59,9 @@ export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   }
 
-  const remove = async ({ id }: { id: number }): Promise<void> => {
-    const response = await handleRequest(async () => invokeSourcesRemove({ id }))
+  const remove = async (source: SourceRemove): Promise<void> => {
+    const removeDTO = SourcesMapper.toRemoveDTO(source)
+    const response = await handleRequest(async () => invokeSourcesRemove(removeDTO))
 
     if (response.data !== null) {
       const removedItemId = response.data.id

@@ -4,14 +4,14 @@ import { Message } from '@renderer/domains/Common/components/Message'
 
 import { SourcesCard } from '../components/SourcesCard'
 import { SourcesList } from '../components/SourcesList'
-import { SourceItem } from '../state/types'
+import { Source } from '../state/types'
 import { useSourcesContext } from '../state/utils/hooks'
 
 export const SourcesListContainer: FC = () => {
   const { isLoading, sources, error, update, remove } = useSourcesContext()
 
-  const handleSave = (item: SourceItem): void => {
-    update(item)
+  const handleSave = (source: Source): void => {
+    update(source)
   }
 
   const handleRemove = (id: number): void => {

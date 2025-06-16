@@ -5,7 +5,7 @@ import { Page } from '@renderer/domains/Common/components/Page/Page'
 
 import { SourcesAddNewContainer } from '../containers/SourcesAddNewContainer'
 import { SourcesListContainer } from '../containers/SourcesListContainer'
-import { SourceItemNew } from '../state/types'
+import { SourceNew } from '../state/types'
 import { useSourcesContext } from '../state/utils/hooks'
 
 export const SourcesPage: FC = () => {
@@ -19,8 +19,8 @@ export const SourcesPage: FC = () => {
     })
   }
 
-  const handleAddNewSource = (newItem: SourceItemNew): void => {
-    create(newItem)
+  const handleAddNewSource = (source: SourceNew): void => {
+    create(source)
   }
 
   const actions = {

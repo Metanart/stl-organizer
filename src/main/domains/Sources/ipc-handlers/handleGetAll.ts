@@ -2,12 +2,12 @@ import { AppDataSource } from '@main/database/AppDataSource'
 import { Source } from '@main/database/models/common/Source'
 import { DBHandler } from '@main/types'
 
-import { SourcesDTO } from '@shared/domains/Sources/types'
+import { SourceDTO } from '@shared/domains/Sources/types'
 import { createLog } from '@shared/utils/createLog'
 
-import { mapSourcesToDTO } from '../mappers'
+import { SourcesMapper } from '../SourcesMapper'
 
-export const handleGetAll: DBHandler<SourcesDTO | null> = async function () {
+export const handleGetAll: DBHandler<SourceDTO[] | null> = async function () {
   const log = createLog({ ipcTag: 'sources:getAll' })
 
   const repo = AppDataSource.getRepository(Source)
@@ -21,5 +21,5 @@ export const handleGetAll: DBHandler<SourcesDTO | null> = async function () {
 
   log.success(`Sources are found`)
 
-  return mapSourcesToDTO(entities)
+  return SourcesMapper.toDTOs(entities)
 }

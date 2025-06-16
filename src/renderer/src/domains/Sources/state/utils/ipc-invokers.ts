@@ -4,10 +4,10 @@ import {
   SourceCreateDTO,
   SourceDTO,
   SourceInputDTO,
-  SourcesDTO
+  SourceRemoveDTO
 } from '@shared/domains/Sources/types'
 
-export const invokeSourcesGetAll = createIpcInvoker<SourcesDTO | null>(
+export const invokeSourcesGetAll = createIpcInvoker<SourceDTO[] | null>(
   window.api.sources.getAll,
   'sources:getAll'
 )
@@ -22,7 +22,7 @@ export const invokeSourcesCreate = createIpcInvoker<SourceDTO, SourceCreateDTO>(
   'sources:create'
 )
 
-export const invokeSourcesRemove = createIpcInvoker<{ id: number } | null, { id: number }>(
+export const invokeSourcesRemove = createIpcInvoker<SourceRemoveDTO | null, SourceRemoveDTO>(
   window.api.sources.remove,
   'sources:remove'
 )

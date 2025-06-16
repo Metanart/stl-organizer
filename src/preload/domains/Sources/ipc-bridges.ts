@@ -4,14 +4,14 @@ import {
   SourceCreateDTO,
   SourceDTO,
   SourceInputDTO,
-  SourcesDTO
+  SourceRemoveDTO
 } from '@shared/domains/Sources/types'
 
 export const ipcBridgesSources = {
-  getAll: createIpcBridge<SourcesDTO | null>('sources:getAll'),
+  getAll: createIpcBridge<SourceDTO[] | null>('sources:getAll'),
   update: createIpcBridge<SourceDTO, SourceInputDTO>('sources:update'),
   create: createIpcBridge<SourceDTO, SourceCreateDTO>('sources:create'),
-  remove: createIpcBridge<{ id: number } | null, { id: number }>('sources:remove')
+  remove: createIpcBridge<SourceRemoveDTO | null, SourceRemoveDTO>('sources:remove')
 } as const
 
 export type IpcBridgesSources = typeof ipcBridgesSources

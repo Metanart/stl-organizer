@@ -2,19 +2,19 @@ import { FC } from 'react'
 import { Modal } from '@renderer/domains/Common/components/Modal/Modal'
 
 import { SourcesAddNew } from '../components/SourcesAddNew'
-import { SourceItemNew } from '../state/types'
+import { SourceNew } from '../state/types'
 
 type Props = {
   isOpen: boolean
   onClose: () => void
-  onSave: (item: SourceItemNew) => void
+  onSave: (source: SourceNew) => void
 }
 
 export const SourcesAddNewContainer: FC<Props> = (props) => {
   const { isOpen, onSave, onClose } = props
 
-  const handleSave = (item: SourceItemNew): void => {
-    onSave(item)
+  const handleSave = (source: SourceNew): void => {
+    onSave(source)
     onClose()
   }
 

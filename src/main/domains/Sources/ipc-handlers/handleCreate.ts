@@ -5,7 +5,7 @@ import { DBHandler } from '@main/types'
 import { SourceCreateDTO, SourceDTO } from '@shared/domains/Sources/types'
 import { createLog } from '@shared/utils/createLog'
 
-import { mapCreateDTOToNewSource, mapSourceToDTO } from '../mappers'
+import { SourcesMapper } from '../SourcesMapper'
 
 export const handleCreate: DBHandler<SourceDTO | null, SourceCreateDTO> = async function (payload) {
   const log = createLog({ ipcTag: 'sources:create' })
@@ -14,18 +14,18 @@ export const handleCreate: DBHandler<SourceDTO | null, SourceCreateDTO> = async 
 
   log.info(`Sources payload`, payload)
 
-  const newSource = mapCreateDTOToNewSource(payload)
-  const existing = await repo.findOneBy({ path: newSource.path })
+  const provided = SourcesMapper.fromCreateDTO(payload)
+  const existing = await repo.findOneBy({ path: provided.path })
 
   if (existing) {
     log.info(`Found existing source - stop operation`, existing)
     return null
   }
 
-  log.warn(`Source "${newSource.path}" is not found - create new one`)
-  const newInstance = repo.create({ ...newSource })
-  const saved = await repo.save(newInstance)
+  log.warn(`Source "${provided.path}" is not found - create new one`)
+  const created = repo.create({ ...provided })
+  const saved = await repo.save(created)
   log.success(`Saved`, saved)
 
-  return mapSourceToDTO(saved)
+  return SourcesMapper.toDTO(saved)
 }

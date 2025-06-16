@@ -5,7 +5,7 @@ import {
   SourceCreateDTO,
   SourceDTO,
   SourceInputDTO,
-  SourcesDTO
+  SourceRemoveDTO
 } from '@shared/domains/Sources/types'
 
 import { handleCreate } from './handleCreate'
@@ -15,7 +15,7 @@ import { handleUpdate } from './handleUpdate'
 
 ipcMain.handle(
   'sources:getAll',
-  createIpcHandler<SourcesDTO | null>('sources:getAll', handleGetAll)
+  createIpcHandler<SourceDTO[] | null>('sources:getAll', handleGetAll)
 )
 
 ipcMain.handle(
@@ -30,5 +30,5 @@ ipcMain.handle(
 
 ipcMain.handle(
   'sources:remove',
-  createIpcHandler<{ id: number } | null, { id: number }>('sources:remove', handleRemove)
+  createIpcHandler<SourceRemoveDTO | null, SourceRemoveDTO>('sources:remove', handleRemove)
 )

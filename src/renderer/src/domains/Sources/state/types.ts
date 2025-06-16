@@ -1,9 +1,14 @@
-import { SourceCreateDTO, SourceInputDTO } from '@shared/domains/Sources/types'
+import { SourceCreateDTO, SourceInputDTO, SourceRemoveDTO } from '@shared/domains/Sources/types'
 
-export type SourceItem = SourceInputDTO
-export type SourceItemNew = Omit<SourceItem, 'id'>
+export type Source = SourceInputDTO
 
-export type SourcesState = Record<number, SourceItem>
+export type SourceNew = SourceCreateDTO
+
+export type SourceRemove = { id: number }
+
+export type SourcesList = Record<number, Source>
+
+export type SourcesState = SourcesList
 
 export type SourcesContextType = {
   sources: SourcesState | null
@@ -11,5 +16,5 @@ export type SourcesContextType = {
   error?: string | null
   update: (payload: SourceInputDTO) => Promise<void>
   create: (payload: SourceCreateDTO) => Promise<void>
-  remove: (payload: { id: number }) => Promise<void>
+  remove: (payload: SourceRemoveDTO) => Promise<void>
 }

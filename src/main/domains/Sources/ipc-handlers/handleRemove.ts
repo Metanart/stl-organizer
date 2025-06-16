@@ -2,9 +2,10 @@ import { AppDataSource } from '@main/database/AppDataSource'
 import { Source } from '@main/database/models/common/Source'
 import { DBHandler } from '@main/types'
 
+import { SourceRemoveDTO } from '@shared/domains/Sources/types'
 import { createLog } from '@shared/utils/createLog'
 
-export const handleRemove: DBHandler<{ id: number } | null, { id: number }> = async function (
+export const handleRemove: DBHandler<SourceRemoveDTO | null, SourceRemoveDTO> = async function (
   payload
 ) {
   const log = createLog({ ipcTag: 'sources:remove' })

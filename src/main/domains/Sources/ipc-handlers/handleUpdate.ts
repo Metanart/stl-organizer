@@ -5,25 +5,23 @@ import { DBHandler } from '@main/types'
 import { SourceDTO, SourceInputDTO } from '@shared/domains/Sources/types'
 import { createLog } from '@shared/utils/createLog'
 
-import { mapDTOToSource, mapSourceToDTO } from '../mappers'
+import { SourcesMapper } from '../SourcesMapper'
 
 export const handleUpdate: DBHandler<SourceDTO | null, SourceInputDTO> = async function (payload) {
   const log = createLog({ ipcTag: 'sources:update' })
-
   const repo = AppDataSource.getRepository(Source)
 
   log.info(`Sources payload`, payload)
 
-  const mappedSource = mapDTOToSource(payload)
-
+  const provided = SourcesMapper.fromInputDTO(payload)
   const existing = await repo.findOneBy({ id: payload.id })
 
   if (existing) {
     log.info(`Found existing source - start merge`, existing)
-    const instance = repo.merge(existing, { ...mappedSource, id: existing.id })
-    const saved = await repo.save(instance)
+    const newInstance = repo.merge(existing, { ...provided, id: existing.id })
+    const saved = await repo.save(newInstance)
     log.success(`Saved`, saved)
-    return mapSourceToDTO(saved)
+    return SourcesMapper.toDTO(saved)
   }
 
   log.warn(`Source "${payload.id}" is not found - skip`)
