@@ -2,7 +2,7 @@ export type IpcResponse<T> = { data: T; error: null } | { data: null; error: str
 
 export type IpcTagEntity = 'config' | 'sources'
 
-export type IpcTagAction = 'get' | 'getAll' | 'getFirst' | 'create' | 'update' | 'delete'
+export type IpcTagAction = 'get' | 'getAll' | 'getFirst' | 'create' | 'update' | 'remove'
 
 export type IpcCustomTag = 'dialog:select-folder'
 

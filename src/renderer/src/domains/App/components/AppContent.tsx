@@ -13,7 +13,7 @@ export const AppContent: FC<Props> = (props): JSX.Element => {
       component="main"
       sx={{
         flexGrow: 1,
-        p: 3,
+        p: 0,
         width: `calc(100% - ${navigationWidth}px)`,
         transition: 'width 0.3s'
       }}

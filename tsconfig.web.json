@@ -13,12 +13,12 @@
       "@renderer/*": [
         "src/renderer/src/*"
       ],
+      "@preload/*": [
+        "src/preload/*"
+      ],
       "@shared/*": [
         "src/shared/*"
       ],
-      "@preload/*": [
-        "src/preload/*"
-      ]
     }
   }
 }

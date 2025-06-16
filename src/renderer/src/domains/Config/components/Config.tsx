@@ -24,7 +24,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
     })
   }
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { name, value, type, checked } = event.target
 
     updateFormState(name, value, type, checked)
@@ -48,7 +48,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
           value={formState.outputFolder}
           isUpdated={formState.outputFolder !== initlalFormState.outputFolder}
           onSelect={handleSelectFolder}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
 
         <FolderInput
@@ -56,7 +56,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
           name="tempFolder"
           value={formState.tempFolder}
           onSelect={handleSelectFolder}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
 
         <TextField
@@ -66,7 +66,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
           fullWidth
           variant="outlined"
           value={formState.maxThreads}
-          onChange={handleChange}
+          onChange={handleInputChange}
         />
 
         <FormControlLabel
@@ -74,7 +74,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
             <Checkbox
               name="autoProcessOnScan"
               checked={formState.autoProcessOnScan}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
           }
           label="Auto Process on Scan"
@@ -85,7 +85,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
             <Checkbox
               name="autoArchiveOnComplete"
               checked={formState.autoArchiveOnComplete}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
           }
           label="Auto Archive on Complete"
@@ -96,7 +96,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
             <Checkbox
               name="useMultithreading"
               checked={formState.useMultithreading}
-              onChange={handleChange}
+              onChange={handleInputChange}
             />
           }
           label="Use Multithreading"
@@ -104,7 +104,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
 
         <FormControlLabel
           control={
-            <Checkbox name="debugMode" checked={formState.debugMode} onChange={handleChange} />
+            <Checkbox name="debugMode" checked={formState.debugMode} onChange={handleInputChange} />
           }
           label="Debug Mode"
         />

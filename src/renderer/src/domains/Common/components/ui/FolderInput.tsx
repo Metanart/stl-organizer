@@ -6,13 +6,15 @@ type Props = {
   label: string
   value: string | null
   name: string
+  fullWidth?: boolean
+  placeholder?: string
   isUpdated?: boolean
   onChange: StandardTextFieldProps['onChange']
   onSelect: (name: string, newPath: string) => void
 }
 
 export const FolderInput: FC<Props> = (props) => {
-  const { label, value, name, isUpdated, onSelect, onChange } = props
+  const { label, value, name, isUpdated, fullWidth, placeholder, onSelect, onChange } = props
 
   const [isDisabled, setIsDisabled] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
@@ -38,7 +40,7 @@ export const FolderInput: FC<Props> = (props) => {
       label={label}
       value={value}
       name={name}
-      fullWidth
+      fullWidth={fullWidth}
       color={isUpdated && !isFocused ? 'success' : 'primary'}
       focused={isFocused || isUpdated}
       disabled={isDisabled}
@@ -46,9 +48,10 @@ export const FolderInput: FC<Props> = (props) => {
       onChange={onChange}
       onFocus={handleFocus}
       onBlur={handleBlur}
+      placeholder={placeholder}
       slotProps={{
         input: {
-          readOnly: true,
+          readOnly: false,
           endAdornment: (
             <InputAdornment position="end">
               <IconButton onClick={handleSelectFolder}>

@@ -11,13 +11,14 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <HashRouter>
-    <CssBaseline />
-    <ThemeProvider theme={theme}>
-      <AppContainer>
-        <AppProvidersContainer>
-          <AppRoutesContainerMemo />
-        </AppProvidersContainer>
-      </AppContainer>
-    </ThemeProvider>
+    <CssBaseline>
+      <ThemeProvider theme={theme}>
+        <AppContainer>
+          <AppProvidersContainer>
+            <AppRoutesContainerMemo />
+          </AppProvidersContainer>
+        </AppContainer>
+      </ThemeProvider>
+    </CssBaseline>
   </HashRouter>
 )

@@ -7,6 +7,10 @@ export type SourceDTO = {
 
 export type SourceInputDTO = Pick<SourceDTO, 'id' | 'path' | 'isEnabled' | 'comment'>
 
+export type SourceCreateDTO = Pick<SourceDTO, 'path' | 'isEnabled' | 'comment'>
+
 export type SourcesDTO = SourceDTO[]
 
 export type SourcesInputDTO = SourceInputDTO[]
+
+export type SourcesCreateDTO = SourceCreateDTO[]

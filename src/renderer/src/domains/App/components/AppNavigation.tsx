@@ -4,8 +4,8 @@ import { Drawer, IconButton, List, ListItem, Toolbar } from '@mui/material'
 
 import { AppNavigationItem } from '../types'
 
-const drawerWidthExpanded = 200
-const drawerWidthCollapsed = 64
+const drawerWidthExpanded = 160
+const drawerWidthCollapsed = 52
 
 type Props = {
   children: ReactElement<AppNavigationItem>[]
@@ -34,8 +34,8 @@ export const AppNavigation: FC<Props> = (props) => {
         sx={{
           justifyContent: 'flex-start',
           alignItems: 'center',
-          px: 1.5,
-          minHeight: 64
+          px: 1.2,
+          minHeight: drawerWidthCollapsed
         }}
       >
         <IconButton onClick={onToggleClick}>
