@@ -5,23 +5,61 @@ This file outlines the main development phases and tasks for STL Organizer, whic
 ---
 
 ## ✅ Phase 1 — Architecture & Database Design
-
 - [x] Define core entities (`Model`, `ModelImage`, `ModelFile`, `Tag`, etc.)
 - [x] Separate `input` vs `final` archives/images/files
 - [x] Set up `AppConfig` and `InputDir` tables
 - [x] Add `ModelStatus` enum and processing lifecycle
 - [x] Introduce `ActionLog` for process history
+- [x] Prepare DTO mappers system fro the client side
+- [x] Prepare DTO mappers for the server side
+- [x] Oraganize IPC API methods TS types and structure for:
+  - [x] Main
+  - [x] Renderer
+  - [x] Preload
+  
+---
+
+## 🚧 Phase 2 — App configuration
+- [x] Create Config UI
+- [x] Provide IPC API methods
+- [x] Cover Config UI with logic
+- [ ] Cover Config UI container with tests
+- [ ] Cover Config UI with validation
 
 ---
 
-## 🚧 Phase 2 — Scanning & Preview
+## 🚧 Phase 3 — Source folders
+- [x] Create Config UI
+- [x] Provide IPC API methods
+- [x] Cover Sources UI with logic
+- [ ] Cover Sources UI container with tests
+- [ ] Cover Sources UI with validation
+      
+---
 
-- [ ] Iterate over all enabled `InputDir`
-- [ ] Recursively scan for archives (`.zip`, `.rar`) and adjacent images
-- [ ] Match archives with related images
-- [ ] Extract metadata: filenames, keywords (bust, collection, author, etc.)
-- [ ] Build scan preview tree and save `Model` entries in DB
-- [ ] Status: `Model.status = 'new'`
+## 🚧 Phase 2 — Source folders
+
+- [x] Create Config UI
+- [x] Provide IPC API methods
+- [x] Cover Sources UI with logic
+- [ ] Cover Sources UI container with tests
+- [ ] Cover Sources UI with validation
+---
+
+## 🚧 Phase 3 — Models catalog
+
+- [x] Create Models UI
+- [x] Provide IPC API methods
+- [x] Cover Models UI with logic
+- [ ] Implement basic archives unpacking and analyze
+  - [ ] Use MVPs code - minimal logic for now
+  - [ ] Transfer archive
+  - [ ] Unpack it
+  - [ ] Roughly normalize files names
+  - [ ] Find and save to DB all related images
+  - [ ] Save as a Model Entoty to DB with all related images
+- [ ] Cover Models UI container with tests
+- [ ] Cover Models UI with validation
 
 ---
 
@@ -55,11 +93,10 @@ This file outlines the main development phases and tasks for STL Organizer, whic
 
 ---
 
-## 🚧 Phase 6 — UI Implementation
+## 🚧 Phase 6 — Additional UI
 
 - [ ] List all models with filters by status, tags, source folder
 - [ ] Action buttons: Scan, Normalize, Archive
-- [ ] Image preview from `ModelImage`
 - [ ] Detail view: archive contents, metadata, file list
 - [ ] Action log per model (`ActionLog`)
 
