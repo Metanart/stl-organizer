@@ -1,15 +1,13 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm'
-
-import { _AbstractEntity } from '../abstract/core/_AbstractEntity'
-import { SourceArchive } from '../source/SourceArchive'
+import { _AbstractEntity } from '@main/database/models/abstract/core/_AbstractEntity'
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm'
 
 import { Source } from './Source'
+import { SourceArchive } from './SourceArchive'
 import { SourceImage } from './SourceImage'
 
 @Entity()
 export class SourceModel extends _AbstractEntity {
   @Column()
-  @Index()
   name!: string
 
   @Column()
@@ -27,3 +25,5 @@ export class SourceModel extends _AbstractEntity {
   @ManyToOne(() => Source, (source) => source.models, { onDelete: 'CASCADE' })
   source!: Source
 }
+
+export type SourceModelEntity = SourceModel

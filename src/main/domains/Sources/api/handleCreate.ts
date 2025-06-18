@@ -1,11 +1,11 @@
 import { AppDataSource } from '@main/database/AppDataSource'
-import { Source } from '@main/database/models/source/Source'
+import { Source } from '@main/domains/Sources/entities/Source'
 import { DBHandler } from '@main/types'
 
-import { SourceCreateDTO, SourceDTO } from '@shared/domains/Sources/types'
+import { SourceCreateDTO, SourceDTO } from '@shared/domains/Sources/types/Source.types'
 import { createLog } from '@shared/utils/createLog'
 
-import { SourcesMapper } from '../SourcesMapper'
+import { SourceMapper } from '../mappers/SourceMapper'
 
 export const handleCreate: DBHandler<SourceDTO | null, SourceCreateDTO> = async function (payload) {
   const log = createLog({ ipcTag: 'sources:create' })
@@ -14,7 +14,7 @@ export const handleCreate: DBHandler<SourceDTO | null, SourceCreateDTO> = async 
 
   log.info(`Sources payload`, payload)
 
-  const provided = SourcesMapper.fromCreateDTO(payload)
+  const provided = SourceMapper.fromCreateDTO(payload)
   const existing = await repo.findOneBy({ path: provided.path })
 
   if (existing) {
@@ -27,5 +27,5 @@ export const handleCreate: DBHandler<SourceDTO | null, SourceCreateDTO> = async 
   const saved = await repo.save(created)
   log.success(`Saved`, saved)
 
-  return SourcesMapper.toDTO(saved)
+  return SourceMapper.toDTO(saved)
 }

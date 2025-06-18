@@ -5,7 +5,7 @@ import {
   SourceDTO,
   SourceInputDTO,
   SourceRemoveDTO
-} from '@shared/domains/Sources/types'
+} from '@shared/domains/Sources/types/Source.types'
 
 export const invokeSourcesGetAll = createIpcInvoker<SourceDTO[] | null>(
   window.api.sources.getAll,

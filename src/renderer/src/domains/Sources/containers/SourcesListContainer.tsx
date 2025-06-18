@@ -4,8 +4,8 @@ import { Message } from '@renderer/domains/Common/components/Message'
 
 import { SourcesCard } from '../components/SourcesCard'
 import { SourcesList } from '../components/SourcesList'
-import { Source } from '../state/types'
-import { useSourcesContext } from '../state/utils/hooks'
+import { useSourcesContext } from '../state/useSourcesContext'
+import { Source } from '../types/Source.types'
 
 export const SourcesListContainer: FC = () => {
   const { isLoading, sources, error, update, remove } = useSourcesContext()

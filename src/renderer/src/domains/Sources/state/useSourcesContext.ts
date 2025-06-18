@@ -1,7 +1,8 @@
 import { useContext } from 'react'
 
-import { SourcesContext } from '../SourcesContext'
-import { SourcesContextType } from '../types'
+import { SourcesContextType } from '../types/Source.types'
+
+import { SourcesContext } from './SourcesContext'
 
 export const useSourcesContext = (): SourcesContextType => {
   const context = useContext(SourcesContext)

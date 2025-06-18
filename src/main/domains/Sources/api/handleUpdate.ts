@@ -1,11 +1,11 @@
 import { AppDataSource } from '@main/database/AppDataSource'
-import { Source } from '@main/database/models/source/Source'
+import { Source } from '@main/domains/Sources/entities/Source'
 import { DBHandler } from '@main/types'
 
-import { SourceDTO, SourceInputDTO } from '@shared/domains/Sources/types'
+import { SourceDTO, SourceInputDTO } from '@shared/domains/Sources/types/Source.types'
 import { createLog } from '@shared/utils/createLog'
 
-import { SourcesMapper } from '../SourcesMapper'
+import { SourceMapper } from '../mappers/SourceMapper'
 
 export const handleUpdate: DBHandler<SourceDTO | null, SourceInputDTO> = async function (payload) {
   const log = createLog({ ipcTag: 'sources:update' })
@@ -13,7 +13,7 @@ export const handleUpdate: DBHandler<SourceDTO | null, SourceInputDTO> = async f
 
   log.info(`Sources payload`, payload)
 
-  const provided = SourcesMapper.fromInputDTO(payload)
+  const provided = SourceMapper.fromInputDTO(payload)
   const existing = await repo.findOneBy({ id: payload.id })
 
   if (existing) {
@@ -21,7 +21,7 @@ export const handleUpdate: DBHandler<SourceDTO | null, SourceInputDTO> = async f
     const newInstance = repo.merge(existing, { ...provided, id: existing.id })
     const saved = await repo.save(newInstance)
     log.success(`Saved`, saved)
-    return SourcesMapper.toDTO(saved)
+    return SourceMapper.toDTO(saved)
   }
 
   log.warn(`Source "${payload.id}" is not found - skip`)

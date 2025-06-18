@@ -1,14 +1,20 @@
 // /main/mappers/configMapper.ts
-import { SourceEntity, SourceEntityNew } from '@main/database/models/source/Source'
+import { SourceCreateEntity, SourceEntity } from '@main/domains/Sources/entities/Source'
 
-import { SourceCreateDTO, SourceDTO, SourceInputDTO } from '@shared/domains/Sources/types'
+import {
+  SourceCreateDTO,
+  SourceDTO,
+  SourceInputDTO
+} from '@shared/domains/Sources/types/Source.types'
 
 function toDTO(entity: SourceEntity): SourceDTO {
   return {
     id: entity.id,
+    name: entity.name,
     path: entity.path,
     isEnabled: entity.isEnabled,
-    comment: entity.comment ?? null
+    comment: entity.comment ?? null,
+    models: []
   } satisfies SourceDTO
 }
 
@@ -19,17 +25,21 @@ function toDTOs(entities: SourceEntity[]): SourceDTO[] {
 function fromInputDTO(dto: SourceInputDTO): SourceEntity {
   return {
     id: dto.id,
+    name: dto.name,
     path: dto.path,
     isEnabled: dto.isEnabled,
-    comment: dto.comment ?? null
+    comment: dto.comment ?? null,
+    models: []
   }
 }
 
-function fromCreateDTO(dto: SourceCreateDTO): SourceEntityNew {
+function fromCreateDTO(dto: SourceCreateDTO): SourceCreateEntity {
   return {
+    name: dto.name,
     path: dto.path,
     isEnabled: dto.isEnabled,
-    comment: dto.comment ?? null
+    comment: dto.comment ?? null,
+    models: []
   }
 }
 
@@ -37,11 +47,11 @@ function fromInputDTOs(dtos: SourceInputDTO[]): SourceEntity[] {
   return dtos.map((dto) => fromInputDTO(dto))
 }
 
-function fromCreateDTOs(dtos: SourceCreateDTO[]): SourceEntityNew[] {
+function fromCreateDTOs(dtos: SourceCreateDTO[]): SourceCreateEntity[] {
   return dtos.map((dto) => fromCreateDTO(dto))
 }
 
-export const SourcesMapper = {
+export const SourceMapper = {
   toDTO,
   toDTOs,
   fromInputDTO,

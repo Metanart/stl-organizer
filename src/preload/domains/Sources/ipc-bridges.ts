@@ -5,7 +5,7 @@ import {
   SourceDTO,
   SourceInputDTO,
   SourceRemoveDTO
-} from '@shared/domains/Sources/types'
+} from '@shared/domains/Sources/types/Source.types'
 
 export const ipcBridgesSources = {
   getAll: createIpcBridge<SourceDTO[] | null>('sources:getAll'),

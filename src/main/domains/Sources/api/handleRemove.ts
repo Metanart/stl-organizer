@@ -1,8 +1,8 @@
 import { AppDataSource } from '@main/database/AppDataSource'
-import { Source } from '@main/database/models/source/Source'
+import { Source } from '@main/domains/Sources/entities/Source'
 import { DBHandler } from '@main/types'
 
-import { SourceRemoveDTO } from '@shared/domains/Sources/types'
+import { SourceRemoveDTO } from '@shared/domains/Sources/types/Source.types'
 import { createLog } from '@shared/utils/createLog'
 
 export const handleRemove: DBHandler<SourceRemoveDTO | null, SourceRemoveDTO> = async function (

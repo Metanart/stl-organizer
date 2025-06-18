@@ -6,7 +6,7 @@ import {
   SourceDTO,
   SourceInputDTO,
   SourceRemoveDTO
-} from '@shared/domains/Sources/types'
+} from '@shared/domains/Sources/types/Source.types'
 
 import { handleCreate } from './handleCreate'
 import { handleGetAll } from './handleGetAll'

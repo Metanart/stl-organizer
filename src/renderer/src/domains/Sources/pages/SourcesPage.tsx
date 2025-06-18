@@ -5,8 +5,8 @@ import { Page } from '@renderer/domains/Common/components/Page/Page'
 
 import { SourcesAddNewContainer } from '../containers/SourcesAddNewContainer'
 import { SourcesListContainer } from '../containers/SourcesListContainer'
-import { SourceNew } from '../state/types'
-import { useSourcesContext } from '../state/utils/hooks'
+import { useSourcesContext } from '../state/useSourcesContext'
+import { SourceCreate } from '../types/Source.types'
 
 export const SourcesPage: FC = () => {
   const [showAddNew, setShowAddNew] = useState(false)
@@ -19,7 +19,7 @@ export const SourcesPage: FC = () => {
     })
   }
 
-  const handleAddNewSource = (source: SourceNew): void => {
+  const handleAddNewSource = (source: SourceCreate): void => {
     create(source)
   }
 

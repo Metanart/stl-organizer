@@ -7,29 +7,35 @@ import {
   FormControlLabel,
   Grid,
   Switch,
-  TextField
+  TextField,
+  Typography
 } from '@mui/material'
 import { FolderInput } from '@renderer/domains/Common/components/ui/FolderInput'
 
-import { Source } from '../state/types'
+import { Source } from '../types/Source.types'
+import { SourceModel } from '../types/SourceModel.types'
 
 type Props = {
   id: number
+  name: string
   path: string
   isEnabled: boolean
   comment?: string | null
+  models: SourceModel[]
   onRemove?: (sourceId: number) => void
   onSave: (source: Source) => void
 }
 
 export const SourcesCard: FC<Props> = (props) => {
-  const { id, path = '', isEnabled, comment = '', onSave, onRemove } = props
+  const { id, name, path = '', isEnabled, comment = '', models, onSave, onRemove } = props
 
   const [formState, setFormState] = useState<Source>({
     id,
     path,
+    name,
     isEnabled,
-    comment
+    comment,
+    models
   })
 
   function updateFormState(name: string, value: string, type?: string, checked?: boolean): void {
@@ -102,6 +108,15 @@ export const SourcesCard: FC<Props> = (props) => {
                   onChange={handleInputChange}
                   placeholder="Optional description..."
                 />
+              </Grid>
+              <Grid size={12}>
+                {models.map((model) => {
+                  return (
+                    <Typography key={model.id} variant="body2" color="text.secondary" mt={2}>
+                      {model.name}
+                    </Typography>
+                  )
+                })}
               </Grid>
             </Grid>
           </CardContent>
