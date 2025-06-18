@@ -1,5 +1,5 @@
 import { AppDataSource } from '@main/database/AppDataSource'
-import { Source } from '@main/database/models/common/Source'
+import { Source } from '@main/database/models/source/Source'
 import { DBHandler } from '@main/types'
 
 import { SourceRemoveDTO } from '@shared/domains/Sources/types'

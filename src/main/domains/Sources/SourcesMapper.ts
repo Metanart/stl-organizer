@@ -1,5 +1,5 @@
 // /main/mappers/configMapper.ts
-import { SourceEntity, SourceEntityNew } from '@main/database/models/common/Source'
+import { SourceEntity, SourceEntityNew } from '@main/database/models/source/Source'
 
 import { SourceCreateDTO, SourceDTO, SourceInputDTO } from '@shared/domains/Sources/types'
 

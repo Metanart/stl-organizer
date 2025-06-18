@@ -7,7 +7,6 @@ import {
   ManyToMany,
   ManyToOne,
   OneToMany,
-  OneToOne,
   UpdateDateColumn
 } from 'typeorm'
 
@@ -15,12 +14,9 @@ import type { ModelStatus } from '@shared/database/types'
 
 import { _AbstractEntity } from '../abstract/core/_AbstractEntity'
 import { Category } from '../common/Category'
-import { Source } from '../common/Source'
 import { Tag } from '../common/Tag'
 
 import { ModelAuthor } from './ModelAuthor'
-import { ModelSourceArchive } from './ModelSourceArchive'
-import { ModelSourceImage } from './ModelSourceImage'
 import { ModelVariant } from './ModelVariant'
 
 @Entity()
@@ -45,15 +41,6 @@ export class Model extends _AbstractEntity {
   @Column({ type: 'varchar' })
   status!: ModelStatus
 
-  @OneToOne(() => ModelSourceArchive, (sourceArchive) => sourceArchive.model, {
-    cascade: true
-  })
-  @JoinColumn({ name: 'sourceArchiveId' })
-  sourceArchive!: ModelSourceArchive
-
-  @OneToMany(() => ModelSourceImage, (image) => image.model)
-  sourceImages!: ModelSourceImage[]
-
   @OneToMany(() => ModelVariant, (modelVariant) => modelVariant.model)
   variants!: ModelVariant[]
 
@@ -71,9 +58,6 @@ export class Model extends _AbstractEntity {
     inverseJoinColumn: { name: 'tagId', referencedColumnName: 'id' }
   })
   tags!: Tag[]
-
-  @ManyToOne(() => Source, { nullable: true })
-  Source?: Source
 
   @UpdateDateColumn()
   updatedAt!: Date
