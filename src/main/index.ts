@@ -10,7 +10,9 @@ import icon from '../../resources/icon.png?asset'
 
 import { AppDataSource } from './database/AppDataSource'
 
-import './utils/registerIpcHandlers'
+import '@main/domains/Config/ipc-handlers'
+import '@main/domains/Common/ipc-handlers'
+import '@main/domains/Sources/api/SourcesIpcHandlers'
 import 'dotenv/config'
 
 const log = createLog({ channel: 'main' })

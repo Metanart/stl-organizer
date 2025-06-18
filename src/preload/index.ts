@@ -2,7 +2,8 @@ import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge } from 'electron'
 
 import { ipcBridgesCommon } from './domains/Common/ipc-bridges'
-import { appIpcApi } from './utils/appIpcApi'
+import { ipcBridgesConfig } from './domains/Config/ipc-bridges'
+import { ipcBridgesSources } from './domains/Sources/api/SourcesIpcBridges'
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
@@ -13,7 +14,10 @@ if (process.contextIsolated) {
       ...electronAPI,
       ...ipcBridgesCommon
     })
-    contextBridge.exposeInMainWorld('api', appIpcApi)
+    contextBridge.exposeInMainWorld('api', {
+      config: ipcBridgesConfig,
+      sources: ipcBridgesSources
+    })
   } catch (error) {
     console.error(error)
   }

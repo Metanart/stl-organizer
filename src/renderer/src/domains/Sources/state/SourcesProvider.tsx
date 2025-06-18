@@ -6,7 +6,7 @@ import {
   invokeSourcesGetAll,
   invokeSourcesRemove,
   invokeSourcesUpdate
-} from '../api/Sources.ipc-invokers'
+} from '../api/SourcesIpcInvokers'
 import { SourceMapper } from '../mappers/SourceMapper'
 import { Source, SourceCreate, SourceRemove, SourcesState } from '../types/Source.types'
 
