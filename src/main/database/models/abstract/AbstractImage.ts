@@ -8,15 +8,15 @@ export abstract class AbstractImage extends _AbstractFile {
   @Column({ type: 'varchar' })
   extension!: ImageExtensions
 
-  @Column()
+  @Column({ type: 'int' })
   width!: number
 
-  @Column()
+  @Column({ type: 'int' })
   height!: number
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   category?: string
 
-  @Column({ default: false })
+  @Column({ type: 'boolean', default: false })
   isPreview!: boolean
 }

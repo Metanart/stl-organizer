@@ -5,19 +5,19 @@ import { _AbstractEntity } from './_AbstractEntity'
 export abstract class _AbstractFile extends _AbstractEntity {
   abstract extension: string
 
-  @Column()
+  @Column({ type: 'varchar' })
   name!: string
 
-  @Column()
+  @Column({ type: 'varchar' })
   path!: string
 
-  @Column()
+  @Column({ type: 'int' })
   sizeBytes!: number
 
-  @Column({ unique: true })
+  @Column({ type: 'varchar', unique: true })
   @Index()
   hash!: string
 
-  @Column({ default: false })
+  @Column({ type: 'boolean', default: false })
   isDeleted!: boolean
 }

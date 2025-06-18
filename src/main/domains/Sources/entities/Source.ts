@@ -8,7 +8,7 @@ export class Source extends _AbstractEntity {
   @Column({ type: 'varchar', unique: true })
   path!: string
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true })
   name!: string
 
   @Column({ type: 'boolean', default: true })

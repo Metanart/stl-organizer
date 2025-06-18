@@ -7,10 +7,10 @@ import { SourceImage } from './SourceImage'
 
 @Entity()
 export class SourceModel extends _AbstractEntity {
-  @Column()
+  @Column({ type: 'varchar', nullable: true })
   name!: string
 
-  @Column()
+  @Column({ type: 'varchar', nullable: true })
   path!: string
 
   @OneToOne(() => SourceArchive, (sourceArchive) => sourceArchive.model, {
