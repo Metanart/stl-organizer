@@ -7,6 +7,6 @@ export const ConfigRoute: AppRoute = {
   id: 'ConfigRoute',
   text: 'Config',
   icon: <SettingsIcon />,
-  path: '/config',
+  path: '/Config',
   element: <ConfigPage />
 }

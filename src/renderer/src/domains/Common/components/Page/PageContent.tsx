@@ -1,6 +1,10 @@
 import { FC, PropsWithChildren } from 'react'
 import { Box } from '@mui/material'
 
-export const PageContent: FC<PropsWithChildren> = ({ children }) => {
-  return <Box p={2}>{children}</Box>
+type Props = {
+  p?: number
+} & PropsWithChildren
+
+export const PageContent: FC<Props> = ({ p = 4, children }) => {
+  return <Box p={p}>{children}</Box>
 }

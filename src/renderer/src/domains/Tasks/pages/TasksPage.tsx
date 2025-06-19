@@ -3,14 +3,14 @@ import { Page } from '@renderer/domains/Common/components/Page/Page'
 import { PageContent } from '@renderer/domains/Common/components/Page/PageContent'
 import { PageHeader } from '@renderer/domains/Common/components/Page/PageHeader'
 
-import { ConfigContainer } from '../containers/ConfigContainer'
+import { Tasks } from '../components/Tasks'
 
-export const ConfigPage: FC = () => {
+export const TasksPage: FC = () => {
   return (
     <Page>
-      <PageHeader title={'Config'} />
-      <PageContent>
-        <ConfigContainer />
+      <PageHeader title={'Tasks'} />
+      <PageContent p={1}>
+        <Tasks />
       </PageContent>
     </Page>
   )

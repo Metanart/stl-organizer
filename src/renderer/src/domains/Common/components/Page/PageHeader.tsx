@@ -27,7 +27,12 @@ export const PageHeader: FC<Props> = (props) => {
         zIndex: 1201
       }}
     >
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ pl: 4 }}>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ pl: 4, minHeight: 56 }}
+      >
         <Typography variant="h5" fontWeight={600} component="h1" py={2}>
           {title}
         </Typography>

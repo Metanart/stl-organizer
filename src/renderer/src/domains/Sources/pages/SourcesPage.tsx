@@ -2,6 +2,8 @@ import { FC, useState } from 'react'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
 import { IconButton, Tooltip } from '@mui/material'
 import { Page } from '@renderer/domains/Common/components/Page/Page'
+import { PageContent } from '@renderer/domains/Common/components/Page/PageContent'
+import { PageHeader } from '@renderer/domains/Common/components/Page/PageHeader'
 
 import { SourcesAddNewContainer } from '../containers/SourcesAddNewContainer'
 import { SourcesListContainer } from '../containers/SourcesListContainer'
@@ -34,13 +36,16 @@ export const SourcesPage: FC = () => {
   }
 
   return (
-    <Page title="Source folders" actions={actions}>
-      <SourcesListContainer />
-      <SourcesAddNewContainer
-        isOpen={showAddNew}
-        onClose={handleToggleAddNew}
-        onSave={handleAddNewSource}
-      />
+    <Page>
+      <PageHeader title={'Sources'} actions={actions} />
+      <PageContent>
+        <SourcesListContainer />
+        <SourcesAddNewContainer
+          isOpen={showAddNew}
+          onClose={handleToggleAddNew}
+          onSave={handleAddNewSource}
+        />
+      </PageContent>
     </Page>
   )
 }

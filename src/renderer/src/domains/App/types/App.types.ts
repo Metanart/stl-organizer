@@ -15,8 +15,14 @@ export type AppRoute = {
   id: `${AppDomains}Route`
   text: string
   icon: ReactElement
-  path: string
+  path: AppURL
   element: ReactElement
 }
 
-export type AppDomains = 'App' | 'Common' | 'Home' | 'Models' | 'Sources' | 'Config'
+export type AppBaseDomains = 'App' | 'Common'
+
+export type AppFeatureDomains = 'Home' | 'Models' | 'Sources' | 'Config' | 'Tasks'
+
+export type AppDomains = AppBaseDomains | AppFeatureDomains
+
+export type AppURL = '/' | `/${AppFeatureDomains}`
