@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 
-import { AppNavigationItem } from '../types'
+import { AppNavigationItem } from '../types/App.types'
 
 type Props = AppNavigationItem & {
   to: string

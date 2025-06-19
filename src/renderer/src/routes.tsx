@@ -1,43 +1,7 @@
-import { ReactElement } from 'react'
-import CollectionsIcon from '@mui/icons-material/Collections'
-import FormatListBulletedAddIcon from '@mui/icons-material/FormatListBulletedAdd'
-import HomeIcon from '@mui/icons-material/Home'
-import SettingsIcon from '@mui/icons-material/Settings'
+import { AppRoute } from './domains/App/types/App.types'
+import { ConfigRoute } from './domains/Config/routes/ConfigRoute'
+import { HomeRoute } from './domains/Home/routes/HomeRoute'
+import { ModelsRoute } from './domains/Models/routes/ModelsRoute'
+import { SourceRoute } from './domains/Sources/routes/SourceRoute'
 
-import { ConfigPage } from './domains/Config/pages/ConfigPage'
-import { HomePage } from './domains/Home/pages/HomePage'
-import { ModelsPage } from './domains/Models/pages/ModelsPage'
-import { SourcesPage } from './domains/Sources/pages/SourcesPage'
-
-type AppRoute = {
-  id: string
-  text: string
-  icon: ReactElement
-  path: string
-  element: ReactElement
-}
-
-export const ROUTES: AppRoute[] = [
-  { id: 'RouteHome', text: 'Home', icon: <HomeIcon />, path: '/', element: <HomePage /> },
-  {
-    id: 'RouteModels',
-    text: 'Models',
-    icon: <CollectionsIcon />,
-    path: '/models',
-    element: <ModelsPage />
-  },
-  {
-    id: 'RouteSources',
-    text: 'Sources',
-    icon: <FormatListBulletedAddIcon />,
-    path: '/sources',
-    element: <SourcesPage />
-  },
-  {
-    id: 'RouteConfig',
-    text: 'Config',
-    icon: <SettingsIcon />,
-    path: '/config',
-    element: <ConfigPage />
-  }
-]
+export const ROUTES: AppRoute[] = [HomeRoute, ModelsRoute, SourceRoute, ConfigRoute]

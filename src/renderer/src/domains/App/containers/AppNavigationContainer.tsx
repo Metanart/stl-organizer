@@ -3,7 +3,7 @@ import { ROUTES } from '@renderer/routes'
 
 import { AppNavigation } from '../components/AppNavigation'
 import { AppNavigationButton } from '../components/AppNavigationButton'
-import { AppNavigationParams } from '../types'
+import { AppNavigationParams } from '../types/App.types'
 
 type Props = {
   onToggleClick: () => void

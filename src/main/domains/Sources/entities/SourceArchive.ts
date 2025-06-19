@@ -1,4 +1,4 @@
-import { AbstractArchive } from '@main/database/models/abstract/AbstractArchive'
+import { AbstractArchive } from '@main/domains/Common/entities/abstract/AbstractArchive'
 import { Entity, OneToOne } from 'typeorm'
 
 import { SourceModel } from './SourceModel'

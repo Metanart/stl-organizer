@@ -2,7 +2,7 @@ import { Children, FC, ReactElement } from 'react'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Drawer, IconButton, List, ListItem, Toolbar } from '@mui/material'
 
-import { AppNavigationItem } from '../types'
+import { AppNavigationItem } from '../types/App.types'
 
 const drawerWidthExpanded = 160
 const drawerWidthCollapsed = 52

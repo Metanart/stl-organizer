@@ -1,8 +1,8 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { Button, Checkbox, FormControlLabel, Stack, TextField } from '@mui/material'
 
-import { FolderInput } from '../../Common/components/ui/FolderInput'
-import { ConfigState } from '../types'
+import { FolderInput } from '../../Common/components/FolderInput'
+import { ConfigState } from '../types/Config.types'
 
 type Props = {
   config: ConfigState

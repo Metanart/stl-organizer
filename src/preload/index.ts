@@ -1,8 +1,8 @@
 import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge } from 'electron'
 
-import { ipcBridgesCommon } from './domains/Common/ipc-bridges'
-import { ipcBridgesConfig } from './domains/Config/ipc-bridges'
+import { ipcBridgesCommon } from './domains/Common/api/CommonIpcBridges'
+import { ipcBridgesConfig } from './domains/Config/api/ConfigIpcBridges'
 import { ipcBridgesSources } from './domains/Sources/api/SourcesIpcBridges'
 
 // Use `contextBridge` APIs to expose Electron APIs to

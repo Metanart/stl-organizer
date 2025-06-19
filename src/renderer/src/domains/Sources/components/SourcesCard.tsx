@@ -10,7 +10,7 @@ import {
   TextField,
   Typography
 } from '@mui/material'
-import { FolderInput } from '@renderer/domains/Common/components/ui/FolderInput'
+import { FolderInput } from '@renderer/domains/Common/components/FolderInput'
 
 import { Source } from '../types/Source.types'
 import { SourceModel } from '../types/SourceModel.types'

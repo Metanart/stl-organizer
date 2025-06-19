@@ -1,9 +1,9 @@
 import { FC, PropsWithChildren, useEffect, useState } from 'react'
 import { useRequestState } from '@renderer/utils/useRequestState'
 
-import { Config, ConfigState } from '../types'
+import { invokeConfigGet, invokeConfigUpdate } from '../api/ConfigIpcInvokers'
+import { Config, ConfigState } from '../types/Config.types'
 
-import { invokeConfigGet, invokeConfigUpdate } from './utils/ipc-invokers'
 import { ConfigContext } from './ConfigContext'
 import { ConfigMapper } from './ConfigMapper'
 

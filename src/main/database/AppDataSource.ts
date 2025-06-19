@@ -5,9 +5,8 @@ import { app } from 'electron'
 import path from 'path'
 import { DataSource } from 'typeorm'
 
+import { Config } from '../domains/Config/entities/Config'
 import { Source } from '../domains/Sources/entities/Source'
-
-import { Config } from './models/common/Config'
 
 export const dbPath = path.join(app.getPath('userData'), 'stl-organizer.sqlite')
 

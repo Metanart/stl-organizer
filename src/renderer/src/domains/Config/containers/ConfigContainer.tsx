@@ -4,7 +4,7 @@ import { Message } from '../../Common/components/Message'
 import { Config } from '../components/Config'
 import { ConfigSkeleton } from '../components/ConfigSkeleton'
 import { ConfigContext } from '../state/ConfigContext'
-import { ConfigState } from '../types'
+import { ConfigState } from '../types/Config.types'
 
 export const ConfigContainer: FC = () => {
   const { config, isLoading, update, error } = useContext(ConfigContext)

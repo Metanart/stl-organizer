@@ -1,4 +1,4 @@
-import { _AbstractEntity } from '@main/database/models/abstract/core/_AbstractEntity'
+import { _AbstractEntity } from '@main/domains/Common/entities/abstract/core/_AbstractEntity'
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm'
 
 import { Source } from './Source'

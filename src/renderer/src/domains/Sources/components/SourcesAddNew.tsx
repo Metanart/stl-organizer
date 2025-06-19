@@ -9,7 +9,7 @@ import {
   Switch,
   TextField
 } from '@mui/material'
-import { FolderInput } from '@renderer/domains/Common/components/ui/FolderInput'
+import { FolderInput } from '@renderer/domains/Common/components/FolderInput'
 
 import { SourceCreate } from '../types/Source.types'
 

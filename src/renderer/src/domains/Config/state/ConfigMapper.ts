@@ -1,6 +1,6 @@
 import { ConfigDTO, ConfigInputDTO } from '@shared/domains/Config/types'
 
-import { Config } from '../types'
+import { Config } from '../types/Config.types'
 
 export function fromDTO(dto: ConfigDTO): Config {
   return {
