@@ -1,12 +1,12 @@
 {
   "folders": [
     {
-      "name": "shared",
-      "path": "./src/shared/"
+      "name": "renderer",
+      "path": "../src/renderer/src/domains/App"
     },
     {
       "name": "root",
-      "path": "."
+      "path": "../"
     }
   ],
   "settings": {

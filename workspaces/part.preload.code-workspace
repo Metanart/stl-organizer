@@ -1,12 +1,12 @@
 {
   "folders": [
     {
-      "name": "renderer",
-      "path": "./src/renderer/src/"
+      "name": "preload",
+      "path": "../src/preload/"
     },
     {
       "name": "root",
-      "path": "."
+      "path": "../"
     }
   ],
   "settings": {

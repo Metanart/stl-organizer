@@ -1,12 +1,24 @@
 {
   "folders": [
     {
+      "name": "main",
+      "path": "../src/main/domains/Models"
+    },
+    {
+      "name": "preload",
+      "path": "../src/preload/domains/Models"
+    },
+    {
       "name": "renderer",
-      "path": "./src/renderer/src/domains/App"
+      "path": "../src/renderer/src/domains/Models"
+    },
+    {
+      "name": "shared",
+      "path": "../src/shared/domains/Models"
     },
     {
       "name": "root",
-      "path": "."
+      "path": "../"
     }
   ],
   "settings": {

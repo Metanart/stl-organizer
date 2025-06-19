@@ -1,24 +1,8 @@
 {
   "folders": [
     {
-      "name": "main",
-      "path": "./src/main/domains/Common"
-    },
-    {
-      "name": "preload",
-      "path": "./src/preload/domains/Common"
-    },
-    {
-      "name": "renderer",
-      "path": "./src/renderer/src/domains/Common"
-    },
-    {
-      "name": "shared",
-      "path": "./src/shared/domains/Common"
-    },
-    {
       "name": "root",
-      "path": "."
+      "path": "../"
     }
   ],
   "settings": {

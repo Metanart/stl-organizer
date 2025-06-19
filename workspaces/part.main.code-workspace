@@ -2,23 +2,11 @@
   "folders": [
     {
       "name": "main",
-      "path": "./src/main/domains/Config"
-    },
-    {
-      "name": "preload",
-      "path": "./src/preload/domains/Config"
-    },
-    {
-      "name": "renderer",
-      "path": "./src/renderer/src/domains/Config"
-    },
-    {
-      "name": "shared",
-      "path": "./src/shared/domains/Config"
+      "path": "../src/main/"
     },
     {
       "name": "root",
-      "path": "."
+      "path": "../"
     }
   ],
   "settings": {
