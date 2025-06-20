@@ -1,26 +1,28 @@
 import { FC } from 'react'
 import { Modal } from '@renderer/domains/Common/components/Modal/Modal'
 
-import { SourcesAddNew } from '../components/SourcesAddNew'
+import { SourcesCreate } from '../components/SourcesCreate'
+import { useSourcesContext } from '../state/useSourcesContext'
 import { SourceCreate } from '../types/Source.types'
 
 type Props = {
   isOpen: boolean
   onClose: () => void
-  onSave: (source: SourceCreate) => void
 }
 
-export const SourcesAddNewContainer: FC<Props> = (props) => {
-  const { isOpen, onSave, onClose } = props
+export const SourcesCreateContainer: FC<Props> = (props) => {
+  const { isOpen, onClose } = props
+
+  const { create } = useSourcesContext()
 
   const handleSave = (source: SourceCreate): void => {
-    onSave(source)
+    create(source)
     onClose()
   }
 
   return (
     <Modal title="Add new source folder" isOpen={isOpen} onClose={onClose}>
-      <SourcesAddNew onSave={handleSave} />
+      <SourcesCreate onSave={handleSave} />
     </Modal>
   )
 }

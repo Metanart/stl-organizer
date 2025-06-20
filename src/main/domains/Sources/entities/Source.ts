@@ -8,19 +8,15 @@ export class Source extends _AbstractEntity {
   @Column({ type: 'varchar', unique: true })
   path!: string
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', unique: true })
   name!: string
-
-  @Column({ type: 'boolean', default: true })
-  isEnabled!: boolean
 
   @Column({ type: 'varchar', nullable: true })
   comment!: string | null
 
   @OneToMany(() => SourceModel, (sourceModel) => sourceModel.source, { nullable: true })
   models!: SourceModel[]
+
+  @Column({ type: 'boolean', default: true })
+  isEnabled!: boolean
 }
-
-export type SourceEntity = Source
-
-export type SourceCreateEntity = Omit<SourceEntity, 'id'>

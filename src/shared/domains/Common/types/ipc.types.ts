@@ -1,6 +1,6 @@
 export type IpcResponse<T> = { data: T; error: null } | { data: null; error: string }
 
-export type IpcTagEntity = 'config' | 'sources'
+export type IpcTagEntity = 'config' | 'sources' | 'tasks'
 
 export type IpcTagAction = 'get' | 'getAll' | 'getFirst' | 'create' | 'update' | 'remove'
 

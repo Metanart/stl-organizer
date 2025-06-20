@@ -1,10 +1,13 @@
+import { AutoMap } from '@automapper/classes'
 import { CreateDateColumn, Index, PrimaryGeneratedColumn } from 'typeorm'
 
 export abstract class _AbstractEntity {
-  @PrimaryGeneratedColumn()
-  id!: number
+  @PrimaryGeneratedColumn('uuid')
+  @AutoMap()
+  id!: string
 
   @CreateDateColumn()
   @Index()
-  createdAt?: Date
+  @AutoMap()
+  createdAt!: Date
 }

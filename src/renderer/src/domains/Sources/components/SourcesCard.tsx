@@ -16,7 +16,7 @@ import { Source } from '../types/Source.types'
 import { SourceModel } from '../types/SourceModel.types'
 
 type Props = {
-  id: number
+  id: string
   name: string
   path: string
   isEnabled: boolean

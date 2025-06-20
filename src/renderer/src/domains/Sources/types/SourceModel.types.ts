@@ -1,5 +1,5 @@
 export type SourceModel = {
-  id: number
+  id: string
   name: string
   path: string
   archive: SourceArchive
@@ -7,7 +7,7 @@ export type SourceModel = {
 }
 
 export type SourceImage = {
-  id: number
+  id: string
   path: string
 }
 

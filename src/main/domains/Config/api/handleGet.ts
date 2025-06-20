@@ -5,8 +5,8 @@ import { DBHandler } from '@main/types'
 import { ConfigDTO } from '@shared/domains/Config/types'
 import { createLog } from '@shared/utils/createLog'
 
-import { ConfigMappers } from '../mappers/ConfigMappers'
 import { DEFAULT_CONFIG_ID } from '../const'
+import { ConfigMapper } from '../mappers/ConfigMapper'
 
 export const handleGet: DBHandler<ConfigDTO | null> = async function () {
   const log = createLog({ ipcTag: 'config:get' })
@@ -21,5 +21,5 @@ export const handleGet: DBHandler<ConfigDTO | null> = async function () {
 
   log.success(`Config found`)
 
-  return ConfigMappers.toDTO(entity)
+  return ConfigMapper.toDTO(entity)
 }

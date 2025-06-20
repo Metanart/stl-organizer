@@ -1,7 +1,7 @@
 import { SourceModel } from './SourceModel.types'
 
 export type Source = {
-  id: number
+  id: string
   name: string
   path: string
   isEnabled: boolean
@@ -11,7 +11,7 @@ export type Source = {
 
 export type SourceCreate = Omit<Source, 'id' | 'models'>
 
-export type SourceRemove = { id: number }
+export type SourceRemove = { id: string }
 
 export type SourcesList = Record<number, Source>
 

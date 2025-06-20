@@ -17,7 +17,7 @@ type Props = {
   onSave: (formState: SourceCreate) => void
 }
 
-export const SourcesAddNew: FC<Props> = (props) => {
+export const SourcesCreate: FC<Props> = (props) => {
   const { onSave } = props
 
   const [formState, setFormState] = useState<SourceCreate>({

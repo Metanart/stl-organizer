@@ -1,10 +1,18 @@
+import { AutoMap } from '@automapper/classes'
 import { Column } from 'typeorm'
-
-import type { ArchiveExtensions } from '@shared/domains/Common/types/extensions.types'
 
 import { _AbstractFile } from './core/_AbstractFile'
 
+enum ArchiveExtensions {
+  ZIP = 'zip',
+  RAR = 'rar',
+  _7Z = '7z'
+}
+
+export type ArchiveExtensionsType = `${ArchiveExtensions}`
+
 export abstract class AbstractArchive extends _AbstractFile {
-  @Column({ type: 'varchar' })
+  @Column({ type: 'enum', default: ArchiveExtensions.ZIP, enum: ArchiveExtensions })
+  @AutoMap()
   extension!: ArchiveExtensions
 }

@@ -5,7 +5,7 @@ import { DBHandler } from '@main/types'
 import { SourceCreateDTO, SourceDTO } from '@shared/domains/Sources/types/Source.types'
 import { createLog } from '@shared/utils/createLog'
 
-import { SourceMapper } from '../../../../shared/domains/Sources/mappers/SourceMapper'
+import { SourceMapper } from '../mappers/SourceMapper'
 
 export const handleCreate: DBHandler<SourceDTO | null, SourceCreateDTO> = async function (payload) {
   const log = createLog({ ipcTag: 'sources:create' })

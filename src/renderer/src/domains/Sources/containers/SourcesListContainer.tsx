@@ -14,7 +14,7 @@ export const SourcesListContainer: FC = () => {
     update(source)
   }
 
-  const handleRemove = (id: number): void => {
+  const handleRemove = (id: string): void => {
     remove({ id })
   }
 

@@ -1,0 +1,43 @@
+{
+  "folders": [
+    {
+      "name": "main",
+      "path": "../src/main/domains/Tasks"
+    },
+    {
+      "name": "preload",
+      "path": "../src/preload/domains/Tasks"
+    },
+    {
+      "name": "renderer",
+      "path": "../src/renderer/src/domains/Tasks"
+    },
+    {
+      "name": "shared",
+      "path": "../src/shared/domains/Tasks"
+    },
+    {
+      "name": "root",
+      "path": "../"
+    }
+  ],
+  "settings": {
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.fixAll.eslint": "explicit"
+    },
+    "eslint.format.enable": false,
+    "eslint.useFlatConfig": true,
+    "eslint.validate": ["javascript", "typescript", "typescriptreact"]
+  }
+}

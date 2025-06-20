@@ -5,14 +5,14 @@ import { DBHandler } from '@main/types'
 import { ConfigDTO, ConfigInputDTO } from '@shared/domains/Config/types'
 import { createLog } from '@shared/utils/createLog'
 
-import { ConfigMappers } from '../mappers/ConfigMappers'
+import { ConfigMapper } from '../mappers/ConfigMapper'
 
 export const handleUpdate: DBHandler<ConfigDTO | null, ConfigInputDTO> = async function (payload) {
   const log = createLog({ ipcTag: 'config:update' })
 
   const repo = AppDataSource.getRepository(Config)
 
-  const provided = ConfigMappers.fromInputDTO(payload)
+  const provided = ConfigMapper.fromInputDTO(payload)
   const existing = await repo.findOne({ where: { id: provided.id } })
 
   log.info(`Config payload`, payload)
@@ -30,5 +30,5 @@ export const handleUpdate: DBHandler<ConfigDTO | null, ConfigInputDTO> = async f
   const saved = await repo.save(updated)
   log.success(`Saved`, saved)
 
-  return ConfigMappers.toDTO(saved)
+  return ConfigMapper.toDTO(saved)
 }

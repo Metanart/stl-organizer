@@ -9,4 +9,4 @@ export class SourceArchive extends AbstractArchive {
   model!: SourceModel
 }
 
-export type SourceArchiveEntity = SourceArchive
+export type SourceArchiveCreate = Omit<SourceArchive, 'id'>

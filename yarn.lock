@@ -15,6 +15,21 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
+"@automapper/classes@^8.8.1":
+  version "8.8.1"
+  resolved "https://registry.yarnpkg.com/@automapper/classes/-/classes-8.8.1.tgz#ce7ecea0004096f6d96f0841074150e6317ce639"
+  integrity sha512-qWP92Vz4z5zGWVXVkoGKmI9PIiAh8uhTBcKpKMmTVwmS1wfOQgj3ceD+A3mlC9ZUTohwvXebS3M30scLaUZmeg==
+
+"@automapper/core@^8.8.1":
+  version "8.8.1"
+  resolved "https://registry.yarnpkg.com/@automapper/core/-/core-8.8.1.tgz#9a823da7e2b706b5c0f39ae463971ce100a229a4"
+  integrity sha512-VIRULNAImqaTojp8zqhVGVimjxjriawqZWlemooWh5B5tX2XlgA6icPrQBQh+M9wY8IVQipBTOcr338N9lf8RA==
+
+"@automapper/types@^6.3.1":
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/@automapper/types/-/types-6.3.1.tgz#cd40423142d7fe1bb9f18274ca0e2b2b7e26e807"
+  integrity sha512-f0Y/Q4dVfKH6SQyzS5bPk+hZ4pSxzVNAOPEHdEAUe3gAc6ou43DCBYERuOaVSZ3zbWJbVt1KgWVNLP1dj9OIeg==
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.27.1":
   version "7.27.1"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.27.1.tgz#200f715e66d52a23b221a9435534a91cc13ad5be"

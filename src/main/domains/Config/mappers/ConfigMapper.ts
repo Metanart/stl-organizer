@@ -31,7 +31,7 @@ function fromInputDTO(dto: ConfigInputDTO): ConfigEntity {
   }
 }
 
-export const ConfigMappers = {
+export const ConfigMapper = {
   toDTO,
   fromInputDTO
 }

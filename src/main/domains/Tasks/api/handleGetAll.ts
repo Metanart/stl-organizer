@@ -5,8 +5,6 @@ import { DBHandler } from '@main/types'
 import { SourceDTO } from '@shared/domains/Sources/types/Source.types'
 import { createLog } from '@shared/utils/createLog'
 
-import { SourceMapper } from '../../../../shared/domains/Sources/mappers/SourceMapper'
-
 export const handleGetAll: DBHandler<SourceDTO[] | null> = async function () {
   const log = createLog({ ipcTag: 'sources:getAll' })
 
@@ -21,5 +19,5 @@ export const handleGetAll: DBHandler<SourceDTO[] | null> = async function () {
 
   log.success(`Sources are found`)
 
-  return SourceMapper.toDTOs(entities)
+  return TasksMapper.toDTOs(entities)
 }

@@ -1,5 +1,3 @@
-export type ArchiveExtensions = 'zip' | 'rar' | '7z'
-
 export type ImageExtensions =
   | 'jpg'
   | 'jpeg'
