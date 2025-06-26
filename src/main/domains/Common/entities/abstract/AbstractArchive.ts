@@ -1,4 +1,3 @@
-import { AutoMap } from '@automapper/classes'
 import { Column } from 'typeorm'
 
 import { _AbstractFile } from './core/_AbstractFile'
@@ -13,6 +12,5 @@ export type ArchiveExtensionsType = `${ArchiveExtensions}`
 
 export abstract class AbstractArchive extends _AbstractFile {
   @Column({ type: 'enum', default: ArchiveExtensions.ZIP, enum: ArchiveExtensions })
-  @AutoMap()
   extension!: ArchiveExtensions
 }

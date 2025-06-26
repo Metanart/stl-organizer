@@ -1,4 +1,4 @@
-import { ApiHandlerNoPayload, ApiResponse, ApiTag } from '@shared/domains/Common/types/api'
+import { ApiHandlerNoPayload, ApiResponse, ApiTag } from '@shared/domains/Common/types/Api.types'
 import { createLog } from '@shared/utils/createLog'
 
 export function createApiHandler<R>(tag: ApiTag, handler: () => Promise<ApiResponse<R>>) {

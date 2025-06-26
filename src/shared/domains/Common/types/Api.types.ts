@@ -1,4 +1,4 @@
-import { Action, Domain } from './common'
+import { Action, Domain } from './Common.types'
 
 export type ApiTag = `${Domain}Api.${Action}`
 

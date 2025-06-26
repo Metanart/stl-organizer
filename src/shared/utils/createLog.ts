@@ -1,9 +1,9 @@
 import { consola, ConsolaInstance, LogLevel } from 'consola'
 
-import { ApiTag } from '@shared/domains/Common/types/api'
-import { ProjectArea } from '@shared/domains/Common/types/common'
-import { IpcTag, IpcTagCustom } from '@shared/domains/Common/types/ipc'
-import { ServiceTag } from '@shared/domains/Common/types/services'
+import { ApiTag } from '@shared/domains/Common/types/Api.types'
+import { ProjectArea } from '@shared/domains/Common/types/Common.types'
+import { IpcTag, IpcTagCustom } from '@shared/domains/Common/types/IPC.types'
+import { ServiceTag } from '@shared/domains/Common/types/Services.types'
 
 import { getEnv } from './getEnv'
 

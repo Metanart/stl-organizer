@@ -1,4 +1,4 @@
-import { Action, Domain } from './common'
+import { Action, Domain } from './Common.types'
 
 // These Ipc tags are used to invoke methods from the main process
 // and they should be the same as the ones used in the main process

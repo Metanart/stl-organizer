@@ -1,8 +1,8 @@
 import { ipcMain } from 'electron'
 import { IpcMainInvokeEvent } from 'electron/main'
 
-import { ApiResponse } from '@shared/domains/Common/types/api'
-import { IpcTag } from '@shared/domains/Common/types/ipc'
+import { ApiResponse } from '@shared/domains/Common/types/Api.types'
+import { IpcTag } from '@shared/domains/Common/types/IPC.types'
 import { createLog } from '@shared/utils/createLog'
 
 type ServiceHandler<R, P> = (() => Promise<R>) | ((payload: P) => Promise<R>)

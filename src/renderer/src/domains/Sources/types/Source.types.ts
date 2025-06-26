@@ -1,4 +1,4 @@
-import { RemoveDTO } from '@shared/domains/Common/dto/RemoveDTO'
+import { RemoveDTO } from '@shared/domains/Common/dtos/DTOs'
 import { SourceCreateFormDTO, SourceUpdateFormDTO } from '@shared/domains/Sources/dto/SourceDTO'
 
 export type SourceForm = {

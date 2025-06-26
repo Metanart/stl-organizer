@@ -10,10 +10,10 @@ import icon from '../../resources/icon.png?asset'
 
 import { AppDataSource } from './database/AppDataSource'
 
+import 'dotenv/config'
 import '@main/domains/Config/api/ConfigIpcHandlers'
 import '@main/domains/Common/api/CommonApiHandlers'
-import '@main/domains/Sources/api/SourcesIpcHandlers'
-import 'dotenv/config'
+import '@main/domains/Config/mappers/ConfigMapper'
 
 const log = createLog({ category: 'MAIN' })
 

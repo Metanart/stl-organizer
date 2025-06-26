@@ -3,7 +3,6 @@ import { contextBridge } from 'electron'
 
 import { commonApiInvokers } from './domains/Common/api/CommonApiInvokers'
 import { configIpcInvokers } from './domains/Config/api/ConfigIpcInvokers'
-import { sourcesIpcInvokers } from './domains/Sources/api/SourcesIpcInvokers'
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
@@ -15,8 +14,7 @@ if (process.contextIsolated) {
       ...commonApiInvokers
     })
     contextBridge.exposeInMainWorld('api', {
-      config: configIpcInvokers,
-      sources: sourcesIpcInvokers
+      config: configIpcInvokers
     })
   } catch (error) {
     console.error(error)

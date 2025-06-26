@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Loader } from '@renderer/domains/Common/components/Loader'
 import { Message } from '@renderer/domains/Common/components/Message'
 
-import { RemoveDTO } from '@shared/domains/Common/dto/RemoveDTO'
+import { RemoveDTO } from '@shared/domains/Common/dtos/DTOs'
 import { SourceUpdateFormDTO } from '@shared/domains/Sources/dto/SourceDTO'
 
 import { SourcesCard } from '../components/SourcesCard'

@@ -15,15 +15,15 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@automapper/classes@^8.8.1":
-  version "8.8.1"
-  resolved "https://registry.yarnpkg.com/@automapper/classes/-/classes-8.8.1.tgz#ce7ecea0004096f6d96f0841074150e6317ce639"
-  integrity sha512-qWP92Vz4z5zGWVXVkoGKmI9PIiAh8uhTBcKpKMmTVwmS1wfOQgj3ceD+A3mlC9ZUTohwvXebS3M30scLaUZmeg==
-
 "@automapper/core@^8.8.1":
   version "8.8.1"
   resolved "https://registry.yarnpkg.com/@automapper/core/-/core-8.8.1.tgz#9a823da7e2b706b5c0f39ae463971ce100a229a4"
   integrity sha512-VIRULNAImqaTojp8zqhVGVimjxjriawqZWlemooWh5B5tX2XlgA6icPrQBQh+M9wY8IVQipBTOcr338N9lf8RA==
+
+"@automapper/pojos@^8.8.1":
+  version "8.8.1"
+  resolved "https://registry.yarnpkg.com/@automapper/pojos/-/pojos-8.8.1.tgz#1127f344e25943a85d637d0ba88d643bfdef7235"
+  integrity sha512-nHzNmzPNikflL1S0m1NA9lYpPC54ZS/Mo/j2yyvyfoXjIqqzVmVWYefgp1EJRbqrL0g6lS/ZgSdEKgmUW/Tv0w==
 
 "@automapper/types@^6.3.1":
   version "6.3.1"

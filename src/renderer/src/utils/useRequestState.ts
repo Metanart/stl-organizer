@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { ApiHandlerWrapped, ApiResponse } from '@shared/domains/Common/types/api'
+import { ApiHandlerWrapped, ApiResponse } from '@shared/domains/Common/types/Api.types'
 
 type ProcessApiRequest = <R>(apiHandlerWrapped: ApiHandlerWrapped<R>) => Promise<ApiResponse<R>>
 

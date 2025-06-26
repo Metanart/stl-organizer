@@ -1,6 +1,6 @@
 import { handleServiceToIpc } from '@main/utils/handleServiceToIpc'
 
-import { ConfigDTO, ConfigUpdateDTO } from '@shared/domains/Config/dto/ConfigDTO'
+import { ConfigDTO, ConfigUpdateDTO } from '@shared/domains/Config/dtos/ConfigDTO'
 
 import { ConfigService } from '../services/ConfigService'
 

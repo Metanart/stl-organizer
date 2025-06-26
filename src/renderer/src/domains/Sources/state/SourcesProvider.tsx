@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren, useEffect, useState } from 'react'
 import { useRequestState } from '@renderer/utils/useRequestState'
 
-import { RemoveDTO } from '@shared/domains/Common/dto/RemoveDTO'
+import { RemoveDTO } from '@shared/domains/Common/dtos/DTOs'
 import {
   SourceCreateDTO,
   SourceCreateFormDTO,

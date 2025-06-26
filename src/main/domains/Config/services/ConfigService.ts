@@ -2,7 +2,7 @@ import { AppDataSource } from '@main/database/AppDataSource'
 import { ConfigMapper } from '@main/domains/Config/mappers/ConfigMapper'
 import { IsNull, Not } from 'typeorm'
 
-import { ConfigDTO, ConfigUpdateDTO } from '@shared/domains/Config/dto/ConfigDTO'
+import { CONFIG_DTO_KEYS, ConfigDTO, ConfigUpdateDTO } from '@shared/domains/Config/dtos/ConfigDTO'
 import { createLog } from '@shared/utils/createLog'
 
 import { Config } from '../entities/Config'
@@ -29,11 +29,15 @@ export class ConfigService {
     if (!config) {
       log.error('Config not found - create a new one')
       const newConfig = repo.create()
-      const config = await repo.save(newConfig)
+      config = await repo.save(newConfig)
       log.success(`Saved`, config)
     }
 
-    return ConfigMapper.map(config, Config, ConfigDTO)
+    return ConfigMapper.map<Config, ConfigDTO>(
+      config,
+      CONFIG_DTO_KEYS.Config,
+      CONFIG_DTO_KEYS.ConfigDTO
+    )
   }
 
   static async update(updatedConfig: ConfigUpdateDTO): Promise<ConfigDTO | null> {
@@ -61,6 +65,12 @@ export class ConfigService {
     const savedConfig = await repo.save(finalConfig)
     log.success(`Saved`, savedConfig)
 
-    return ConfigMapper.map(savedConfig, Config, ConfigDTO)
+    console.log('savedConfig', savedConfig)
+
+    return ConfigMapper.map<Config, ConfigDTO>(
+      savedConfig,
+      CONFIG_DTO_KEYS.Config,
+      CONFIG_DTO_KEYS.ConfigDTO
+    )
   }
 }

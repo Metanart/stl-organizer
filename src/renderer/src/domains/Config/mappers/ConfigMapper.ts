@@ -1,19 +1,55 @@
-import { classes } from '@automapper/classes'
 import { createMap, createMapper } from '@automapper/core'
+import { pojos, PojosMetadataMap } from '@automapper/pojos'
 
-import {
-  ConfigDTO,
-  ConfigFormDTO,
-  ConfigUpdateDTO,
-  ConfigUpdateFormDTO
-} from '@shared/domains/Config/dto/ConfigDTO'
+import { CONFIG_DTO_KEYS } from '@shared/domains/Config/dtos/ConfigDTO'
 
-export const ConfigMapper = createMapper({
-  strategyInitializer: classes()
+PojosMetadataMap.create(CONFIG_DTO_KEYS.ConfigDTO, {
+  id: String,
+  outputFolder: String,
+  tempFolder: String,
+  maxThreads: Number,
+  autoProcessOnScan: Boolean,
+  autoArchiveOnComplete: Boolean,
+  useMultithreading: Boolean,
+  debugMode: Boolean
 })
 
-// Server -> Client
-createMap(ConfigMapper, ConfigDTO, ConfigFormDTO)
+PojosMetadataMap.create(CONFIG_DTO_KEYS.ConfigFormDTO, {
+  id: String,
+  outputFolder: String,
+  tempFolder: String,
+  maxThreads: Number,
+  autoProcessOnScan: Boolean,
+  autoArchiveOnComplete: Boolean,
+  useMultithreading: Boolean,
+  debugMode: Boolean
+})
 
-// Client -> Server
-createMap(ConfigMapper, ConfigUpdateFormDTO, ConfigUpdateDTO)
+PojosMetadataMap.create(CONFIG_DTO_KEYS.ConfigUpdateDTO, {
+  id: String,
+  outputFolder: String,
+  tempFolder: String,
+  maxThreads: Number,
+  autoProcessOnScan: Boolean,
+  autoArchiveOnComplete: Boolean,
+  useMultithreading: Boolean,
+  debugMode: Boolean
+})
+
+PojosMetadataMap.create(CONFIG_DTO_KEYS.ConfigUpdateFormDTO, {
+  id: String,
+  outputFolder: String,
+  tempFolder: String,
+  maxThreads: Number,
+  autoProcessOnScan: Boolean,
+  autoArchiveOnComplete: Boolean,
+  useMultithreading: Boolean,
+  debugMode: Boolean
+})
+
+export const ConfigMapper = createMapper({
+  strategyInitializer: pojos()
+})
+
+createMap(ConfigMapper, CONFIG_DTO_KEYS.ConfigDTO, CONFIG_DTO_KEYS.ConfigFormDTO)
+createMap(ConfigMapper, CONFIG_DTO_KEYS.ConfigUpdateFormDTO, CONFIG_DTO_KEYS.ConfigUpdateDTO)

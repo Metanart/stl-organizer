@@ -1,12 +1,24 @@
-import { classes } from '@automapper/classes'
 import { createMap, createMapper } from '@automapper/core'
-import { Config } from '@main/domains/Config/entities/Config'
+import { pojos } from '@automapper/pojos'
+import { PojosMetadataMap } from '@automapper/pojos'
 
-import { ConfigDTO } from '@shared/domains/Config/dto/ConfigDTO'
+import { CONFIG_DTO_KEYS, ConfigDTO } from '@shared/domains/Config/dtos/ConfigDTO'
 
-export const ConfigMapper = createMapper({
-  strategyInitializer: classes()
+import { Config } from '../entities/Config'
+
+PojosMetadataMap.create<Config>(CONFIG_DTO_KEYS.Config, {
+  id: String,
+  outputFolder: String,
+  tempFolder: String,
+  maxThreads: Number,
+  autoProcessOnScan: Boolean,
+  autoArchiveOnComplete: Boolean,
+  useMultithreading: Boolean,
+  debugMode: Boolean
 })
 
-// DB -> Server
-createMap(ConfigMapper, Config, ConfigDTO)
+export const ConfigMapper = createMapper({
+  strategyInitializer: pojos()
+})
+
+createMap<Config, ConfigDTO>(ConfigMapper, CONFIG_DTO_KEYS.Config, CONFIG_DTO_KEYS.ConfigDTO)

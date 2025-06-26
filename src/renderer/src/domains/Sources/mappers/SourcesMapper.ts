@@ -1,5 +1,5 @@
-import { classes } from '@automapper/classes'
 import { createMap, createMapper } from '@automapper/core'
+import { pojos } from '@automapper/pojos'
 
 import {
   SourceCreateDTO,
@@ -11,7 +11,7 @@ import {
 } from '@shared/domains/Sources/dto/SourceDTO'
 
 export const SourcesMapper = createMapper({
-  strategyInitializer: classes()
+  strategyInitializer: pojos()
 })
 
 // Server -> Client

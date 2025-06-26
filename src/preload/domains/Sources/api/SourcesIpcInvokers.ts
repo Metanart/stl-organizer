@@ -1,6 +1,6 @@
 import { createIpcInvoker, createIpcInvokerWithPayload } from '@preload/utils/createIpcInvoker'
 
-import { RemoveDTO } from '@shared/domains/Common/dto/RemoveDTO'
+import { RemoveDTO } from '@shared/domains/Common/dtos/DTOs'
 import {
   SourceCreateFormDTO,
   SourceDTO,

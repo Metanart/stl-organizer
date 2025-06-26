@@ -1,6 +1,6 @@
 import { createApiHandler, createApiHandlerWithPayload } from '@renderer/utils/createApiHandler'
 
-import { ConfigDTO, ConfigUpdateFormDTO } from '@shared/domains/Config/dto/ConfigDTO'
+import { ConfigDTO, ConfigUpdateFormDTO } from '@shared/domains/Config/dtos/ConfigDTO'
 
 export class ConfigApi {
   static get = createApiHandler<ConfigDTO | null>('ConfigApi.get', window.api.config.get)
