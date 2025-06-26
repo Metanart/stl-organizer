@@ -16,14 +16,18 @@ import { ConfigState } from '../types/Config.types'
 import { ConfigContext } from './ConfigContext'
 
 export const ConfigProvider: FC<PropsWithChildren> = ({ children }) => {
+  console.log('started ConfigProvider')
+
   const [config, setConfig] = useState<ConfigState | null>(null)
 
   const { isLoading, error, processApiRequest } = useRequestState()
 
   const load = async (): Promise<void> => {
-    const response = await processApiRequest(ConfigApi.get)
+    console.log('called load')
 
-    console.log('load', response)
+    const response = await processApiRequest(() => ConfigApi.get())
+
+    console.log('received load response', response)
 
     if (response.data !== null) {
       const configState: ConfigState = ConfigMapper.map<ConfigDTO, ConfigFormDTO>(

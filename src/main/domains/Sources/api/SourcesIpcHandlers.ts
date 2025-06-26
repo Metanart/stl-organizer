@@ -1,7 +1,7 @@
 import { handleServiceToIpc } from '@main/utils/handleServiceToIpc'
 
 import { RemoveDTO } from '@shared/domains/Common/dtos/DTOs'
-import { SourceCreateDTO, SourceDTO, SourceUpdateDTO } from '@shared/domains/Sources/dto/SourceDTO'
+import { SourceCreateDTO, SourceDTO, SourceUpdateDTO } from '@shared/domains/Sources/dtos/SourceDTO'
 
 import { SourcesService } from '../service/SourcesService'
 

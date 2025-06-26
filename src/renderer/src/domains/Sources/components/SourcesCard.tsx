@@ -12,7 +12,7 @@ import {
 import { FolderInput } from '@renderer/domains/Common/components/FolderInput'
 
 import { RemoveDTO } from '@shared/domains/Common/dtos/DTOs'
-import { SourceUpdateFormDTO } from '@shared/domains/Sources/dto/SourceDTO'
+import { SourceUpdateFormDTO } from '@shared/domains/Sources/dtos/SourceDTO'
 
 import { SourceForm } from '../types/Source.types'
 

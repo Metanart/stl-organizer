@@ -12,8 +12,10 @@ import { AppDataSource } from './database/AppDataSource'
 
 import 'dotenv/config'
 import '@main/domains/Config/api/ConfigIpcHandlers'
-import '@main/domains/Common/api/CommonApiHandlers'
+import '@main/domains/Common/api/CommonIpcHandlers'
+import '@main/domains/Sources/api/SourcesIpcHandlers'
 import '@main/domains/Config/mappers/ConfigMapper'
+import '@main/domains/Sources/mappers/SourcesMapper'
 
 const log = createLog({ category: 'MAIN' })
 

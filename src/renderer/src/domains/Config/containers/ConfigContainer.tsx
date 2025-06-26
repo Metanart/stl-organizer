@@ -9,6 +9,8 @@ import { ConfigState } from '../types/Config.types'
 export const ConfigContainer: FC = () => {
   const { config, isLoading, update, error } = useConfigContext()
 
+  console.log('ConfigContainer')
+
   // @TODO Add form data validation
 
   const handleSubmit = async (updatedConfig: ConfigState): Promise<void> => {

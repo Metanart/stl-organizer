@@ -2,7 +2,12 @@ import { AppDataSource } from '@main/database/AppDataSource'
 import { SourcesMapper } from '@main/domains/Sources/mappers/SourcesMapper'
 
 import { RemoveDTO } from '@shared/domains/Common/dtos/DTOs'
-import { SourceCreateDTO, SourceDTO, SourceUpdateDTO } from '@shared/domains/Sources/dto/SourceDTO'
+import {
+  SourceCreateDTO,
+  SourceDTO,
+  SOURCES_DTO_KEYS,
+  SourceUpdateDTO
+} from '@shared/domains/Sources/dtos/SourceDTO'
 import { createLog } from '@shared/utils/createLog'
 
 import { Source } from '../entities/Source'
@@ -29,7 +34,11 @@ export class SourcesService {
 
     log.success(`New source has been saved`, saved)
 
-    return SourcesMapper.map(saved, Source, SourceDTO)
+    return SourcesMapper.map<Source, SourceDTO>(
+      saved,
+      SOURCES_DTO_KEYS.Source,
+      SOURCES_DTO_KEYS.SourceDTO
+    )
   }
 
   static async getAll(): Promise<SourceDTO[] | null> {
@@ -44,7 +53,11 @@ export class SourcesService {
 
     log.success(`Sources are found`)
 
-    return SourcesMapper.mapArray(sources, Source, SourceDTO)
+    return SourcesMapper.mapArray<Source, SourceDTO>(
+      sources,
+      SOURCES_DTO_KEYS.Source,
+      SOURCES_DTO_KEYS.SourceDTO
+    )
   }
 
   static async update(source: SourceUpdateDTO): Promise<SourceDTO | null> {
@@ -59,7 +72,11 @@ export class SourcesService {
 
       log.success(`Source updated`, savedSource)
 
-      return SourcesMapper.map(savedSource, Source, SourceDTO)
+      return SourcesMapper.map<Source, SourceDTO>(
+        savedSource,
+        SOURCES_DTO_KEYS.Source,
+        SOURCES_DTO_KEYS.SourceDTO
+      )
     }
 
     log.error(`Source "${source.id}" wasn't found - update skipped`)

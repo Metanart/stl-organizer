@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import { FolderInput } from '@renderer/domains/Common/components/FolderInput'
 
-import { SourceCreateFormDTO } from '@shared/domains/Sources/dto/SourceDTO'
+import { SourceCreateFormDTO } from '@shared/domains/Sources/dtos/SourceDTO'
 
 type Props = {
   onSave: (formState: SourceCreateFormDTO) => void

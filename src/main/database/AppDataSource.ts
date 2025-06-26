@@ -1,3 +1,4 @@
+import { Source } from '@main/domains/Sources/entities/Source'
 import { app } from 'electron'
 import path from 'path'
 import { DataSource } from 'typeorm'
@@ -11,7 +12,7 @@ export const dbPath = path.join(app.getPath('userData'), 'stl-organizer.sqlite')
 export const AppDataSource = new DataSource({
   type: 'sqlite',
   database: AppPaths.defaultDBFile,
-  entities: [Config],
+  entities: [Config, Source],
   synchronize: true, // 🔧 DEV FLAG
   logging: false,
   cache: false

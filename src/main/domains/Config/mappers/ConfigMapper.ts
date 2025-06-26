@@ -6,6 +6,8 @@ import { CONFIG_DTO_KEYS, ConfigDTO } from '@shared/domains/Config/dtos/ConfigDT
 
 import { Config } from '../entities/Config'
 
+import '@shared/domains/Config/dtos/ConfigDTOMetadata'
+
 PojosMetadataMap.create<Config>(CONFIG_DTO_KEYS.Config, {
   id: String,
   outputFolder: String,

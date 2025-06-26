@@ -33,20 +33,28 @@ export class ConfigService {
       log.success(`Saved`, config)
     }
 
-    return ConfigMapper.map<Config, ConfigDTO>(
+    log.info(`Got`, config)
+
+    const mappedDTO = ConfigMapper.map<Config, ConfigDTO>(
       config,
       CONFIG_DTO_KEYS.Config,
       CONFIG_DTO_KEYS.ConfigDTO
     )
+
+    log.info(`Got mapped`, mappedDTO)
+
+    return mappedDTO
   }
 
   static async update(updatedConfig: ConfigUpdateDTO): Promise<ConfigDTO | null> {
     const log = createLog({ tag: 'ConfigService.update' })
 
-    let currentConfig: Config | null
+    log.info(`Updating`, updatedConfig)
+
+    let existingConfig: Config | null
 
     try {
-      currentConfig = await repo.findOne({ where: { id: updatedConfig.id } })
+      existingConfig = await repo.findOne({ where: { id: updatedConfig.id } })
     } catch (error) {
       log.error((error as Error).message)
       return null
@@ -54,23 +62,25 @@ export class ConfigService {
 
     let finalConfig: Config
 
-    if (currentConfig) {
-      log.info(`Found an existing entity - start merge`)
-      finalConfig = repo.merge(currentConfig, { ...currentConfig, id: updatedConfig.id })
+    if (existingConfig) {
+      log.info(`Found an existing entity - start merge`, existingConfig)
+      finalConfig = repo.merge(existingConfig, { ...existingConfig, ...updatedConfig })
     } else {
-      log.warn(`Entity not found - create a new one and merge`)
       finalConfig = repo.create(updatedConfig)
+      log.info(`Entity not found - create a new one and merge`, finalConfig)
     }
 
     const savedConfig = await repo.save(finalConfig)
     log.success(`Saved`, savedConfig)
 
-    console.log('savedConfig', savedConfig)
-
-    return ConfigMapper.map<Config, ConfigDTO>(
+    const mappedDTO = ConfigMapper.map<Config, ConfigDTO>(
       savedConfig,
       CONFIG_DTO_KEYS.Config,
       CONFIG_DTO_KEYS.ConfigDTO
     )
+
+    log.info(`Mapped`, savedConfig)
+
+    return mappedDTO
   }
 }

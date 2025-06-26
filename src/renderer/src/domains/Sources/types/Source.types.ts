@@ -1,5 +1,5 @@
 import { RemoveDTO } from '@shared/domains/Common/dtos/DTOs'
-import { SourceCreateFormDTO, SourceUpdateFormDTO } from '@shared/domains/Sources/dto/SourceDTO'
+import { SourceCreateFormDTO, SourceUpdateFormDTO } from '@shared/domains/Sources/dtos/SourceDTO'
 
 export type SourceForm = {
   id: string

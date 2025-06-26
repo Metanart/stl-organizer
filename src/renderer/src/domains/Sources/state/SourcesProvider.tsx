@@ -7,9 +7,10 @@ import {
   SourceCreateFormDTO,
   SourceDTO,
   SourceFormDTO,
+  SOURCES_DTO_KEYS,
   SourceUpdateDTO,
   SourceUpdateFormDTO
-} from '@shared/domains/Sources/dto/SourceDTO'
+} from '@shared/domains/Sources/dtos/SourceDTO'
 
 import { SourcesApi } from '../api/SourcesApi'
 import { SourcesMapper } from '../mappers/SourcesMapper'
@@ -26,7 +27,11 @@ export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
     const response = await processApiRequest(SourcesApi.getAll)
 
     if (response.data !== null && response.data.length > 0) {
-      const sourcesArr = SourcesMapper.mapArray(response.data, SourceDTO, SourceFormDTO)
+      const sourcesArr = SourcesMapper.mapArray<SourceDTO, SourceFormDTO>(
+        response.data,
+        SOURCES_DTO_KEYS.SourceDTO,
+        SOURCES_DTO_KEYS.SourceFormDTO
+      )
 
       const sourcesState: SourcesState = {}
 
@@ -39,11 +44,19 @@ export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
   }
 
   const update = async (source: SourceUpdateFormDTO): Promise<void> => {
-    const inputDTO = SourcesMapper.map(source, SourceUpdateFormDTO, SourceUpdateDTO)
-    const response = await processApiRequest(async () => SourcesApi.update(inputDTO))
+    const updateDTO = SourcesMapper.map<SourceUpdateFormDTO, SourceUpdateDTO>(
+      source,
+      SOURCES_DTO_KEYS.SourceUpdateFormDTO,
+      SOURCES_DTO_KEYS.SourceUpdateDTO
+    )
+    const response = await processApiRequest(async () => SourcesApi.update(updateDTO))
 
     if (response.data !== null) {
-      const updatedSource = SourcesMapper.map(response.data, SourceDTO, SourceFormDTO)
+      const updatedSource = SourcesMapper.map<SourceDTO, SourceFormDTO>(
+        response.data,
+        SOURCES_DTO_KEYS.SourceDTO,
+        SOURCES_DTO_KEYS.SourceFormDTO
+      )
 
       setSources((prevState) => {
         return {
@@ -55,12 +68,20 @@ export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
   }
 
   const create = async (source: SourceCreateFormDTO): Promise<void> => {
-    const inputDTO = SourcesMapper.map(source, SourceCreateFormDTO, SourceCreateDTO)
+    const createDTO = SourcesMapper.map<SourceCreateFormDTO, SourceCreateDTO>(
+      source,
+      SOURCES_DTO_KEYS.SourceCreateFormDTO,
+      SOURCES_DTO_KEYS.SourceCreateDTO
+    )
 
-    const response = await processApiRequest(async () => SourcesApi.create(inputDTO))
+    const response = await processApiRequest(async () => SourcesApi.create(createDTO))
 
     if (response.data !== null) {
-      const createdSource = SourcesMapper.map(response.data, SourceDTO, SourceFormDTO)
+      const createdSource = SourcesMapper.map<SourceDTO, SourceFormDTO>(
+        response.data,
+        SOURCES_DTO_KEYS.SourceDTO,
+        SOURCES_DTO_KEYS.SourceFormDTO
+      )
 
       setSources((prevState) => {
         return {

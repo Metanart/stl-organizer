@@ -8,15 +8,8 @@ import { ServiceTag } from '@shared/domains/Common/types/Services.types'
 import { getEnv } from './getEnv'
 
 const ENV_LOGS_ENABLED = getEnv('VITE_LOGS_ENABLED') === 'true'
-const ENV_LOG_LEVEL = (getEnv('VITE_LOGS_LEVEL') || 4) as LogLevel
 
-// Позволяет включать/отключать категории логов через env или config
-const ENABLED_CATEGORIES = (getEnv('VITE_LOGS_CATEGORIES') || '')
-  .split(',')
-  .map((s) => s.trim())
-  .filter(Boolean)
-
-type LogCategory = 'MAIN' | 'RENDERER'
+type LogCategory = 'MAIN' | 'RENDERER' | 'PRELOAD' | 'SHA'
 
 type LogOptions = {
   tag?: ApiTag | IpcTag | IpcTagCustom | ServiceTag | ProjectArea
@@ -27,11 +20,11 @@ type LogOptions = {
 const createLog = (options: LogOptions = {}): ConsolaInstance => {
   const { tag, category = 'MAIN', level } = options
 
-  const isCategoryEnabled = ENV_LOGS_ENABLED && ENABLED_CATEGORIES.includes(category)
+  const isCategoryEnabled = ENV_LOGS_ENABLED
 
   const log = isCategoryEnabled
     ? consola.create({
-        level: level ?? ENV_LOG_LEVEL,
+        level: level || 5,
         formatOptions: { colors: true }
       })
     : consola.create({ level: 0 })

@@ -1,8 +1,9 @@
 import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge } from 'electron'
 
-import { commonApiInvokers } from './domains/Common/api/CommonApiInvokers'
+import { commonIpcInvokers } from './domains/Common/api/CommonIpcInvokers'
 import { configIpcInvokers } from './domains/Config/api/ConfigIpcInvokers'
+import { sourcesIpcInvokers } from './domains/Sources/api/SourcesIpcInvokers'
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
@@ -11,10 +12,11 @@ if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld('electron', {
       ...electronAPI,
-      ...commonApiInvokers
+      ...commonIpcInvokers
     })
     contextBridge.exposeInMainWorld('api', {
-      config: configIpcInvokers
+      config: configIpcInvokers,
+      sources: sourcesIpcInvokers
     })
   } catch (error) {
     console.error(error)

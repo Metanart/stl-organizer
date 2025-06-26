@@ -3,7 +3,7 @@ import { createLog } from '@shared/utils/createLog'
 
 export function createApiHandler<R>(tag: ApiTag, handler: () => Promise<ApiResponse<R>>) {
   return async () => {
-    const log = createLog({ tag })
+    const log = createLog({ tag, category: 'RENDERER' })
 
     try {
       return await (handler as ApiHandlerNoPayload<R>)()
@@ -19,7 +19,7 @@ export function createApiHandlerWithPayload<R, P = void>(
   handler: (payload: P) => Promise<ApiResponse<R>>
 ) {
   return async (payload: P) => {
-    const log = createLog({ tag })
+    const log = createLog({ tag, category: 'RENDERER' })
 
     try {
       if (!payload) {

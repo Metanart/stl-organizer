@@ -6,7 +6,7 @@ import { createLog } from '@shared/utils/createLog'
 
 export function createIpcInvoker<R>(tag: IpcTag): () => Promise<ApiResponse<R>> {
   return async function () {
-    const log = createLog({ tag })
+    const log = createLog({ tag, category: 'PRELOAD' })
     log.info(`Invoked ${tag}`)
     return ipcRenderer.invoke(tag)
   }
@@ -16,7 +16,7 @@ export function createIpcInvokerWithPayload<R, P = void>(
   tag: IpcTag
 ): (payload: P) => Promise<ApiResponse<R>> {
   return async function (payload) {
-    const log = createLog({ tag })
+    const log = createLog({ tag, category: 'PRELOAD' })
 
     if (!payload) {
       log.error(`Invoked ${tag} without payload`)

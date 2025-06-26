@@ -5,7 +5,7 @@ import {
   SourceCreateFormDTO,
   SourceDTO,
   SourceUpdateFormDTO
-} from '@shared/domains/Sources/dto/SourceDTO'
+} from '@shared/domains/Sources/dtos/SourceDTO'
 
 export class SourcesApi {
   static getAll = createApiHandler<SourceDTO[] | null>(

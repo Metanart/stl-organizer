@@ -11,6 +11,8 @@ import { SourcesListContainer } from '../containers/SourcesListContainer'
 export const SourcesPage: FC = () => {
   const [showAddNew, setShowAddNew] = useState(false)
 
+  console.log('SourcesPage')
+
   const handleToggleAddNew = (): void => {
     setShowAddNew((prevState) => {
       return !prevState
