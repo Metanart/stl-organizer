@@ -1,27 +1,20 @@
-import { SourceModel } from './SourceModel.types'
+import { RemoveDTO } from '@shared/domains/Common/dto/RemoveDTO'
+import { SourceCreateFormDTO, SourceUpdateFormDTO } from '@shared/domains/Sources/dto/SourceDTO'
 
-export type Source = {
+export type SourceForm = {
   id: string
-  name: string
   path: string
-  isEnabled: boolean
-  comment: string | null
-  models: SourceModel[]
+  name: string
+  comment?: string
+  isEnabled?: boolean
 }
-
-export type SourceCreate = Omit<Source, 'id' | 'models'>
-
-export type SourceRemove = { id: string }
-
-export type SourcesList = Record<number, Source>
-
-export type SourcesState = SourcesList
+export type SourcesState = Record<string, SourceForm>
 
 export type SourcesContextType = {
-  sources: SourcesState | null
+  sources?: SourcesState
   isLoading: boolean
-  error?: string | null
-  update: (source: Source) => Promise<void>
-  create: (payload: SourceCreate) => Promise<void>
-  remove: (payload: SourceRemove) => Promise<void>
+  error?: string
+  update: (source: SourceUpdateFormDTO) => Promise<void>
+  create: (payload: SourceCreateFormDTO) => Promise<void>
+  remove: (payload: RemoveDTO) => Promise<void>
 }

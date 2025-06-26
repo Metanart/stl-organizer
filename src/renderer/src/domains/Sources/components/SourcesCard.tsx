@@ -7,35 +7,34 @@ import {
   FormControlLabel,
   Grid,
   Switch,
-  TextField,
-  Typography
+  TextField
 } from '@mui/material'
 import { FolderInput } from '@renderer/domains/Common/components/FolderInput'
 
-import { Source } from '../types/Source.types'
-import { SourceModel } from '../types/SourceModel.types'
+import { RemoveDTO } from '@shared/domains/Common/dto/RemoveDTO'
+import { SourceUpdateFormDTO } from '@shared/domains/Sources/dto/SourceDTO'
+
+import { SourceForm } from '../types/Source.types'
 
 type Props = {
   id: string
   name: string
   path: string
-  isEnabled: boolean
-  comment?: string | null
-  models: SourceModel[]
-  onRemove?: (sourceId: number) => void
-  onSave: (source: Source) => void
+  isEnabled?: boolean
+  comment?: string
+  onRemove?: (source: RemoveDTO) => void
+  onSave: (source: SourceUpdateFormDTO) => void
 }
 
 export const SourcesCard: FC<Props> = (props) => {
-  const { id, name, path = '', isEnabled, comment = '', models, onSave, onRemove } = props
+  const { id, name, path = '', isEnabled, comment = '', onSave, onRemove } = props
 
-  const [formState, setFormState] = useState<Source>({
+  const [formState, setFormState] = useState<SourceForm>({
     id,
     path,
     name,
     isEnabled,
-    comment,
-    models
+    comment
   })
 
   function updateFormState(name: string, value: string, type?: string, checked?: boolean): void {
@@ -54,7 +53,7 @@ export const SourcesCard: FC<Props> = (props) => {
     onSave(formState)
   }
 
-  const handleRemove = (): void => onRemove?.(id)
+  const handleRemove = (): void => onRemove?.({ id })
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { name, value, type, checked } = event.target
@@ -108,15 +107,6 @@ export const SourcesCard: FC<Props> = (props) => {
                   onChange={handleInputChange}
                   placeholder="Optional description..."
                 />
-              </Grid>
-              <Grid size={12}>
-                {models.map((model) => {
-                  return (
-                    <Typography key={model.id} variant="body2" color="text.secondary" mt={2}>
-                      {model.name}
-                    </Typography>
-                  )
-                })}
               </Grid>
             </Grid>
           </CardContent>

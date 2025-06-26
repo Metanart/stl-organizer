@@ -1,34 +1,14 @@
-import { createIpcHandler } from '@main/utils/createIpcHandler'
-import { ipcMain } from 'electron'
+import { handleServiceToIpc } from '@main/utils/handleServiceToIpc'
 
-import {
-  SourceCreateDTO,
-  SourceDTO,
-  SourceInputDTO,
-  SourceRemoveDTO
-} from '@shared/domains/Sources/types/Source.types'
+import { RemoveDTO } from '@shared/domains/Common/dto/RemoveDTO'
+import { SourceCreateDTO, SourceDTO, SourceUpdateDTO } from '@shared/domains/Sources/dto/SourceDTO'
 
-import { handleCreate } from './handleCreate'
-import { handleGetAll } from './handleGetAll'
-import { handleRemove } from './handleRemove'
-import { handleUpdate } from './handleUpdate'
+import { SourcesService } from '../service/SourcesService'
 
-ipcMain.handle(
-  'sources:getAll',
-  createIpcHandler<SourceDTO[] | null>('sources:getAll', handleGetAll)
-)
+handleServiceToIpc<SourceDTO | null, SourceCreateDTO>('SourcesIpc.create', SourcesService.create)
 
-ipcMain.handle(
-  'sources:update',
-  createIpcHandler<SourceDTO | null, SourceInputDTO>('sources:update', handleUpdate)
-)
+handleServiceToIpc<SourceDTO | null, SourceUpdateDTO>('SourcesIpc.update', SourcesService.update)
 
-ipcMain.handle(
-  'sources:create',
-  createIpcHandler<SourceDTO | null, SourceCreateDTO>('sources:create', handleCreate)
-)
+handleServiceToIpc<SourceDTO[] | null>('SourcesIpc.getAll', SourcesService.getAll)
 
-ipcMain.handle(
-  'sources:remove',
-  createIpcHandler<SourceRemoveDTO | null, SourceRemoveDTO>('sources:remove', handleRemove)
-)
+handleServiceToIpc<boolean, RemoveDTO>('SourcesIpc.remove', SourcesService.remove)

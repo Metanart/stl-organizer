@@ -10,12 +10,12 @@ import icon from '../../resources/icon.png?asset'
 
 import { AppDataSource } from './database/AppDataSource'
 
-import '@main/domains/Config/api'
-import '@main/domains/Common/api'
+import '@main/domains/Config/api/ConfigIpcHandlers'
+import '@main/domains/Common/api/CommonApiHandlers'
 import '@main/domains/Sources/api/SourcesIpcHandlers'
 import 'dotenv/config'
 
-const log = createLog({ channel: 'main' })
+const log = createLog({ category: 'MAIN' })
 
 function createWindow(): void {
   // Create the browser window.

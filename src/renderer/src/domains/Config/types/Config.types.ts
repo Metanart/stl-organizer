@@ -1,4 +1,5 @@
-export type Config = {
+export type ConfigState = {
+  id: string
   outputFolder: string
   tempFolder: string
   maxThreads: number
@@ -7,8 +8,6 @@ export type Config = {
   useMultithreading: boolean
   debugMode: boolean
 }
-
-export type ConfigState = Config
 
 export type ConfigContextType = {
   config: ConfigState | null

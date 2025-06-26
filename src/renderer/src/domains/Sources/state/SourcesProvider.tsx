@@ -1,38 +1,49 @@
 import { FC, PropsWithChildren, useEffect, useState } from 'react'
 import { useRequestState } from '@renderer/utils/useRequestState'
 
+import { RemoveDTO } from '@shared/domains/Common/dto/RemoveDTO'
 import {
-  invokeSourcesCreate,
-  invokeSourcesGetAll,
-  invokeSourcesRemove,
-  invokeSourcesUpdate
-} from '../api/SourcesIpcInvokers'
-import { SourceMapper } from '../mappers/SourceMapper'
-import { Source, SourceCreate, SourceRemove, SourcesState } from '../types/Source.types'
+  SourceCreateDTO,
+  SourceCreateFormDTO,
+  SourceDTO,
+  SourceFormDTO,
+  SourceUpdateDTO,
+  SourceUpdateFormDTO
+} from '@shared/domains/Sources/dto/SourceDTO'
+
+import { SourcesApi } from '../api/SourcesApi'
+import { SourcesMapper } from '../mappers/SourcesMapper'
+import { SourcesState } from '../types/Source.types'
 
 import { SourcesContext } from './SourcesContext'
 
 export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [sources, setSources] = useState<SourcesState | null>(null)
+  const [sources, setSources] = useState<SourcesState | undefined>(undefined)
 
-  const { isLoading, error, handleRequest } = useRequestState()
+  const { isLoading, error, processApiRequest } = useRequestState()
 
   const load = async (): Promise<void> => {
-    const response = await handleRequest(invokeSourcesGetAll)
+    const response = await processApiRequest(SourcesApi.getAll)
 
-    if (response.data !== null) {
-      const sourcesState: SourcesState = SourceMapper.fromDTOs(response.data)
+    if (response.data !== null && response.data.length > 0) {
+      const sourcesArr = SourcesMapper.mapArray(response.data, SourceDTO, SourceFormDTO)
+
+      const sourcesState: SourcesState = {}
+
+      sourcesArr.forEach((source) => {
+        sourcesState.id = source
+      })
+
       setSources(sourcesState)
     }
   }
 
-  const update = async (source: Source): Promise<void> => {
-    const inputDTO = SourceMapper.toInputDTO(source)
-
-    const response = await handleRequest(async () => invokeSourcesUpdate(inputDTO))
+  const update = async (source: SourceUpdateFormDTO): Promise<void> => {
+    const inputDTO = SourcesMapper.map(source, SourceUpdateFormDTO, SourceUpdateDTO)
+    const response = await processApiRequest(async () => SourcesApi.update(inputDTO))
 
     if (response.data !== null) {
-      const updatedSource = SourceMapper.fromDTO(response.data)
+      const updatedSource = SourcesMapper.map(response.data, SourceDTO, SourceFormDTO)
 
       setSources((prevState) => {
         return {
@@ -43,13 +54,13 @@ export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   }
 
-  const create = async (source: SourceCreate): Promise<void> => {
-    const createDTO = SourceMapper.toCreateDTO(source)
+  const create = async (source: SourceCreateFormDTO): Promise<void> => {
+    const inputDTO = SourcesMapper.map(source, SourceCreateFormDTO, SourceCreateDTO)
 
-    const response = await handleRequest(async () => invokeSourcesCreate(createDTO))
+    const response = await processApiRequest(async () => SourcesApi.create(inputDTO))
 
     if (response.data !== null) {
-      const createdSource = SourceMapper.fromDTO(response.data)
+      const createdSource = SourcesMapper.map(response.data, SourceDTO, SourceFormDTO)
 
       setSources((prevState) => {
         return {
@@ -60,16 +71,13 @@ export const SourcesProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   }
 
-  const remove = async (source: SourceRemove): Promise<void> => {
-    const removeDTO = SourceMapper.toRemoveDTO(source)
-    const response = await handleRequest(async () => invokeSourcesRemove(removeDTO))
+  const remove = async (source: RemoveDTO): Promise<void> => {
+    const response = await processApiRequest(async () => SourcesApi.remove(source))
 
-    if (response.data !== null) {
-      const removedSourceId = response.data.id
-
+    if (response.data === true) {
       setSources((prevState) => {
-        if (prevState?.[removedSourceId]) {
-          delete prevState[removedSourceId]
+        if (prevState?.[source.id]) {
+          delete prevState[source.id]
           return { ...prevState }
         }
 

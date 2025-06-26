@@ -1,22 +1,11 @@
 import { AutoMap } from '@automapper/classes'
 import { _AbstractEntity } from '@main/domains/Common/entities/abstract/core/_AbstractEntity'
+import { ModelExtensions } from '@main/domains/Common/enums'
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm'
 
 import { Source } from './Source'
 import { SourceArchive } from './SourceArchive'
 import { SourceImage } from './SourceImage'
-
-enum ModelExtensions {
-  STL = 'stl',
-  OBJ = 'obj',
-  _3MF = '3mf',
-  STEP = 'step',
-  FBX = 'fbx',
-  GLB = 'glb',
-  GCODE = 'gcode'
-}
-
-export type ModelExtensionsType = `${ModelExtensions}`
 
 @Entity()
 export class SourceModel extends _AbstractEntity {
@@ -38,7 +27,7 @@ export class SourceModel extends _AbstractEntity {
 
   @OneToOne(() => SourceArchive, (sourceArchive) => sourceArchive.model, {
     eager: true,
-    cascade: ['insert']
+    cascade: false
   })
   @JoinColumn({ name: 'sourceArchiveId' })
   @AutoMap(() => SourceArchive)
@@ -47,7 +36,7 @@ export class SourceModel extends _AbstractEntity {
   @OneToMany(() => SourceImage, (sourceImage) => sourceImage.model, {
     eager: true,
     nullable: true,
-    cascade: ['insert']
+    cascade: false
   })
   @AutoMap(() => [SourceImage])
   images!: SourceImage[]
@@ -56,5 +45,3 @@ export class SourceModel extends _AbstractEntity {
   @JoinColumn({ name: 'sourceId' })
   source!: Source
 }
-
-export type SourceModelEntity = SourceModel

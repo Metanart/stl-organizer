@@ -1,38 +1,46 @@
 import { FC, PropsWithChildren, useEffect, useState } from 'react'
 import { useRequestState } from '@renderer/utils/useRequestState'
 
-import { invokeConfigGet, invokeConfigUpdate } from '../api/ConfigIpcInvokers'
-import { Config, ConfigState } from '../types/Config.types'
+import {
+  ConfigDTO,
+  ConfigFormDTO,
+  ConfigUpdateDTO,
+  ConfigUpdateFormDTO
+} from '@shared/domains/Config/dto/ConfigDTO'
+
+import { ConfigApi } from '../api/ConfigApi'
+import { ConfigMapper } from '../mappers/ConfigMapper'
+import { ConfigState } from '../types/Config.types'
 
 import { ConfigContext } from './ConfigContext'
-import { ConfigMapper } from './ConfigMapper'
 
 export const ConfigProvider: FC<PropsWithChildren> = ({ children }) => {
   const [config, setConfig] = useState<ConfigState | null>(null)
 
-  const { isLoading, error, handleRequest } = useRequestState()
+  const { isLoading, error, processApiRequest } = useRequestState()
 
   const load = async (): Promise<void> => {
-    const response = await handleRequest(async () => invokeConfigGet())
+    const response = await processApiRequest(ConfigApi.get)
+
+    console.log('load', response)
 
     if (response.data !== null) {
-      const configState: ConfigState = ConfigMapper.fromDTO(response.data)
+      const configState: ConfigState = ConfigMapper.map(response.data, ConfigDTO, ConfigFormDTO)
       setConfig(configState)
     }
   }
 
-  const update = async (config: Config): Promise<void> => {
-    const inputDTO = ConfigMapper.toInputDTO(config)
-
-    const response = await handleRequest(async () => invokeConfigUpdate(inputDTO))
+  const update = async (config: ConfigUpdateFormDTO): Promise<void> => {
+    const inputDTO = ConfigMapper.map(config, ConfigUpdateFormDTO, ConfigUpdateDTO)
+    const response = await processApiRequest(() => ConfigApi.update(inputDTO))
 
     if (response.data !== null) {
-      const updatedConfigState = ConfigMapper.fromDTO(response.data)
+      const updatedConfig = ConfigMapper.map(response.data, ConfigDTO, ConfigFormDTO)
 
       setConfig((prevState) => {
         return {
           ...prevState,
-          ...updatedConfigState
+          ...updatedConfig
         }
       })
     }

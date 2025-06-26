@@ -1,13 +1,13 @@
-import { FC, JSX, useContext } from 'react'
+import { FC, JSX } from 'react'
 
 import { Message } from '../../Common/components/Message'
 import { Config } from '../components/Config'
 import { ConfigSkeleton } from '../components/ConfigSkeleton'
-import { ConfigContext } from '../state/ConfigContext'
+import { useConfigContext } from '../state/useConfigContext'
 import { ConfigState } from '../types/Config.types'
 
 export const ConfigContainer: FC = () => {
-  const { config, isLoading, update, error } = useContext(ConfigContext)
+  const { config, isLoading, update, error } = useConfigContext()
 
   // @TODO Add form data validation
 

@@ -2,25 +2,27 @@ import { FC } from 'react'
 import { Loader } from '@renderer/domains/Common/components/Loader'
 import { Message } from '@renderer/domains/Common/components/Message'
 
+import { RemoveDTO } from '@shared/domains/Common/dto/RemoveDTO'
+import { SourceUpdateFormDTO } from '@shared/domains/Sources/dto/SourceDTO'
+
 import { SourcesCard } from '../components/SourcesCard'
 import { SourcesList } from '../components/SourcesList'
 import { useSourcesContext } from '../state/useSourcesContext'
-import { Source } from '../types/Source.types'
 
 export const SourcesListContainer: FC = () => {
   const { isLoading, sources, error, update, remove } = useSourcesContext()
 
-  const handleSave = (source: Source): void => {
+  const handleSave = (source: SourceUpdateFormDTO): void => {
     update(source)
   }
 
-  const handleRemove = (id: string): void => {
-    remove({ id })
+  const handleRemove = (source: RemoveDTO): void => {
+    remove(source)
   }
 
   if (isLoading) return <Loader />
 
-  if (!sources) return <Message type="error" message="Config not found" />
+  if (!sources) return <Message type="error" message="No sources has been found" />
 
   return (
     <SourcesList>

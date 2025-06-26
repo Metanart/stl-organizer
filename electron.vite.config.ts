@@ -24,8 +24,8 @@ export default defineConfig({
   renderer: {
     resolve: {
       alias: {
-        '@renderer': resolve('src/renderer/src'),
         '@preload': resolve('src/preload'),
+        '@renderer': resolve('src/renderer/src'),
         '@shared': resolve('src/shared')
       }
     },

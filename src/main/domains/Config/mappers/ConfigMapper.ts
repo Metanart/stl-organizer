@@ -1,37 +1,12 @@
-// /main/mappers/configMapper.ts
+import { classes } from '@automapper/classes'
+import { createMap, createMapper } from '@automapper/core'
+import { Config } from '@main/domains/Config/entities/Config'
 
-import { ConfigEntity } from '@main/domains/Config/entities/Config'
+import { ConfigDTO } from '@shared/domains/Config/dto/ConfigDTO'
 
-import { ConfigDTO, ConfigInputDTO } from '@shared/domains/Config/types'
+export const ConfigMapper = createMapper({
+  strategyInitializer: classes()
+})
 
-import { DEFAULT_CONFIG_ID } from '../const'
-
-function toDTO(config: ConfigEntity): ConfigDTO {
-  return {
-    outputFolder: config.outputFolder,
-    tempFolder: config.tempFolder,
-    maxThreads: config.maxThreads,
-    autoProcessOnScan: config.autoProcessOnScan,
-    autoArchiveOnComplete: config.autoArchiveOnComplete,
-    useMultithreading: config.useMultithreading,
-    debugMode: config.debugMode
-  }
-}
-
-function fromInputDTO(dto: ConfigInputDTO): ConfigEntity {
-  return {
-    id: DEFAULT_CONFIG_ID,
-    outputFolder: dto.outputFolder,
-    tempFolder: dto.tempFolder,
-    maxThreads: dto.maxThreads,
-    autoProcessOnScan: dto.autoProcessOnScan,
-    autoArchiveOnComplete: dto.autoArchiveOnComplete,
-    useMultithreading: dto.useMultithreading,
-    debugMode: dto.debugMode
-  }
-}
-
-export const ConfigMapper = {
-  toDTO,
-  fromInputDTO
-}
+// DB -> Server
+createMap(ConfigMapper, Config, ConfigDTO)

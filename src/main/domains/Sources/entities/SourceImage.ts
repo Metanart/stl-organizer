@@ -9,5 +9,3 @@ export class SourceImage extends AbstractImage {
   @JoinColumn({ name: 'sourceModelId' })
   model!: SourceModel
 }
-
-export type SourceImageCreate = Omit<SourceImage, 'id'>

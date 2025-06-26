@@ -1,6 +1,9 @@
 import { consola, ConsolaInstance, LogLevel } from 'consola'
 
-import { IpcTag } from '@shared/domains/Common/types/ipc.types'
+import { ApiTag } from '@shared/domains/Common/types/api'
+import { ProjectArea } from '@shared/domains/Common/types/common'
+import { IpcTag, IpcTagCustom } from '@shared/domains/Common/types/ipc'
+import { ServiceTag } from '@shared/domains/Common/types/services'
 
 import { getEnv } from './getEnv'
 
@@ -13,17 +16,16 @@ const ENABLED_CATEGORIES = (getEnv('VITE_LOGS_CATEGORIES') || '')
   .map((s) => s.trim())
   .filter(Boolean)
 
-type LogCategory = 'main' | 'renderer' | 'worker' | 'ipc' | 'analyzer' | 'importer' | 'normalizer'
+type LogCategory = 'MAIN' | 'RENDERER'
 
 type LogOptions = {
-  ipcTag?: IpcTag
-  channel?: string
+  tag?: ApiTag | IpcTag | IpcTagCustom | ServiceTag | ProjectArea
   category?: LogCategory
   level?: LogLevel
 }
 
 const createLog = (options: LogOptions = {}): ConsolaInstance => {
-  const { ipcTag, channel, category = 'main', level } = options
+  const { tag, category = 'MAIN', level } = options
 
   const isCategoryEnabled = ENV_LOGS_ENABLED && ENABLED_CATEGORIES.includes(category)
 
@@ -34,7 +36,7 @@ const createLog = (options: LogOptions = {}): ConsolaInstance => {
       })
     : consola.create({ level: 0 })
 
-  return log.withTag(`${category}${ipcTag ? `:${ipcTag}` : channel ? `:${channel}` : ''}`)
+  return log.withTag(`${category}${tag ? `: ${tag}` : ''}`)
 }
 
 export { createLog }

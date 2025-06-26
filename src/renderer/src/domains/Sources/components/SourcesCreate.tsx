@@ -11,16 +11,16 @@ import {
 } from '@mui/material'
 import { FolderInput } from '@renderer/domains/Common/components/FolderInput'
 
-import { SourceCreate } from '../types/Source.types'
+import { SourceCreateFormDTO } from '@shared/domains/Sources/dto/SourceDTO'
 
 type Props = {
-  onSave: (formState: SourceCreate) => void
+  onSave: (formState: SourceCreateFormDTO) => void
 }
 
 export const SourcesCreate: FC<Props> = (props) => {
   const { onSave } = props
 
-  const [formState, setFormState] = useState<SourceCreate>({
+  const [formState, setFormState] = useState<SourceCreateFormDTO>({
     name: '',
     path: '',
     isEnabled: true,

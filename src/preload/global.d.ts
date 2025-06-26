@@ -1,15 +1,14 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
 
-import { IpcBridgesCommon } from './domains/Common/api/CommonIpcBridges'
-import { IpcBridgesConfig } from './domains/Config/api/ConfigIpcBridges'
-import { IpcBridgesSources } from './domains/Sources/api/SourcesIpcBridges'
+import { ConfigApiInvokers } from './domains/Config/api/ConfigIpcInvokers'
+import { SourcesIpcInvokers } from './domains/Sources/api/SourcesIpcInvokers'
 
 declare global {
   interface Window {
     electron: ElectronAPI & IpcBridgesCommon
     api: {
-      config: IpcBridgesConfig
-      sources: IpcBridgesSources
+      config: ConfigApiInvokers
+      sources: SourcesIpcInvokers
     }
   }
 }

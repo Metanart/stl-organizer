@@ -8,5 +8,3 @@ export class SourceArchive extends AbstractArchive {
   @OneToOne(() => SourceModel, (sourceModel) => sourceModel.archive, { onDelete: 'CASCADE' })
   model!: SourceModel
 }
-
-export type SourceArchiveCreate = Omit<SourceArchive, 'id'>

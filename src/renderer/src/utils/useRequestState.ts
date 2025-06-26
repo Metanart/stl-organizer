@@ -1,29 +1,23 @@
 import { useState } from 'react'
 
-import { IpcResponse } from '@shared/domains/Common/types/ipc.types'
+import { ApiHandlerWrapped, ApiResponse } from '@shared/domains/Common/types/api'
 
-import { IpcInvokerWrapper } from './createIpcInvoker'
-
-type HandleRequest = <ResponseType, PayloadType = void>(
-  requestFn: IpcInvokerWrapper<ResponseType, PayloadType>
-) => Promise<IpcResponse<ResponseType>>
+type ProcessApiRequest = <R>(apiHandlerWrapped: ApiHandlerWrapped<R>) => Promise<ApiResponse<R>>
 
 type RequestState = () => {
   isLoading: boolean
-  error: string | null
-  setError: (error: string | null) => void
+  error?: string
+  setError: (error: string | undefined) => void
   setIsLoading: (isLoading: boolean) => void
-  handleRequest: HandleRequest
+  processApiRequest: ProcessApiRequest
 }
 
 export const useRequestState: RequestState = function () {
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<string | undefined>(undefined)
 
-  const handleRequest: HandleRequest = async function <ResponseType, PayloadType = void>(
-    requestFn: IpcInvokerWrapper<ResponseType, PayloadType>
-  ): Promise<IpcResponse<ResponseType>> {
-    const response = await requestFn()
+  const processApiRequest: ProcessApiRequest = async (apiHandlerWrapped) => {
+    const response = await apiHandlerWrapped()
 
     if (response.error) {
       setError(response.error)
@@ -47,6 +41,6 @@ export const useRequestState: RequestState = function () {
     error,
     setError,
     setIsLoading,
-    handleRequest
+    processApiRequest
   }
 }
