@@ -7,19 +7,21 @@ import { SourceUpdateFormDTO } from '@shared/domains/Sources/dtos/SourceDTO'
 
 import { SourcesCard } from '../components/SourcesCard'
 import { SourcesList } from '../components/SourcesList'
-import { useSourcesContext } from '../state/useSourcesContext'
+import { SourceForm } from '../types/Source.types'
 
 export const SourcesListContainer: FC = () => {
-  const { isLoading, sources, error, update, remove } = useSourcesContext()
+  const isLoading = true
+  const sources: SourceForm[] = []
+  const error = 'Error'
 
   console.log('SourcesListContainer')
 
   const handleSave = (source: SourceUpdateFormDTO): void => {
-    update(source)
+    console.log('[DEBUG]: ', source)
   }
 
   const handleRemove = (source: RemoveDTO): void => {
-    remove(source)
+    console.log('[DEBUG]: ', source)
   }
 
   if (isLoading) return <Loader />

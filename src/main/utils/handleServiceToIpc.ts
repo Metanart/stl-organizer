@@ -25,19 +25,16 @@ export function handleServiceToIpc<R, P = void>(
       if (!response) {
         log.error('Empty response received')
         return {
-          data: null,
           error: 'Empty response received from service'
         }
       } else {
         return {
-          data: response,
-          error: null
+          data: response
         }
       }
     } catch (error) {
       log.error(error)
       return {
-        data: null,
         error: (error as Error).message || 'Unknown error'
       }
     }

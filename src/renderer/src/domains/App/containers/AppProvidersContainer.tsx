@@ -1,11 +1,8 @@
 import { FC, JSX, PropsWithChildren } from 'react'
-import { ConfigProvider } from '@renderer/domains/Config/state/ConfigProvider'
-import { SourcesProvider } from '@renderer/domains/Sources/state/SourcesProvider'
+import { Provider } from 'react-redux'
+
+import { AppStore } from '../store/AppStore'
 
 export const AppProvidersContainer: FC<PropsWithChildren> = ({ children }): JSX.Element => {
-  return (
-    <ConfigProvider>
-      <SourcesProvider>{children} </SourcesProvider>
-    </ConfigProvider>
-  )
+  return <Provider store={AppStore}>{children}</Provider>
 }

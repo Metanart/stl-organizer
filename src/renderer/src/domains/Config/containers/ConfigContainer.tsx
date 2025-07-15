@@ -1,30 +1,43 @@
-import { FC, JSX } from 'react'
+import { FC, JSX, useCallback } from 'react'
+
+import { ConfigUpdateFormDTO } from '@shared/domains/Config/dtos/ConfigDTO'
 
 import { Message } from '../../Common/components/Message'
+import { useGetConfigQuery, useUpdateConfigMutation } from '../api/ConfigApi'
 import { Config } from '../components/Config'
 import { ConfigSkeleton } from '../components/ConfigSkeleton'
-import { useConfigContext } from '../state/useConfigContext'
-import { ConfigState } from '../types/Config.types'
 
 export const ConfigContainer: FC = () => {
-  const { config, isLoading, update, error } = useConfigContext()
+  const { data: configFormDto, isLoading, error } = useGetConfigQuery()
 
-  console.log('ConfigContainer')
+  const [updateConfig, { isLoading: isUpdating }] = useUpdateConfigMutation()
 
-  // @TODO Add form data validation
-
-  const handleSubmit = async (updatedConfig: ConfigState): Promise<void> => {
-    await update(updatedConfig)
-  }
+  const handleSubmit = useCallback(
+    async (updatedConfig: ConfigUpdateFormDTO): Promise<void> => {
+      try {
+        await updateConfig(updatedConfig).unwrap()
+      } catch (error) {
+        console.error('Failed to update config:', error)
+      }
+    },
+    [updateConfig]
+  )
 
   const renderContent = (): JSX.Element => {
-    if (isLoading) return <ConfigSkeleton />
+    if (isLoading || isUpdating) return <ConfigSkeleton />
 
-    if (error) return <Message type="error" message={error} />
+    if (error) {
+      const errorMessage =
+        typeof error === 'object' && error !== null && 'message' in error
+          ? (error as { message: string }).message
+          : 'Unknown error'
 
-    if (!config) return <Message type="error" message="Config not found" />
+      return <Message type="error" message={errorMessage} />
+    }
 
-    return <Config config={config} onSubmit={handleSubmit} />
+    if (!configFormDto) return <Message type="error" message="Config not found" />
+
+    return <Config config={configFormDto} onSubmit={handleSubmit} />
   }
 
   return renderContent()

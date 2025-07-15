@@ -1,6 +1,6 @@
 export type Domain = 'Config' | 'Sources' | 'Tasks'
 
-export type ProjectArea = 'main' | 'renderer' | 'shared' | 'preload'
+export type ProjectArea = 'MAIN' | 'RENDERER' | 'SHARED' | 'PRELOAD'
 
 export type Action = 'get' | 'getAll' | 'getFirst' | 'create' | 'update' | 'remove'
 

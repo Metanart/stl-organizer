@@ -1,32 +1,33 @@
-import { ChangeEvent, FC, FormEvent, useState } from 'react'
+import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react'
 import { Button, Checkbox, FormControlLabel, Stack, TextField } from '@mui/material'
 
+import { ConfigFormDTO, ConfigUpdateFormDTO } from '@shared/domains/Config/dtos/ConfigDTO'
+
 import { FolderInput } from '../../Common/components/FolderInput'
-import { ConfigState } from '../types/Config.types'
 
 type Props = {
-  config: ConfigState
-  onSubmit: (updated: ConfigState) => void
+  config: ConfigFormDTO
+  onSubmit: (updated: ConfigUpdateFormDTO) => void
 }
 
 export const Config: FC<Props> = ({ config, onSubmit }) => {
-  const [formState, setFormState] = useState<ConfigState>(config)
-  const [initlalFormState, _setInitialFormState] = useState<ConfigState>(config)
+  const [formState, setFormState] = useState<ConfigFormDTO>(config)
+  const initialFormState = useRef<ConfigFormDTO>(config)
+
+  useEffect(() => {
+    setFormState(config)
+    initialFormState.current = config
+  }, [config])
 
   function updateFormState(name: string, value: string, type?: string, checked?: boolean): void {
-    setFormState((prevFormState) => {
-      const updatedFormState = {
-        ...prevFormState,
-        [name]: type === 'checkbox' ? checked : value
-      }
-
-      return updatedFormState
-    })
+    setFormState((prevFormState) => ({
+      ...prevFormState,
+      [name]: type === 'checkbox' ? checked : value
+    }))
   }
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { name, value, type, checked } = event.target
-
     updateFormState(name, value, type, checked)
   }
 
@@ -46,7 +47,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
           label="Output folder"
           name="outputFolder"
           value={formState.outputFolder}
-          isUpdated={formState.outputFolder !== initlalFormState.outputFolder}
+          isUpdated={formState.outputFolder !== initialFormState.current.outputFolder}
           onSelect={handleSelectFolder}
           onChange={handleInputChange}
         />

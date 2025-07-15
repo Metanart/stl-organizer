@@ -1,8 +1,12 @@
 import { Action, Domain } from './Common.types'
 
-export type ApiTag = `${Domain}Api.${Action}`
+export type ApiDomain = Domain
 
-export type ApiResponse<R> = { data: R; error: null } | { data: null; error: string }
+export type ApiMethod = Action
+
+export type ApiTag = `${ApiDomain}.${ApiMethod}`
+
+export type ApiResponse<R> = { data: R } | { error: string }
 
 export type ApiHandlerNoPayload<R> = () => Promise<ApiResponse<R>>
 

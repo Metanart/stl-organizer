@@ -9,7 +9,7 @@ import { getEnv } from './getEnv'
 
 const ENV_LOGS_ENABLED = getEnv('VITE_LOGS_ENABLED') === 'true'
 
-type LogCategory = 'MAIN' | 'RENDERER' | 'PRELOAD' | 'SHA'
+export type LogCategory = ProjectArea
 
 type LogOptions = {
   tag?: ApiTag | IpcTag | IpcTagCustom | ServiceTag | ProjectArea
@@ -33,4 +33,3 @@ const createLog = (options: LogOptions = {}): ConsolaInstance => {
 }
 
 export { createLog }
-export type { LogCategory }

@@ -10,7 +10,7 @@ import { Config } from '../entities/Config'
 const repo = AppDataSource.getRepository(Config)
 
 export class ConfigService {
-  static async get(): Promise<ConfigDTO | null> {
+  static async get(): Promise<ConfigDTO> {
     const log = createLog({ tag: 'ConfigService.get' })
 
     let config: Config | null
@@ -22,26 +22,37 @@ export class ConfigService {
         }
       })
     } catch (error) {
-      log.error((error as Error).message)
-      return null
+      log.error('Failed to query config from database:', (error as Error).message)
+      throw new Error('Error getting configuration from database')
     }
 
     if (!config) {
-      log.error('Config not found - create a new one')
-      const newConfig = repo.create()
-      config = await repo.save(newConfig)
-      log.success(`Saved`, config)
+      log.warn('No config found — creating new default config')
+      try {
+        const newConfig = repo.create()
+        config = await repo.save(newConfig)
+        log.success('New default config saved', config)
+      } catch (error) {
+        log.error('Failed to create new config:', (error as Error).message)
+        throw new Error('Failed to create new configuration')
+      }
+    } else {
+      log.info('Existing config retrieved', config)
     }
 
-    log.info(`Got`, config)
+    let mappedDTO: ConfigDTO
 
-    const mappedDTO = ConfigMapper.map<Config, ConfigDTO>(
-      config,
-      CONFIG_DTO_KEYS.Config,
-      CONFIG_DTO_KEYS.ConfigDTO
-    )
-
-    log.info(`Got mapped`, mappedDTO)
+    try {
+      mappedDTO = ConfigMapper.map<Config, ConfigDTO>(
+        config,
+        CONFIG_DTO_KEYS.Config,
+        CONFIG_DTO_KEYS.ConfigDTO
+      )
+      log.info('Mapped config to DTO', mappedDTO)
+    } catch (error) {
+      log.error('Failed to map config to DTO:', (error as Error).message)
+      throw new Error('Failed to map config')
+    }
 
     return mappedDTO
   }
@@ -49,37 +60,48 @@ export class ConfigService {
   static async update(updatedConfig: ConfigUpdateDTO): Promise<ConfigDTO | null> {
     const log = createLog({ tag: 'ConfigService.update' })
 
-    log.info(`Updating`, updatedConfig)
+    log.info('Updating config with payload', updatedConfig)
 
     let existingConfig: Config | null
 
     try {
       existingConfig = await repo.findOne({ where: { id: updatedConfig.id } })
     } catch (error) {
-      log.error((error as Error).message)
-      return null
+      log.error('Failed to fetch existing config from database:', (error as Error).message)
+      throw new Error('Failed to fetch config from the database')
     }
 
     let finalConfig: Config
 
     if (existingConfig) {
-      log.info(`Found an existing entity - start merge`, existingConfig)
+      log.info('Existing config found — merging changes')
       finalConfig = repo.merge(existingConfig, { ...existingConfig, ...updatedConfig })
     } else {
+      log.warn('Config not found — creating a new one')
       finalConfig = repo.create(updatedConfig)
-      log.info(`Entity not found - create a new one and merge`, finalConfig)
     }
 
-    const savedConfig = await repo.save(finalConfig)
-    log.success(`Saved`, savedConfig)
+    let savedConfig: Config
+    try {
+      savedConfig = await repo.save(finalConfig)
+      log.success('Config saved successfully', savedConfig)
+    } catch (error) {
+      log.error('Failed to save config to database:', (error as Error).message)
+      throw new Error('Failed to save config to the database')
+    }
 
-    const mappedDTO = ConfigMapper.map<Config, ConfigDTO>(
-      savedConfig,
-      CONFIG_DTO_KEYS.Config,
-      CONFIG_DTO_KEYS.ConfigDTO
-    )
-
-    log.info(`Mapped`, savedConfig)
+    let mappedDTO: ConfigDTO
+    try {
+      mappedDTO = ConfigMapper.map<Config, ConfigDTO>(
+        savedConfig,
+        CONFIG_DTO_KEYS.Config,
+        CONFIG_DTO_KEYS.ConfigDTO
+      )
+      log.info('Mapped saved config to DTO', mappedDTO)
+    } catch (error) {
+      log.error('Failed to map saved config:', (error as Error).message)
+      throw new Error('Failed to map saved config')
+    }
 
     return mappedDTO
   }

@@ -1,17 +1,12 @@
-export type ConfigState = {
-  id: string
-  outputFolder: string
-  tempFolder: string
-  maxThreads: number
-  autoProcessOnScan: boolean
-  autoArchiveOnComplete: boolean
-  useMultithreading: boolean
-  debugMode: boolean
+import { ConfigFormDTO } from '@shared/domains/Config/dtos/ConfigDTO'
+
+export type ConfigStore = {
+  config: ConfigFormDTO | null
+  isLoading: boolean
+  error: string | null
 }
 
-export type ConfigContextType = {
-  config: ConfigState | null
-  isLoading: boolean
-  error?: string | null
-  update: (payload: ConfigState) => Promise<void>
-}
+export const ConfigActionTypes = {
+  Load: 'config/load',
+  Update: 'config/update'
+} as const

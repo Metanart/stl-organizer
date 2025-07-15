@@ -20,6 +20,7 @@ createMap<ConfigDTO, ConfigFormDTO>(
   CONFIG_DTO_KEYS.ConfigDTO,
   CONFIG_DTO_KEYS.ConfigFormDTO
 )
+
 createMap<ConfigUpdateFormDTO, ConfigUpdateDTO>(
   ConfigMapper,
   CONFIG_DTO_KEYS.ConfigUpdateFormDTO,
