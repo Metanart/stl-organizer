@@ -3,7 +3,7 @@ import { Button, Checkbox, FormControlLabel, Stack, TextField } from '@mui/mater
 
 import { ConfigFormDTO, ConfigUpdateFormDTO } from '@shared/domains/Config/dtos/ConfigDTO'
 
-import { FolderInput } from '../../Common/components/FolderInput'
+import { FolderInput } from '../../../Common/components/FolderInput'
 
 type Props = {
   config: ConfigFormDTO

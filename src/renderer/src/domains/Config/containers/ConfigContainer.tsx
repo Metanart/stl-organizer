@@ -4,7 +4,7 @@ import { ConfigUpdateFormDTO } from '@shared/domains/Config/dtos/ConfigDTO'
 
 import { Message } from '../../Common/components/Message'
 import { useGetConfigQuery, useUpdateConfigMutation } from '../api/ConfigApi'
-import { Config } from '../components/Config'
+import { Config } from '../components/Config/Config'
 import { ConfigSkeleton } from '../components/ConfigSkeleton'
 
 export const ConfigContainer: FC = () => {
