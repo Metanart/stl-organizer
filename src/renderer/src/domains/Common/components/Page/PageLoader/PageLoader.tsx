@@ -15,6 +15,7 @@ export const PageLoader: FC<PageLoaderProps> = (props) => {
       alignItems="center"
       justifyContent="center"
       minHeight={props.height || 200}
+      minWidth="100%"
     >
       <Loader {...props} />
     </Box>

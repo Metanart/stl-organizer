@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { Loader } from '@renderer/domains/Common/components/Generic/Loader/Loader'
 import { Message } from '@renderer/domains/Common/components/Message'
+import { PageLoader } from '@renderer/domains/Common/components/Page/PageLoader/PageLoader'
 
 import { RemoveDTO } from '@shared/domains/Common/dtos/DTOs'
 import { SourceUpdateFormDTO } from '@shared/domains/Sources/dtos/SourceDTO'
@@ -16,6 +16,8 @@ export const SourcesListContainer: FC = () => {
 
   console.log('SourcesListContainer')
 
+  console.log('[DEBUG]: ', sources, isLoading, error)
+
   const handleSave = (source: SourceUpdateFormDTO): void => {
     console.log('[DEBUG]: ', source)
   }
@@ -24,7 +26,10 @@ export const SourcesListContainer: FC = () => {
     console.log('[DEBUG]: ', source)
   }
 
-  if (isLoading) return <Loader />
+  if (isLoading) {
+    console.log('[DEBUG]: ', 'SourcesListContainer Loading')
+    return <PageLoader />
+  }
 
   if (!sources) return <Message type="error" message="No sources has been found" />
 
