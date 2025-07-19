@@ -1,11 +1,6 @@
 import { createTheme } from '@mui/material/styles'
 
-import {
-  TOKENS_COLORS,
-  TOKENS_SHAPE,
-  TOKENS_SPACING,
-  TOKENS_TYPOGRAPHY
-} from './domains/Common/design-system/tokens'
+import { TOKENS_COLORS, TOKENS_SHAPE, TOKENS_SPACING, TOKENS_TYPOGRAPHY } from './tokens'
 
 export const theme = createTheme({
   palette: {
