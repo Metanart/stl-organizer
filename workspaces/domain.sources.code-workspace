@@ -22,6 +22,7 @@
     }
   ],
   "settings": {
+    "editor.tabSize": 2,
     "[typescript]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -38,6 +39,10 @@
     },
     "eslint.format.enable": false,
     "eslint.useFlatConfig": true,
-    "eslint.validate": ["javascript", "typescript", "typescriptreact"]
+    "eslint.validate": [
+      "javascript",
+      "typescript",
+      "typescriptreact"
+    ]
   }
 }

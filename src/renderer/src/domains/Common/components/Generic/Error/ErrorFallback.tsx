@@ -1,7 +1,7 @@
 // src/components/ErrorFallback.tsx
 import { FC } from 'react'
 
-import { Message } from '../Message'
+import { Message } from '../../Message'
 
 type Props = {
   error: Error

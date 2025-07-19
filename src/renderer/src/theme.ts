@@ -1,63 +1,85 @@
 import { createTheme } from '@mui/material/styles'
 
+import {
+  TOKENS_COLORS,
+  TOKENS_SHAPE,
+  TOKENS_SPACING,
+  TOKENS_TYPOGRAPHY
+} from './domains/Common/design-system/tokens'
+
 export const theme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      default: '#0e0b16', // тёмный фоновый
-      paper: '#1a1325' // карточки и модалки
+      default: TOKENS_COLORS.background.default,
+      paper: TOKENS_COLORS.background.paper
     },
     primary: {
-      main: '#a379f4' // мягкий фиолетовый (кнопки, ссылки)
+      main: TOKENS_COLORS.primary
     },
     secondary: {
-      main: '#f06292' // яркий розово-фиолетовый (акценты)
+      main: TOKENS_COLORS.secondary
     },
     error: {
-      main: '#ef5350'
+      main: TOKENS_COLORS.error
     },
     warning: {
-      main: '#ffa726'
+      main: TOKENS_COLORS.warning
     },
     info: {
-      main: '#64b5f6'
+      main: TOKENS_COLORS.info
     },
     success: {
-      main: '#81c784'
+      main: TOKENS_COLORS.success
     },
     text: {
-      primary: '#e0d7ff',
-      secondary: '#b6a6d3'
+      primary: TOKENS_COLORS.text.primary,
+      secondary: TOKENS_COLORS.text.secondary
     },
-    divider: '#3e2e5b'
+    divider: TOKENS_COLORS.divider
   },
-  spacing: 6,
+  spacing: TOKENS_SPACING.unit,
   typography: {
-    fontSize: 12
+    fontSize: TOKENS_TYPOGRAPHY.fontSize
+  },
+  shape: {
+    borderRadius: TOKENS_SHAPE.borderRadius
   },
   components: {
     MuiTypography: {
       styleOverrides: {
         root: {
-          color: '#e0d7ff'
+          color: TOKENS_COLORS.text.primary
         }
       }
     },
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: '#0e0b16',
+          backgroundColor: TOKENS_COLORS.background.default,
           minHeight: '100%'
         }
       }
     },
-    MuiButton: { defaultProps: { size: 'small' } },
-    MuiTextField: { defaultProps: { size: 'small' } },
-    MuiCheckbox: { defaultProps: { size: 'small' } },
+    MuiButton: {
+      defaultProps: {
+        size: 'small'
+      }
+    },
+    MuiTextField: {
+      defaultProps: {
+        size: 'small'
+      }
+    },
+    MuiCheckbox: {
+      defaultProps: {
+        size: 'small'
+      }
+    },
     MuiFormControlLabel: {
       styleOverrides: {
         label: {
-          fontSize: '0.8rem'
+          fontSize: TOKENS_TYPOGRAPHY.labelSize
         }
       }
     }
