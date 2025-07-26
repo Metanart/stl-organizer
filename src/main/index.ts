@@ -1,7 +1,9 @@
 import 'reflect-metadata'
 
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
-import { app, BrowserWindow, shell } from 'electron'
+import { app, BrowserWindow, ipcMain, shell } from 'electron'
+import fs from 'fs'
+import { clearMainBindings, mainBindings } from 'i18next-electron-fs-backend'
 import { join } from 'path'
 
 import { createLog } from '@shared/utils/createLog'
@@ -32,6 +34,8 @@ function createWindow(): void {
       sandbox: false
     }
   })
+
+  mainBindings(ipcMain, mainWindow, fs) // configures the localization backend
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
@@ -86,6 +90,8 @@ app.whenReady().then(async () => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
+  clearMainBindings(ipcMain)
+
   if (process.platform !== 'darwin') {
     app.quit()
   }

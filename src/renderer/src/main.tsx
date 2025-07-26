@@ -7,6 +7,8 @@ import { AppProvidersContainer } from './domains/App/containers/AppProvidersCont
 import { AppRoutesContainerMemo } from './domains/App/containers/AppRoutesContainer'
 import { theme } from './theme'
 
+import './i18n'
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(

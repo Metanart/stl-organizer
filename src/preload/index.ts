@@ -1,5 +1,6 @@
 import { electronAPI } from '@electron-toolkit/preload'
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
+import { preloadBindings } from 'i18next-electron-fs-backend'
 
 import { commonIpcInvokers } from './domains/Common/api/CommonIpcInvokers'
 import { configIpcInvokers } from './domains/Config/api/ConfigIpcInvokers'
@@ -16,7 +17,8 @@ if (process.contextIsolated) {
     })
     contextBridge.exposeInMainWorld('api', {
       config: configIpcInvokers,
-      sources: sourcesIpcInvokers
+      sources: sourcesIpcInvokers,
+      i18nextElectronBackend: preloadBindings(ipcRenderer, process)
     })
   } catch (error) {
     console.error(error)
