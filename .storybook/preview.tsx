@@ -1,4 +1,9 @@
+// eslint-disable-next-line unused-imports/no-unused-imports
+import React from 'react'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 import type { Preview } from '@storybook/react-vite'
+
+import { theme } from '../src/renderer/src/theme'
 
 const preview: Preview = {
   parameters: {
@@ -15,7 +20,15 @@ const preview: Preview = {
       // 'off' - skip a11y checks entirely
       test: 'todo'
     }
-  }
+  },
+  decorators: [
+    (Story) => (
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Story />
+      </ThemeProvider>
+    )
+  ]
 }
 
 export default preview

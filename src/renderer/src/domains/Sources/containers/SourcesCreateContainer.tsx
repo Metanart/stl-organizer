@@ -3,7 +3,7 @@ import { Modal } from '@renderer/domains/Common/components/Modal/Modal'
 
 import { SourceCreateFormDTO } from '@shared/domains/Sources/dtos/SourceDTO'
 
-import { SourcesCreate } from '../components/SourcesCreate'
+import { SourcesCreate } from '../components/SourcesCreate/SourcesCreate'
 
 type Props = {
   isOpen: boolean

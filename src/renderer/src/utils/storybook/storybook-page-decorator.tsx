@@ -1,5 +1,7 @@
-import { FC, PropsWithChildren } from 'react'
+import { JSX } from 'react'
 
-export const StorybookPageDecorator: FC<PropsWithChildren> = (props) => {
-  return <div style={{ maxWidth: 600, margin: '0 auto', padding: 24 }}>{props.children}</div>
-}
+export const StorybookPageDecorator = (Story): JSX.Element => (
+  <div style={{ maxWidth: 600, margin: '0 auto', padding: 24 }}>
+    <Story />
+  </div>
+)

@@ -1,3 +1,7 @@
+import z from 'zod'
+
+import { sourceCreateSchema } from '../schemes/SourceSchemes'
+
 export type SourceDTO = {
   id: string
   path: string
@@ -29,12 +33,7 @@ export type SourceFormDTO = {
   isEnabled?: boolean
 }
 
-export type SourceCreateFormDTO = {
-  path: string
-  name?: string
-  comment?: string
-  isEnabled?: boolean
-}
+export type SourceCreateFormDTO = z.infer<typeof sourceCreateSchema>
 
 export type SourceUpdateFormDTO = {
   id: string

@@ -9,13 +9,7 @@ const meta = {
   parameters: {
     layout: 'padded'
   },
-  decorators: [
-    (Story) => (
-      <StorybookPageDecorator>
-        <Story />
-      </StorybookPageDecorator>
-    )
-  ]
+  decorators: [StorybookPageDecorator]
 } satisfies Meta<typeof Config>
 
 export default meta
