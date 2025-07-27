@@ -8,7 +8,8 @@ export default defineConfig({
     resolve: {
       alias: {
         '@main': resolve('src/main'),
-        '@shared': resolve('src/shared')
+        '@shared': resolve('src/shared'),
+        '@i18n': resolve('src/i18n')
       }
     }
   },
@@ -26,7 +27,8 @@ export default defineConfig({
       alias: {
         '@preload': resolve('src/preload'),
         '@renderer': resolve('src/renderer/src'),
-        '@shared': resolve('src/shared')
+        '@shared': resolve('src/shared'),
+        '@i18n': resolve('src/i18n')
       }
     },
     plugins: [react()]

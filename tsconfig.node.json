@@ -4,11 +4,16 @@
     "electron.vite.config.*",
     "src/main/**/*",
     "src/preload/**/*",
-    "src/shared/**/*"
-, "src/renderer/src/domains/Config/mappers/ConfigMapperMetadata.ts"  ],
+    "src/shared/**/*",
+    "src/renderer/src/domains/Config/mappers/ConfigMapperMetadata.ts",
+    "src/i18n/**/*",
+    "src/i18n/en"
+  ],
   "compilerOptions": {
     "composite": true,
-    "types": ["electron-vite/node"],
+    "types": [
+      "electron-vite/node"
+    ],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "baseUrl": ".",
@@ -21,7 +26,10 @@
       ],
       "@shared/*": [
         "src/shared/*"
-      ]
+      ],
+      "@i18n/*": [
+        "src/i18n/*"
+      ],
     }
   }
 }

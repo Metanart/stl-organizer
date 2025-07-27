@@ -1,4 +1,5 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react'
+import { useI18nContext } from '@i18n/i18n-react.generated'
 import { Button, Checkbox, FormControlLabel, Stack, TextField } from '@mui/material'
 
 import { ConfigFormDTO, ConfigUpdateFormDTO } from '@shared/domains/Config/dtos/ConfigDTO'
@@ -13,6 +14,12 @@ type Props = {
 export const Config: FC<Props> = ({ config, onSubmit }) => {
   const [formState, setFormState] = useState<ConfigFormDTO>(config)
   const initialFormState = useRef<ConfigFormDTO>(config)
+
+  const {
+    LL: {
+      config: { form: lexemes }
+    }
+  } = useI18nContext()
 
   useEffect(() => {
     setFormState(config)
@@ -44,7 +51,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
     <form onSubmit={handleSubmit}>
       <Stack spacing={3}>
         <FolderInput
-          label="Output folder"
+          label={lexemes.outputFolder()}
           name="outputFolder"
           value={formState.outputFolder}
           isUpdated={formState.outputFolder !== initialFormState.current.outputFolder}

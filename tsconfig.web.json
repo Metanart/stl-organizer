@@ -4,7 +4,9 @@
     "src/renderer/src/env.d.ts",
     "src/renderer/src/**/*",
     "src/preload/*.d.ts",
-    "src/shared/**/*"
+    "src/shared/**/*",
+    "src/i18n/**/*",
+    "src/i18n/en"
   ],
   "compilerOptions": {
     "composite": true,
@@ -21,6 +23,9 @@
       ],
       "@shared/*": [
         "src/shared/*"
+      ],
+      "@i18n/*": [
+        "src/i18n/*"
       ],
     }
   }

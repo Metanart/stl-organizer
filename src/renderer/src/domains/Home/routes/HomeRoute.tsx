@@ -5,7 +5,6 @@ import { HomePage } from '../pages/HomePage'
 
 export const HomeRoute: AppRoute = {
   id: 'HomeRoute',
-  text: 'Home',
   icon: <HomeIcon />,
   path: '/',
   element: <HomePage />

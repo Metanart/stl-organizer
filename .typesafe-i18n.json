@@ -1,0 +1,11 @@
+{
+  "$schema": "https://unpkg.com/typesafe-i18n@5.26.2/schema/typesafe-i18n.json",
+  "adapter": "react",
+  "baseLocale": "en",
+  "outputFormat": "TypeScript",
+  "outputPath": "./src/i18n",
+  "typesFileName": "i18n-types.generated",
+  "utilFileName": "i18n-util.generated",
+  "adapterFileName": "i18n-react.generated",
+  "formattersTemplateFileName": "i18n-formatters"
+}

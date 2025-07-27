@@ -1,4 +1,5 @@
 import { JSX, ReactElement } from 'react'
+import { Namespaces } from '@i18n/i18n-types.generated'
 
 export type AppNavigationItem = {
   text: string
@@ -13,10 +14,10 @@ export type AppNavigationParams = {
 
 export type AppRoute = {
   id: `${AppDomains}Route`
-  text: string
   icon: ReactElement
   path: AppURL
   element: ReactElement
+  namespace?: Namespaces
 }
 
 export type AppBaseDomains = 'App' | 'Common'

@@ -20,7 +20,8 @@
     "build:mac": "electron-vite build && electron-builder --mac",
     "build:linux": "electron-vite build && electron-builder --linux",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "typesafe-i18n": "typesafe-i18n"
   },
   "dependencies": {
     "@automapper/core": "^8.8.1",
@@ -42,7 +43,8 @@
     "reflect-metadata": "^0.2.2",
     "reset.css": "^2.0.2",
     "sqlite3": "^5.1.7",
-    "typeorm": "^0.3.24"
+    "typeorm": "^0.3.24",
+    "typesafe-i18n": "^5.26.2"
   },
   "devDependencies": {
     "@automapper/types": "^6.3.1",
