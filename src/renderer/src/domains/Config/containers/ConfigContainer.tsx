@@ -26,7 +26,7 @@ export const ConfigContainer: FC = () => {
         log.error(LL.config.errors.failedUpdate(), error)
       }
     },
-    [updateConfig]
+    [updateConfig, LL.config.errors]
   )
 
   const renderContent = (): JSX.Element => {
