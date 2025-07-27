@@ -21,7 +21,7 @@
     "build:linux": "electron-vite build && electron-builder --linux",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "typesafe-i18n": "typesafe-i18n"
+    "i18n": "typesafe-i18n"
   },
   "dependencies": {
     "@automapper/core": "^8.8.1",

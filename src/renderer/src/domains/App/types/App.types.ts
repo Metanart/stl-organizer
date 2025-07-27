@@ -17,7 +17,7 @@ export type AppRoute = {
   icon: ReactElement
   path: AppURL
   element: ReactElement
-  namespace?: Namespaces
+  namespace: Namespaces
 }
 
 export type AppBaseDomains = 'App' | 'Common'

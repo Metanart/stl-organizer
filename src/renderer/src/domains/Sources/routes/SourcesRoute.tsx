@@ -3,10 +3,10 @@ import { AppRoute } from '@renderer/domains/App/types/App.types'
 
 import { SourcesPage } from '../pages/SourcesPage'
 
-export const SourceRoute: AppRoute = {
+export const SourcesRoute: AppRoute = {
   id: 'SourcesRoute',
-  text: 'Sources',
   icon: <FolderZipIcon />,
   path: '/Sources',
-  element: <SourcesPage />
+  element: <SourcesPage />,
+  namespace: 'sources'
 }

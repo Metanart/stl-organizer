@@ -1,4 +1,7 @@
 import { JSX, PropsWithChildren, useState } from 'react'
+import { loadNamespaceAsync } from '@i18n/i18n-util.generated.async'
+
+import { LOCALE } from '@shared/locale'
 
 import { App } from '../components/App'
 import { AppContent } from '../components/AppContent'
@@ -7,6 +10,8 @@ import { AppNavigationContainer } from './AppNavigationContainer'
 
 const NAVIGATION_OPEN_WIDTH = 240
 const NAVIGATION_CLOSE_WIDTH = 64
+
+await loadNamespaceAsync(LOCALE, 'app')
 
 export function AppContainer({ children }: PropsWithChildren): JSX.Element {
   const [isNavigationOpen, setIsNavigationOpen] = useState(false)

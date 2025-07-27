@@ -11,7 +11,7 @@ export const ConfigPage: FC = () => {
 
   return (
     <Page>
-      <PageHeader title={LL.title()} />
+      <PageHeader title={LL.config.pageTitle()} />
       <PageContent>
         <ConfigContainer />
       </PageContent>

@@ -12,8 +12,13 @@ export type Translation = RootTranslation & DisallowNamespaces
 
 export type Translations = RootTranslation &
 {
+	app: NamespaceAppTranslation,
 	common: NamespaceCommonTranslation,
-	config: NamespaceConfigTranslation
+	config: NamespaceConfigTranslation,
+	home: NamespaceHomeTranslation,
+	models: NamespaceModelsTranslation,
+	sources: NamespaceSourcesTranslation,
+	tasks: NamespaceTasksTranslation
 }
 
 type RootTranslation = {
@@ -21,6 +26,31 @@ type RootTranslation = {
 	 * S​T​L​ ​O​r​g​a​n​i​z​e​r
 	 */
 	title: string
+}
+
+export type NamespaceAppTranslation = {
+	navigation: {
+		/**
+		 * H​o​m​e
+		 */
+		home: string
+		/**
+		 * M​o​d​e​l​s
+		 */
+		models: string
+		/**
+		 * S​o​u​r​c​e​s
+		 */
+		sources: string
+		/**
+		 * T​a​s​k​s
+		 */
+		tasks: string
+		/**
+		 * C​o​n​f​i​g
+		 */
+		config: string
+	}
 }
 
 export type NamespaceCommonTranslation = {
@@ -37,43 +67,108 @@ export type NamespaceCommonTranslation = {
 }
 
 export type NamespaceConfigTranslation = {
+	/**
+	 * C​o​n​f​i​g
+	 */
+	pageTitle: string
+	errors: {
+		/**
+		 * F​a​i​l​e​d​ ​t​o​ ​u​p​d​a​t​e​ ​c​o​n​f​i​g
+		 */
+		failedUpdate: string
+	}
 	form: {
-		/**
-		 * O​u​t​p​u​t​ ​f​o​l​d​e​r​!
-		 */
-		outputFolder: string
-		/**
-		 * T​e​m​p​ ​F​o​l​d​e​r
-		 */
-		tempFolder: string
-		/**
-		 * M​a​x​ ​T​h​r​e​a​d​s
-		 */
-		maxThreads: string
-		/**
-		 * A​u​t​o​ ​P​r​o​c​e​s​s​ ​o​n​ ​S​c​a​n
-		 */
-		autoProcessOnScan: string
-		/**
-		 * A​u​t​o​ ​A​r​c​h​i​v​e​ ​o​n​ ​C​o​m​p​l​e​t​e
-		 */
-		autoArchiveOnComplete: string
-		/**
-		 * U​s​e​ ​M​u​l​t​i​t​h​r​e​a​d​i​n​g
-		 */
-		useMultithreading: string
-		/**
-		 * D​e​b​u​g​ ​M​o​d​e
-		 */
-		debugMode: string
+		fields: {
+			outputFolder: {
+				/**
+				 * O​u​t​p​u​t​ ​f​o​l​d​e​r
+				 */
+				label: string
+			}
+			tempFolder: {
+				/**
+				 * T​e​m​p​ ​F​o​l​d​e​r
+				 */
+				label: string
+			}
+			maxThreads: {
+				/**
+				 * M​a​x​ ​T​h​r​e​a​d​s
+				 */
+				label: string
+			}
+			autoProcessOnScan: {
+				/**
+				 * A​u​t​o​ ​P​r​o​c​e​s​s​ ​o​n​ ​S​c​a​n
+				 */
+				label: string
+			}
+			autoArchiveOnComplete: {
+				/**
+				 * A​u​t​o​ ​A​r​c​h​i​v​e​ ​o​n​ ​C​o​m​p​l​e​t​e
+				 */
+				label: string
+			}
+			useMultithreading: {
+				/**
+				 * U​s​e​ ​M​u​l​t​i​t​h​r​e​a​d​i​n​g
+				 */
+				label: string
+			}
+			debugMode: {
+				/**
+				 * D​e​b​u​g​ ​M​o​d​e
+				 */
+				label: string
+			}
+		}
 	}
 }
 
+export type NamespaceHomeTranslation = {
+	/**
+	 * H​o​m​e
+	 */
+	pageTitle: string
+}
+
+export type NamespaceModelsTranslation = {
+	/**
+	 * M​o​d​e​l​s
+	 */
+	pageTitle: string
+}
+
+export type NamespaceSourcesTranslation = {
+	/**
+	 * S​o​u​r​c​e​s
+	 */
+	pageTitle: string
+}
+
+export type NamespaceTasksTranslation = {
+	/**
+	 * T​a​s​k​s
+	 */
+	pageTitle: string
+}
+
 export type Namespaces =
+	| 'app'
 	| 'common'
 	| 'config'
+	| 'home'
+	| 'models'
+	| 'sources'
+	| 'tasks'
 
 type DisallowNamespaces = {
+	/**
+	 * reserved for 'app'-namespace\
+	 * you need to use the `./app/index.ts` file instead
+	 */
+	app?: "[typesafe-i18n] reserved for 'app'-namespace. You need to use the `./app/index.ts` file instead."
+
 	/**
 	 * reserved for 'common'-namespace\
 	 * you need to use the `./common/index.ts` file instead
@@ -85,6 +180,30 @@ type DisallowNamespaces = {
 	 * you need to use the `./config/index.ts` file instead
 	 */
 	config?: "[typesafe-i18n] reserved for 'config'-namespace. You need to use the `./config/index.ts` file instead."
+
+	/**
+	 * reserved for 'home'-namespace\
+	 * you need to use the `./home/index.ts` file instead
+	 */
+	home?: "[typesafe-i18n] reserved for 'home'-namespace. You need to use the `./home/index.ts` file instead."
+
+	/**
+	 * reserved for 'models'-namespace\
+	 * you need to use the `./models/index.ts` file instead
+	 */
+	models?: "[typesafe-i18n] reserved for 'models'-namespace. You need to use the `./models/index.ts` file instead."
+
+	/**
+	 * reserved for 'sources'-namespace\
+	 * you need to use the `./sources/index.ts` file instead
+	 */
+	sources?: "[typesafe-i18n] reserved for 'sources'-namespace. You need to use the `./sources/index.ts` file instead."
+
+	/**
+	 * reserved for 'tasks'-namespace\
+	 * you need to use the `./tasks/index.ts` file instead
+	 */
+	tasks?: "[typesafe-i18n] reserved for 'tasks'-namespace. You need to use the `./tasks/index.ts` file instead."
 }
 
 export type TranslationFunctions = {
@@ -92,6 +211,30 @@ export type TranslationFunctions = {
 	 * STL Organizer
 	 */
 	title: () => LocalizedString
+	app: {
+		navigation: {
+			/**
+			 * Home
+			 */
+			home: () => LocalizedString
+			/**
+			 * Models
+			 */
+			models: () => LocalizedString
+			/**
+			 * Sources
+			 */
+			sources: () => LocalizedString
+			/**
+			 * Tasks
+			 */
+			tasks: () => LocalizedString
+			/**
+			 * Config
+			 */
+			config: () => LocalizedString
+		}
+	}
 	common: {
 		actions: {
 			/**
@@ -105,36 +248,86 @@ export type TranslationFunctions = {
 		}
 	}
 	config: {
-		form: {
+		/**
+		 * Config
+		 */
+		pageTitle: () => LocalizedString
+		errors: {
 			/**
-			 * Output folder!
+			 * Failed to update config
 			 */
-			outputFolder: () => LocalizedString
-			/**
-			 * Temp Folder
-			 */
-			tempFolder: () => LocalizedString
-			/**
-			 * Max Threads
-			 */
-			maxThreads: () => LocalizedString
-			/**
-			 * Auto Process on Scan
-			 */
-			autoProcessOnScan: () => LocalizedString
-			/**
-			 * Auto Archive on Complete
-			 */
-			autoArchiveOnComplete: () => LocalizedString
-			/**
-			 * Use Multithreading
-			 */
-			useMultithreading: () => LocalizedString
-			/**
-			 * Debug Mode
-			 */
-			debugMode: () => LocalizedString
+			failedUpdate: () => LocalizedString
 		}
+		form: {
+			fields: {
+				outputFolder: {
+					/**
+					 * Output folder
+					 */
+					label: () => LocalizedString
+				}
+				tempFolder: {
+					/**
+					 * Temp Folder
+					 */
+					label: () => LocalizedString
+				}
+				maxThreads: {
+					/**
+					 * Max Threads
+					 */
+					label: () => LocalizedString
+				}
+				autoProcessOnScan: {
+					/**
+					 * Auto Process on Scan
+					 */
+					label: () => LocalizedString
+				}
+				autoArchiveOnComplete: {
+					/**
+					 * Auto Archive on Complete
+					 */
+					label: () => LocalizedString
+				}
+				useMultithreading: {
+					/**
+					 * Use Multithreading
+					 */
+					label: () => LocalizedString
+				}
+				debugMode: {
+					/**
+					 * Debug Mode
+					 */
+					label: () => LocalizedString
+				}
+			}
+		}
+	}
+	home: {
+		/**
+		 * Home
+		 */
+		pageTitle: () => LocalizedString
+	}
+	models: {
+		/**
+		 * Models
+		 */
+		pageTitle: () => LocalizedString
+	}
+	sources: {
+		/**
+		 * Sources
+		 */
+		pageTitle: () => LocalizedString
+	}
+	tasks: {
+		/**
+		 * Tasks
+		 */
+		pageTitle: () => LocalizedString
 	}
 }
 

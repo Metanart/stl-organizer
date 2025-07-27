@@ -1,4 +1,5 @@
 import { FC, useState } from 'react'
+import { useI18nContext } from '@i18n/i18n-react.generated'
 import ControlPointIcon from '@mui/icons-material/ControlPoint'
 import { IconButton, Tooltip } from '@mui/material'
 import { Page } from '@renderer/domains/Common/components/Page/Page'
@@ -11,7 +12,7 @@ import { SourcesListContainer } from '../containers/SourcesListContainer'
 export const SourcesPage: FC = () => {
   const [showAddNew, setShowAddNew] = useState(false)
 
-  console.log('SourcesPage')
+  const { LL } = useI18nContext()
 
   const handleToggleAddNew = (): void => {
     setShowAddNew((prevState) => {
@@ -31,7 +32,7 @@ export const SourcesPage: FC = () => {
 
   return (
     <Page>
-      <PageHeader title={'Sources'} actions={actions} />
+      <PageHeader title={LL.sources.pageTitle()} actions={actions} />
       <PageContent>
         <SourcesListContainer />
         <SourcesCreateContainer isOpen={showAddNew} onClose={handleToggleAddNew} />

@@ -11,8 +11,13 @@ const localeTranslationLoaders = {
 
 const localeNamespaceLoaders = {
 	en: {
+		app: () => import('./en/app'),
 		common: () => import('./en/common'),
-		config: () => import('./en/config')
+		config: () => import('./en/config'),
+		home: () => import('./en/home'),
+		models: () => import('./en/models'),
+		sources: () => import('./en/sources'),
+		tasks: () => import('./en/tasks')
 	}
 }
 

@@ -1,7 +1,7 @@
 import { FC, JSX, memo } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { AppTranslationLoader } from '@renderer/domains/App/containers/AppTranslationLoader'
-import { ROUTES } from '@renderer/routes'
+import { ROUTES } from '@renderer/domains/App/routes'
 
 export const AppRoutesContainer: FC = () => (
   <Routes>

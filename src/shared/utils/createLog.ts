@@ -1,7 +1,7 @@
 import { consola, ConsolaInstance, LogLevel } from 'consola'
 
 import { ApiTag } from '@shared/domains/Common/types/Api.types'
-import { ProjectArea } from '@shared/domains/Common/types/Common.types'
+import { Domain, ProjectArea } from '@shared/domains/Common/types/Common.types'
 import { IpcTag, IpcTagCustom } from '@shared/domains/Common/types/IPC.types'
 import { ServiceTag } from '@shared/domains/Common/types/Services.types'
 
@@ -12,7 +12,7 @@ const ENV_LOGS_ENABLED = getEnv('VITE_LOGS_ENABLED') === 'true'
 export type LogCategory = ProjectArea
 
 type LogOptions = {
-  tag?: ApiTag | IpcTag | IpcTagCustom | ServiceTag | ProjectArea
+  tag?: Domain | ApiTag | IpcTag | IpcTagCustom | ServiceTag | ProjectArea
   category?: LogCategory
   level?: LogLevel
 }

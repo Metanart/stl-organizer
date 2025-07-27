@@ -1,5 +1,6 @@
 import { FC } from 'react'
-import { ROUTES } from '@renderer/routes'
+import { useI18nContext } from '@i18n/i18n-react.generated'
+import { ROUTES } from '@renderer/domains/App/routes'
 
 import { AppNavigation } from '../components/AppNavigation'
 import { AppNavigationButton } from '../components/AppNavigationButton'
@@ -16,12 +17,14 @@ export const AppNavigationContainer: FC<Props> = (props) => {
     navigation: { isOpen }
   } = props
 
+  const { LL } = useI18nContext()
+
   return (
     <AppNavigation onToggleClick={onToggleClick} isOpen={isOpen}>
       {ROUTES.map((item) => (
         <AppNavigationButton
-          key={item.text}
-          text={item.text}
+          key={item.id}
+          text={LL.app.navigation[item.namespace]()}
           icon={item.icon}
           to={item.path}
           isOpen={isOpen}

@@ -5,8 +5,8 @@ import { TasksPage } from '../pages/TasksPage'
 
 export const TasksRoute: AppRoute = {
   id: 'TasksRoute',
-  text: 'Tasks',
   icon: <AssignmentIcon />,
   path: '/Tasks',
-  element: <TasksPage />
+  element: <TasksPage />,
+  namespace: 'tasks'
 }

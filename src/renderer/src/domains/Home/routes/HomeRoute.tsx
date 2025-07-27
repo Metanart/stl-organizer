@@ -7,5 +7,6 @@ export const HomeRoute: AppRoute = {
   id: 'HomeRoute',
   icon: <HomeIcon />,
   path: '/',
-  element: <HomePage />
+  element: <HomePage />,
+  namespace: 'home'
 }

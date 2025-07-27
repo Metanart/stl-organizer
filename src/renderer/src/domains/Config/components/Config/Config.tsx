@@ -15,11 +15,8 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
   const [formState, setFormState] = useState<ConfigFormDTO>(config)
   const initialFormState = useRef<ConfigFormDTO>(config)
 
-  const {
-    LL: {
-      config: { form: lexemes }
-    }
-  } = useI18nContext()
+  const { LL } = useI18nContext()
+  const fieldsLexemes = LL.config.form.fields
 
   useEffect(() => {
     setFormState(config)
@@ -51,7 +48,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
     <form onSubmit={handleSubmit}>
       <Stack spacing={3}>
         <FolderInput
-          label={lexemes.outputFolder()}
+          label={fieldsLexemes.outputFolder.label()}
           name="outputFolder"
           value={formState.outputFolder}
           isUpdated={formState.outputFolder !== initialFormState.current.outputFolder}
@@ -60,7 +57,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
         />
 
         <FolderInput
-          label="Temp Folder"
+          label={fieldsLexemes.tempFolder.label()}
           name="tempFolder"
           value={formState.tempFolder}
           onSelect={handleSelectFolder}
@@ -68,7 +65,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
         />
 
         <TextField
-          label="Max Threads"
+          label={fieldsLexemes.maxThreads.label()}
           type="number"
           name="maxThreads"
           fullWidth
@@ -85,7 +82,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
               onChange={handleInputChange}
             />
           }
-          label="Auto Process on Scan"
+          label={fieldsLexemes.autoProcessOnScan.label()}
         />
 
         <FormControlLabel
@@ -96,7 +93,7 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
               onChange={handleInputChange}
             />
           }
-          label="Auto Archive on Complete"
+          label={fieldsLexemes.autoArchiveOnComplete.label()}
         />
 
         <FormControlLabel
@@ -107,18 +104,18 @@ export const Config: FC<Props> = ({ config, onSubmit }) => {
               onChange={handleInputChange}
             />
           }
-          label="Use Multithreading"
+          label={fieldsLexemes.useMultithreading.label()}
         />
 
         <FormControlLabel
           control={
             <Checkbox name="debugMode" checked={formState.debugMode} onChange={handleInputChange} />
           }
-          label="Debug Mode"
+          label={fieldsLexemes.debugMode.label()}
         />
 
         <Button type="submit" variant="contained" sx={{ alignSelf: 'flex-start' }}>
-          Save Config
+          {LL.common.actions.save()}
         </Button>
       </Stack>
     </form>
