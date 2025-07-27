@@ -1,6 +1,6 @@
 export const TOKENS_COLORS = {
   background: {
-    default: '#0e0b16',
+    default: '#211c33ff',
     paper: '#1a1325',
     elevated: '#2a1c3b',
     overlay: 'rgba(0,0,0,0.6)'
