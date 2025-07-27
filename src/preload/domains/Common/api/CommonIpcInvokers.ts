@@ -1,6 +1,6 @@
 import { ipcRenderer } from 'electron'
 
-import { COMMON_IPC_TAGS } from '@shared/domains/Common/ipc/CommonIpcTags'
+import { COMMON_IPC_TAGS } from '@shared/domains/Common/CommonIpcTags'
 
 const { DialogServiceSelectFolder } = COMMON_IPC_TAGS
 

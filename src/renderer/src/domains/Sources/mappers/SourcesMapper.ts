@@ -10,7 +10,7 @@ import {
   SOURCES_DTO_KEYS,
   SourceUpdateDTO,
   SourceUpdateFormDTO
-} from '@shared/domains/Sources/dtos/SourceDTO'
+} from '@shared/domains/Sources/Sources.dtos'
 
 PojosMetadataMap.create<SourceDTO>('SourceDTO', {
   id: String,

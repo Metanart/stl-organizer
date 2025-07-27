@@ -9,9 +9,12 @@ import {
   ConfigFormDTO,
   ConfigUpdateDTO,
   ConfigUpdateFormDTO
-} from '@shared/domains/Config/dtos/ConfigDTO'
+} from '@shared/domains/Config/Config.dtos'
+import { createLog } from '@shared/utils/createLog'
 
 import { ConfigMapper } from '../mappers/ConfigMapper'
+
+const reducerPath = 'ConfigApi'
 
 const ConfigApiTags = {
   Base: 'Config'
@@ -24,8 +27,10 @@ const ConfigApiMethods: Record<string, ApiMethod> = {
 
 const ConfigApiDomain = 'Config' as ApiDomain
 
+const log = createLog({ tag: 'ConfigApi', category: 'RENDERER' })
+
 export const ConfigApi = createApi({
-  reducerPath: 'ConfigApi',
+  reducerPath,
   baseQuery: baseApiQuery,
   tagTypes: ['Config'],
   endpoints: (builder) => ({
@@ -34,12 +39,18 @@ export const ConfigApi = createApi({
         domain: ConfigApiDomain,
         method: ConfigApiMethods.GET
       }),
-      transformResponse: (rawDTO: ConfigDTO): ConfigFormDTO => {
-        return ConfigMapper.map<ConfigDTO, ConfigFormDTO>(
-          rawDTO,
+      transformResponse: (configDto: ConfigDTO): ConfigFormDTO => {
+        log.info('Received raw config', configDto)
+
+        const configFormDto = ConfigMapper.map<ConfigDTO, ConfigFormDTO>(
+          configDto,
           CONFIG_DTO_KEYS.ConfigDTO,
           CONFIG_DTO_KEYS.ConfigFormDTO
         )
+
+        log.success('Returning mapped config form', configFormDto)
+
+        return configFormDto
       },
       providesTags: [ConfigApiTags.Base]
     }),

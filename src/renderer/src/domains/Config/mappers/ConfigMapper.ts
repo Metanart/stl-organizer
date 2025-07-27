@@ -7,9 +7,9 @@ import {
   ConfigFormDTO,
   ConfigUpdateDTO,
   ConfigUpdateFormDTO
-} from '@shared/domains/Config/dtos/ConfigDTO'
+} from '@shared/domains/Config/Config.dtos'
 
-import '@shared/domains/Config/dtos/ConfigDTOMetadata'
+import '@shared/domains/Config/ConfigMapper.metadata'
 
 export const ConfigMapper = createMapper({
   strategyInitializer: pojos()

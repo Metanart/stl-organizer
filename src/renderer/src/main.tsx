@@ -4,7 +4,7 @@ import TypesafeI18n from '@i18n/i18n-react.generated'
 import { loadLocaleAsync, loadNamespaceAsync } from '@i18n/i18n-util.generated.async'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 
-import { LOCALE } from '@shared/locale'
+import { LOCALE } from '@i18n/locale'
 
 import { AppContainer } from './domains/App/containers/AppContainer'
 import { AppProvidersContainer } from './domains/App/containers/AppProvidersContainer'

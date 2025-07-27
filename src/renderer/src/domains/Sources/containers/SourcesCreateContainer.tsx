@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { Modal } from '@renderer/domains/Common/components/Modal/Modal'
 
-import { SourceCreateFormDTO } from '@shared/domains/Sources/dtos/SourceDTO'
+import { SourceCreateFormDTO } from '@shared/domains/Sources/Sources.dtos'
 
-import { SourcesCreate } from '../components/SourcesCreate'
+import { SourcesCreateForm } from '../components/SourcesCreateForm/SourcesCreateForm'
 
 type Props = {
   isOpen: boolean
@@ -19,7 +19,7 @@ export const SourcesCreateContainer: FC<Props> = (props) => {
 
   return (
     <Modal title="Add new source folder" isOpen={isOpen} onClose={onClose}>
-      <SourcesCreate onSave={handleSave} />
+      <SourcesCreateForm onSave={handleSave} />
     </Modal>
   )
 }

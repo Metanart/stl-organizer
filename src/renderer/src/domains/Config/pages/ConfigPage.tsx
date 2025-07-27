@@ -4,7 +4,7 @@ import { Page } from '@renderer/domains/Common/components/Page/Page'
 import { PageContent } from '@renderer/domains/Common/components/Page/PageContent'
 import { PageHeader } from '@renderer/domains/Common/components/Page/PageHeader'
 
-import { ConfigContainer } from '../containers/ConfigContainer'
+import { ConfigUpdateFormContainer } from '../containers/ConfigUpdateFormContainer'
 
 export const ConfigPage: FC = () => {
   const { LL } = useI18nContext()
@@ -13,7 +13,7 @@ export const ConfigPage: FC = () => {
     <Page>
       <PageHeader title={LL.config.pageTitle()} />
       <PageContent>
-        <ConfigContainer />
+        <ConfigUpdateFormContainer />
       </PageContent>
     </Page>
   )

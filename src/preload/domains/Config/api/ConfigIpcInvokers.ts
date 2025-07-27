@@ -1,6 +1,6 @@
 import { createIpcInvoker, createIpcInvokerWithPayload } from '@preload/utils/createIpcInvoker'
 
-import { ConfigDTO, ConfigUpdateFormDTO } from '@shared/domains/Config/dtos/ConfigDTO'
+import { ConfigDTO, ConfigUpdateFormDTO } from '@shared/domains/Config/Config.dtos'
 
 export const configIpcInvokers = {
   get: createIpcInvoker<ConfigDTO | null>('ConfigIpc.get'),

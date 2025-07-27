@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { action } from 'storybook/actions'
 
-import type { SourceFormDTO } from '@shared/domains/Sources/dtos/SourceDTO'
+import type { SourceFormDTO } from '@shared/domains/Sources/Sources.dtos'
 
 import { SourcesDataGrid } from './SourcesDataGrid'
 import { SourcesDataGridMockup } from './SourcesDataGrid.mockup'
 
 const meta: Meta<typeof SourcesDataGrid> = {
-  title: 'Domains/Sources/SourcesDataGrid',
+  title: 'Sources/SourcesDataGrid',
   component: SourcesDataGrid,
   parameters: {
     layout: 'fullscreen'

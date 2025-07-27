@@ -4,17 +4,30 @@ import { IconButton, InputAdornment, StandardTextFieldProps, TextField } from '@
 
 type Props = {
   label: string
-  value: string | null
+  value: string
   name: string
   fullWidth?: boolean
   placeholder?: string
   isUpdated?: boolean
   onChange: StandardTextFieldProps['onChange']
-  onSelect: (name: string, newPath: string) => void
+  onSelect: (newPath: string) => void
+  error?: boolean
+  helperText?: string
 }
 
 export const FolderInput: FC<Props> = (props) => {
-  const { label, value, name, isUpdated, fullWidth, placeholder, onSelect, onChange } = props
+  const {
+    label,
+    value,
+    name,
+    isUpdated,
+    fullWidth,
+    placeholder,
+    onSelect,
+    onChange,
+    error,
+    helperText
+  } = props
 
   const [isDisabled, setIsDisabled] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
@@ -23,7 +36,7 @@ export const FolderInput: FC<Props> = (props) => {
     setIsDisabled(true)
     const selectedPath = await window.electron.selectFolder()
 
-    if (selectedPath) onSelect(name, selectedPath)
+    if (selectedPath) onSelect(selectedPath)
     setIsDisabled(false)
   }
 
@@ -49,6 +62,8 @@ export const FolderInput: FC<Props> = (props) => {
       onFocus={handleFocus}
       onBlur={handleBlur}
       placeholder={placeholder}
+      error={error}
+      helperText={helperText}
       slotProps={{
         input: {
           readOnly: false,

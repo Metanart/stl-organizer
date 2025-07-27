@@ -2,7 +2,7 @@ import { createMap, createMapper } from '@automapper/core'
 import { pojos, PojosMetadataMap } from '@automapper/pojos'
 import { Source } from '@main/domains/Sources/entities/Source'
 
-import { SOURCES_DTO_KEYS } from '@shared/domains/Sources/dtos/SourceDTO'
+import { SOURCES_DTO_KEYS } from '@shared/domains/Sources/Sources.dtos'
 
 PojosMetadataMap.create<Source>('Source', {
   id: String,

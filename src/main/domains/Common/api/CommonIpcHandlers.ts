@@ -1,6 +1,6 @@
 import { ipcMain } from 'electron'
 
-import { COMMON_IPC_TAGS } from '@shared/domains/Common/ipc/CommonIpcTags'
+import { COMMON_IPC_TAGS } from '@shared/domains/Common/CommonIpcTags'
 
 import { DialogService } from '../services/DialogService'
 

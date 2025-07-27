@@ -1,24 +1,23 @@
 import { FC, JSX, useCallback } from 'react'
 import { useI18nContext } from '@i18n/i18n-react.generated'
 
-import { ConfigUpdateFormDTO } from '@shared/domains/Config/dtos/ConfigDTO'
+import { ConfigUpdateFormDTO } from '@shared/domains/Config/Config.dtos'
 import { createLog } from '@shared/utils/createLog'
 
 import { Message } from '../../Common/components/Message'
 import { useGetConfigQuery, useUpdateConfigMutation } from '../api/ConfigApi'
-import { Config } from '../components/Config/Config'
-import { ConfigSkeleton } from '../components/ConfigSkeleton'
+import { ConfigUpdateForm } from '../components/ConfigUpdateForm/ConfigUpdateForm'
 
 const log = createLog({ category: 'RENDERER', tag: 'Config' })
 
-export const ConfigContainer: FC = () => {
+export const ConfigUpdateFormContainer: FC = () => {
   const { data: configFormDto, isLoading, error } = useGetConfigQuery()
 
   const [updateConfig, { isLoading: isUpdating }] = useUpdateConfigMutation()
 
   const { LL } = useI18nContext()
 
-  const handleSubmit = useCallback(
+  const handleSave = useCallback(
     async (updatedConfig: ConfigUpdateFormDTO): Promise<void> => {
       try {
         await updateConfig(updatedConfig).unwrap()
@@ -30,8 +29,6 @@ export const ConfigContainer: FC = () => {
   )
 
   const renderContent = (): JSX.Element => {
-    if (isLoading || isUpdating) return <ConfigSkeleton />
-
     if (error) {
       const errorMessage =
         typeof error === 'object' && error !== null && 'message' in error
@@ -43,7 +40,7 @@ export const ConfigContainer: FC = () => {
 
     if (!configFormDto) return <Message type="error" message="Config not found" />
 
-    return <Config config={configFormDto} onSubmit={handleSubmit} />
+    return <ConfigUpdateForm configFormDto={configFormDto} onSave={handleSave} />
   }
 
   return renderContent()

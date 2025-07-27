@@ -7,7 +7,8 @@
     "src/shared/**/*",
     "src/renderer/src/domains/Config/mappers/ConfigMapperMetadata.ts",
     "src/i18n/**/*",
-    "src/i18n/en"
+    "src/i18n/en",
+    "src/shared/domains/Sources/schemes"
   ],
   "compilerOptions": {
     "composite": true,

@@ -5,15 +5,26 @@ const enConfig: BaseTranslation = {
   errors: {
     failedUpdate: 'Failed to update config'
   },
-  form: {
+  updateForm: {
     fields: {
-      outputFolder: { label: 'Output folder' },
-      tempFolder: { label: 'Temp Folder' },
-      maxThreads: { label: 'Max Threads' },
-      autoProcessOnScan: { label: 'Auto Process on Scan' },
-      autoArchiveOnComplete: { label: 'Auto Archive on Complete' },
-      useMultithreading: { label: 'Use Multithreading' },
-      debugMode: { label: 'Debug Mode' }
+      outputFolder: {
+        label: 'Output folder',
+        placeholder: 'path/to/output/folder',
+        errors: { required: 'Output path is required', invalid: 'Invalid output path' }
+      },
+      tempFolder: {
+        label: 'Temp Folder',
+        placeholder: 'path/to/temporary/folder',
+        errors: { required: 'Temp path is required', invalid: 'Invalid temp path' }
+      },
+      maxThreads: {
+        label: 'Max Threads',
+        errors: { required: 'Required at least 1 and up to 6 threads' }
+      },
+      autoProcessOnScan: { label: 'Auto Process on Scan', errors: {} },
+      autoArchiveOnComplete: { label: 'Auto Archive on Complete', errors: {} },
+      useMultithreading: { label: 'Use Multithreading', errors: {} },
+      debugMode: { label: 'Debug Mode', errors: {} }
     }
   }
 }

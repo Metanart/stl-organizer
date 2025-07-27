@@ -1,24 +1,13 @@
+import z from 'zod'
+
+import { SourcesCreateFormSchema } from './Sources.schemes'
+
 export type SourceDTO = {
   id: string
   path: string
   name: string
   comment: string | null
   isEnabled: boolean
-}
-
-export type SourceCreateDTO = {
-  path: string
-  name: string
-  comment?: string
-  isEnabled?: boolean
-}
-
-export type SourceUpdateDTO = {
-  id: string
-  path?: string
-  name?: string
-  comment?: string
-  isEnabled?: boolean
 }
 
 export type SourceFormDTO = {
@@ -29,20 +18,23 @@ export type SourceFormDTO = {
   isEnabled?: boolean
 }
 
-export type SourceCreateFormDTO = {
+export type SourceCreateDTO = {
   path: string
-  name?: string
+  name: string
   comment?: string
   isEnabled?: boolean
 }
 
-export type SourceUpdateFormDTO = {
-  id: string
-  path?: string
-  name?: string
+export type SourceCreateFormDTO = z.infer<typeof SourcesCreateFormSchema>
+
+export type SourceUpdateDTO = {
+  path: string
+  name: string
   comment?: string
   isEnabled?: boolean
 }
+
+export type SourceUpdateFormDTO = z.infer<typeof SourcesCreateFormSchema>
 
 export enum SOURCES_DTO_KEYS {
   Source = 'Source',

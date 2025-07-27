@@ -1,4 +1,4 @@
-import { ConfigFormDTO } from '@shared/domains/Config/dtos/ConfigDTO'
+import { ConfigFormDTO } from '@shared/domains/Config/Config.dtos'
 
 export type ConfigStore = {
   config: ConfigFormDTO | null

@@ -5,7 +5,7 @@ import {
   SourceCreateFormDTO,
   SourceDTO,
   SourceUpdateFormDTO
-} from '@shared/domains/Sources/dtos/SourceDTO'
+} from '@shared/domains/Sources/Sources.dtos'
 
 export const sourcesIpcInvokers = {
   getAll: createIpcInvoker<SourceDTO[] | null>('SourcesIpc.getAll'),

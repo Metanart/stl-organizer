@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react'
 import { Switch } from '@mui/material'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
-import { SourceFormDTO } from '@shared/domains/Sources/dtos/SourceDTO'
+import { SourceFormDTO } from '@shared/domains/Sources/Sources.dtos'
 
 import { SourcesDataGridActions } from './SourcesDataGridActions'
 

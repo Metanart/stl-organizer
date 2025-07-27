@@ -77,49 +77,91 @@ export type NamespaceConfigTranslation = {
 		 */
 		failedUpdate: string
 	}
-	form: {
+	updateForm: {
 		fields: {
 			outputFolder: {
 				/**
 				 * O​u​t​p​u​t​ ​f​o​l​d​e​r
 				 */
 				label: string
+				/**
+				 * p​a​t​h​/​t​o​/​o​u​t​p​u​t​/​f​o​l​d​e​r
+				 */
+				placeholder: string
+				errors: {
+					/**
+					 * O​u​t​p​u​t​ ​p​a​t​h​ ​i​s​ ​r​e​q​u​i​r​e​d
+					 */
+					required: string
+					/**
+					 * I​n​v​a​l​i​d​ ​o​u​t​p​u​t​ ​p​a​t​h
+					 */
+					invalid: string
+				}
 			}
 			tempFolder: {
 				/**
 				 * T​e​m​p​ ​F​o​l​d​e​r
 				 */
 				label: string
+				/**
+				 * p​a​t​h​/​t​o​/​t​e​m​p​o​r​a​r​y​/​f​o​l​d​e​r
+				 */
+				placeholder: string
+				errors: {
+					/**
+					 * T​e​m​p​ ​p​a​t​h​ ​i​s​ ​r​e​q​u​i​r​e​d
+					 */
+					required: string
+					/**
+					 * I​n​v​a​l​i​d​ ​t​e​m​p​ ​p​a​t​h
+					 */
+					invalid: string
+				}
 			}
 			maxThreads: {
 				/**
 				 * M​a​x​ ​T​h​r​e​a​d​s
 				 */
 				label: string
+				errors: {
+					/**
+					 * R​e​q​u​i​r​e​d​ ​a​t​ ​l​e​a​s​t​ ​1​ ​a​n​d​ ​u​p​ ​t​o​ ​6​ ​t​h​r​e​a​d​s
+					 */
+					required: string
+				}
 			}
 			autoProcessOnScan: {
 				/**
 				 * A​u​t​o​ ​P​r​o​c​e​s​s​ ​o​n​ ​S​c​a​n
 				 */
 				label: string
+				errors: {
+				}
 			}
 			autoArchiveOnComplete: {
 				/**
 				 * A​u​t​o​ ​A​r​c​h​i​v​e​ ​o​n​ ​C​o​m​p​l​e​t​e
 				 */
 				label: string
+				errors: {
+				}
 			}
 			useMultithreading: {
 				/**
 				 * U​s​e​ ​M​u​l​t​i​t​h​r​e​a​d​i​n​g
 				 */
 				label: string
+				errors: {
+				}
 			}
 			debugMode: {
 				/**
 				 * D​e​b​u​g​ ​M​o​d​e
 				 */
 				label: string
+				errors: {
+				}
 			}
 		}
 	}
@@ -144,6 +186,70 @@ export type NamespaceSourcesTranslation = {
 	 * S​o​u​r​c​e​s
 	 */
 	pageTitle: string
+	createForm: {
+		/**
+		 * C​r​e​a​t​e​ ​S​o​u​r​c​e
+		 */
+		title: string
+		fields: {
+			name: {
+				/**
+				 * N​a​m​e
+				 */
+				label: string
+				/**
+				 * S​h​o​r​t​ ​s​o​u​r​c​e​ ​n​a​m​e
+				 */
+				placeholder: string
+				errors: {
+					/**
+					 * N​a​m​e​ ​i​s​ ​r​e​q​u​i​r​e​d
+					 */
+					required: string
+					/**
+					 * I​n​v​a​l​i​d​ ​c​h​a​r​a​c​t​e​r​s​ ​i​n​ ​n​a​m​e
+					 */
+					invalid: string
+				}
+			}
+			path: {
+				/**
+				 * P​a​t​h
+				 */
+				label: string
+				/**
+				 * /​p​a​t​h​/​t​o​/​f​o​l​d​e​r
+				 */
+				placeholder: string
+				errors: {
+					/**
+					 * P​a​t​h​ ​i​s​ ​r​e​q​u​i​r​e​d
+					 */
+					required: string
+					/**
+					 * I​n​v​a​l​i​d​ ​p​a​t​h
+					 */
+					invalid: string
+				}
+			}
+			comment: {
+				/**
+				 * C​o​m​m​e​n​t
+				 */
+				label: string
+				/**
+				 * O​p​t​i​o​n​a​l​ ​d​e​s​c​r​i​p​t​i​o​n​.​.​.
+				 */
+				placeholder: string
+			}
+			isEnabled: {
+				/**
+				 * E​n​a​b​l​e​d
+				 */
+				label: string
+			}
+		}
+	}
 }
 
 export type NamespaceTasksTranslation = {
@@ -258,49 +364,91 @@ export type TranslationFunctions = {
 			 */
 			failedUpdate: () => LocalizedString
 		}
-		form: {
+		updateForm: {
 			fields: {
 				outputFolder: {
 					/**
 					 * Output folder
 					 */
 					label: () => LocalizedString
+					/**
+					 * path/to/output/folder
+					 */
+					placeholder: () => LocalizedString
+					errors: {
+						/**
+						 * Output path is required
+						 */
+						required: () => LocalizedString
+						/**
+						 * Invalid output path
+						 */
+						invalid: () => LocalizedString
+					}
 				}
 				tempFolder: {
 					/**
 					 * Temp Folder
 					 */
 					label: () => LocalizedString
+					/**
+					 * path/to/temporary/folder
+					 */
+					placeholder: () => LocalizedString
+					errors: {
+						/**
+						 * Temp path is required
+						 */
+						required: () => LocalizedString
+						/**
+						 * Invalid temp path
+						 */
+						invalid: () => LocalizedString
+					}
 				}
 				maxThreads: {
 					/**
 					 * Max Threads
 					 */
 					label: () => LocalizedString
+					errors: {
+						/**
+						 * Required at least 1 and up to 6 threads
+						 */
+						required: () => LocalizedString
+					}
 				}
 				autoProcessOnScan: {
 					/**
 					 * Auto Process on Scan
 					 */
 					label: () => LocalizedString
+					errors: {
+					}
 				}
 				autoArchiveOnComplete: {
 					/**
 					 * Auto Archive on Complete
 					 */
 					label: () => LocalizedString
+					errors: {
+					}
 				}
 				useMultithreading: {
 					/**
 					 * Use Multithreading
 					 */
 					label: () => LocalizedString
+					errors: {
+					}
 				}
 				debugMode: {
 					/**
 					 * Debug Mode
 					 */
 					label: () => LocalizedString
+					errors: {
+					}
 				}
 			}
 		}
@@ -322,6 +470,70 @@ export type TranslationFunctions = {
 		 * Sources
 		 */
 		pageTitle: () => LocalizedString
+		createForm: {
+			/**
+			 * Create Source
+			 */
+			title: () => LocalizedString
+			fields: {
+				name: {
+					/**
+					 * Name
+					 */
+					label: () => LocalizedString
+					/**
+					 * Short source name
+					 */
+					placeholder: () => LocalizedString
+					errors: {
+						/**
+						 * Name is required
+						 */
+						required: () => LocalizedString
+						/**
+						 * Invalid characters in name
+						 */
+						invalid: () => LocalizedString
+					}
+				}
+				path: {
+					/**
+					 * Path
+					 */
+					label: () => LocalizedString
+					/**
+					 * /path/to/folder
+					 */
+					placeholder: () => LocalizedString
+					errors: {
+						/**
+						 * Path is required
+						 */
+						required: () => LocalizedString
+						/**
+						 * Invalid path
+						 */
+						invalid: () => LocalizedString
+					}
+				}
+				comment: {
+					/**
+					 * Comment
+					 */
+					label: () => LocalizedString
+					/**
+					 * Optional description...
+					 */
+					placeholder: () => LocalizedString
+				}
+				isEnabled: {
+					/**
+					 * Enabled
+					 */
+					label: () => LocalizedString
+				}
+			}
+		}
 	}
 	tasks: {
 		/**

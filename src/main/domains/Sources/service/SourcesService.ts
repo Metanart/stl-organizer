@@ -1,13 +1,13 @@
 import { AppDataSource } from '@main/database/AppDataSource'
 import { SourcesMapper } from '@main/domains/Sources/mappers/SourcesMapper'
 
-import { RemoveDTO } from '@shared/domains/Common/dtos/DTOs'
+import { RemoveDTO } from '@shared/domains/Common/Common.dtos'
 import {
   SourceCreateDTO,
   SourceDTO,
   SOURCES_DTO_KEYS,
   SourceUpdateDTO
-} from '@shared/domains/Sources/dtos/SourceDTO'
+} from '@shared/domains/Sources/Sources.dtos'
 import { createLog } from '@shared/utils/createLog'
 
 import { Source } from '../entities/Source'
@@ -44,7 +44,7 @@ export class SourcesService {
   static async getAll(): Promise<SourceDTO[] | null> {
     const log = createLog({ tag: 'SourcesService.getAll' })
 
-    const sources = await repo.find({ order: { id: 'ASC' } })
+    const sources = await repo.find({ order: { createdAt: 'ASC' } })
 
     if (!sources || sources.length === 0) {
       log.error(`Sources are not found`)
@@ -63,7 +63,7 @@ export class SourcesService {
   static async update(source: SourceUpdateDTO): Promise<SourceDTO | null> {
     const log = createLog({ tag: 'SourcesService.update' })
 
-    const existingSource = await repo.findOneBy({ id: source.id })
+    const existingSource = await repo.findOne({})
 
     if (existingSource) {
       log.info(`Found existing source - start merge`, existingSource)
@@ -79,7 +79,7 @@ export class SourcesService {
       )
     }
 
-    log.error(`Source "${source.id}" wasn't found - update skipped`)
+    log.error(`Source wasn't found - update skipped`)
 
     return null
   }
