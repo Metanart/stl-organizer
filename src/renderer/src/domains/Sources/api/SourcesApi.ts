@@ -3,8 +3,13 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseApiQuery } from '@renderer/utils/baseApiQuery'
 
 import { ApiDomain, ApiMethod } from '@shared/domains/Common/types/Api.types'
-import { SOURCE_DTO_KEYS, SourceDTO, SourceFormDTO } from '@shared/domains/Sources/Sources.dtos'
-import { SourceUpdateDTO, SourceUpdateFormDTO } from '@shared/domains/Sources/Sources.dtos'
+import {
+  SOURCE_DTO_KEYS,
+  SourceCreateDTO,
+  SourceCreateFormDTO,
+  SourceDTO,
+  SourceFormDTO
+} from '@shared/domains/Sources/Sources.dtos'
 import { createLog } from '@shared/utils/createLog'
 
 import { SourcesMapper } from '../mappers/SourcesMapper'
@@ -16,63 +21,79 @@ const SourcesApiTags = {
 } as const
 
 const SourcesApiMethods: Record<string, ApiMethod> = {
-  GET: 'get',
-  UPDATE: 'update'
+  GET_ALL: 'getAll',
+  CREATE: 'create'
 } as const
 
 const SourcesApiDomain = 'Sources' as ApiDomain
-
-const log = createLog({ tag: 'SourcesApi', category: 'RENDERER' })
 
 export const SourcesApi = createApi({
   reducerPath,
   baseQuery: baseApiQuery,
   tagTypes: ['Sources'],
   endpoints: (builder) => ({
-    getSources: builder.query<SourceFormDTO, void>({
+    getAllSources: builder.query<SourceFormDTO[], void>({
       query: () => ({
         domain: SourcesApiDomain,
-        method: SourcesApiMethods.GET
+        method: SourcesApiMethods.GET_ALL
       }),
-      transformResponse: (configDto: SourceDTO): SourceFormDTO => {
-        log.info('Received raw config', configDto)
+      transformResponse: (sourceDtos: SourceDTO[]): SourceFormDTO[] => {
+        const log = createLog({ tag: 'Sources.getAll', category: 'RENDERER' })
 
-        const configFormDto = SourcesMapper.map<SourceDTO, SourceFormDTO>(
-          configDto,
-          SOURCE_DTO_KEYS.SourceDTO,
-          SOURCE_DTO_KEYS.SourceFormDTO
+        log.info('Response - received raw source dtos', sourceDtos)
+
+        const sourcesFormDtos = sourceDtos.map((sourceDto: SourceDTO) =>
+          SourcesMapper.map<SourceDTO, SourceFormDTO>(
+            sourceDto,
+            SOURCE_DTO_KEYS.SourceDTO,
+            SOURCE_DTO_KEYS.SourceFormDTO
+          )
         )
 
-        log.success('Returning mapped config form', configFormDto)
+        log.success('Response - returns mapped source form dtos', sourcesFormDtos)
 
-        return configFormDto
+        return sourcesFormDtos
       },
       providesTags: [SourcesApiTags.Base]
     }),
-    updateSource: builder.mutation<SourceFormDTO, SourceUpdateFormDTO>({
-      query: (configUpdateFormDTO: SourceUpdateFormDTO) => {
-        const configUpdateDTO = SourcesMapper.map<SourceUpdateFormDTO, SourceUpdateDTO>(
-          configUpdateFormDTO,
-          SOURCE_DTO_KEYS.SourceUpdateFormDTO,
-          SOURCE_DTO_KEYS.SourceUpdateDTO
+    createSource: builder.mutation<SourceFormDTO, SourceCreateFormDTO>({
+      query: (sourceCreateFormDto: SourceCreateFormDTO) => {
+        const log = createLog({ tag: 'Sources.create', category: 'RENDERER' })
+
+        log.info('Query - received raw source form dto', sourceCreateFormDto)
+
+        const sourceCreateDto = SourcesMapper.map<SourceCreateFormDTO, SourceCreateDTO>(
+          sourceCreateFormDto,
+          SOURCE_DTO_KEYS.SourceCreateFormDTO,
+          SOURCE_DTO_KEYS.SourceCreateDTO
         )
+
+        log.success('Query - returns mapped source dto', sourceCreateDto)
 
         return {
           domain: SourcesApiDomain,
-          method: SourcesApiMethods.UPDATE,
-          payload: configUpdateDTO
+          method: SourcesApiMethods.CREATE,
+          payload: sourceCreateDto
         }
       },
-      transformResponse: (confgiDTO: SourceDTO): SourceFormDTO => {
-        return SourcesMapper.map<SourceDTO, SourceFormDTO>(
-          confgiDTO,
+      transformResponse: (sourceDto: SourceDTO): SourceFormDTO => {
+        const log = createLog({ tag: 'Sources.create', category: 'RENDERER' })
+
+        log.info('Response - received raw source dto', sourceDto)
+
+        const sourceFormDto = SourcesMapper.map<SourceDTO, SourceFormDTO>(
+          sourceDto,
           SOURCE_DTO_KEYS.SourceDTO,
           SOURCE_DTO_KEYS.SourceFormDTO
         )
+
+        log.success('Response - returns mapped source form dto', sourceFormDto)
+
+        return sourceFormDto
       },
       invalidatesTags: [SourcesApiTags.Base]
     })
   })
 })
 
-export const { useGetSourcesQuery, useUpdateSourceMutation } = SourcesApi
+export const { useGetAllSourcesQuery, useCreateSourceMutation } = SourcesApi
