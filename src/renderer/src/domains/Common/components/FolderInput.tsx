@@ -13,6 +13,7 @@ type Props = {
   onSelect: (newPath: string) => void
   error?: boolean
   helperText?: string
+  isDisabled?: boolean
 }
 
 export const FolderInput: FC<Props> = (props) => {
@@ -26,18 +27,19 @@ export const FolderInput: FC<Props> = (props) => {
     onSelect,
     onChange,
     error,
-    helperText
+    helperText,
+    isDisabled
   } = props
 
-  const [isDisabled, setIsDisabled] = useState(false)
+  const [isSelecting, setIsSelecting] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
 
   const handleSelectFolder = async (): Promise<void> => {
-    setIsDisabled(true)
+    setIsSelecting(true)
     const selectedPath = await window.electron.selectFolder()
 
     if (selectedPath) onSelect(selectedPath)
-    setIsDisabled(false)
+    setIsSelecting(false)
   }
 
   const handleFocus = (): void => {
@@ -56,7 +58,7 @@ export const FolderInput: FC<Props> = (props) => {
       fullWidth={fullWidth}
       color={isUpdated && !isFocused ? 'success' : 'primary'}
       focused={isFocused || isUpdated}
-      disabled={isDisabled}
+      disabled={isDisabled || isSelecting}
       variant="outlined"
       onChange={onChange}
       onFocus={handleFocus}

@@ -1,4 +1,4 @@
-import { FC, JSX, useCallback } from 'react'
+import { FC, Fragment, JSX, useCallback } from 'react'
 import { useI18nContext } from '@i18n/i18n-react.generated'
 
 import { ConfigUpdateFormDTO } from '@shared/domains/Config/Config.dtos'
@@ -12,7 +12,6 @@ const log = createLog({ category: 'RENDERER', tag: 'Config' })
 
 export const ConfigUpdateFormContainer: FC = () => {
   const { data: configFormDto, isLoading, error } = useGetConfigQuery()
-
   const [updateConfig, { isLoading: isUpdating }] = useUpdateConfigMutation()
 
   const { LL } = useI18nContext()
@@ -29,18 +28,28 @@ export const ConfigUpdateFormContainer: FC = () => {
   )
 
   const renderContent = (): JSX.Element => {
+    const isDisabled = isLoading || isUpdating
+    let errorComponent: JSX.Element | null = null
+
     if (error) {
       const errorMessage =
         typeof error === 'object' && error !== null && 'message' in error
           ? (error as { message: string }).message
           : 'Unknown error'
 
-      return <Message type="error" message={errorMessage} />
+      errorComponent = <Message type="error" message={errorMessage} />
     }
 
-    if (!configFormDto) return <Message type="error" message="Config not found" />
-
-    return <ConfigUpdateForm configFormDto={configFormDto} onSave={handleSave} />
+    return (
+      <Fragment>
+        {errorComponent}
+        <ConfigUpdateForm
+          isDisabled={isDisabled}
+          configFormDto={configFormDto}
+          onSave={handleSave}
+        />
+      </Fragment>
+    )
   }
 
   return renderContent()

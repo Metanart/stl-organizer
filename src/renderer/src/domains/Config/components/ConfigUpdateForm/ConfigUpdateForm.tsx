@@ -18,7 +18,8 @@ import { ConfigFormDTO, ConfigUpdateFormDTO } from '@shared/domains/Config/Confi
 import { ConfigUpdateFormSchema } from '@shared/domains/Config/Config.schemes'
 
 type Props = {
-  configFormDto: ConfigFormDTO
+  configFormDto?: ConfigFormDTO
+  isDisabled?: boolean
   onSave: (configUpdateFormDto: ConfigUpdateFormDTO) => void
 }
 
@@ -32,7 +33,7 @@ const defaultValues = {
   debugMode: false
 }
 
-export const ConfigUpdateForm: FC<Props> = ({ configFormDto, onSave }) => {
+export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave }) => {
   const { LL } = useI18nContext()
 
   const { control, reset, handleSubmit } = useForm<ConfigUpdateFormDTO>({
@@ -62,6 +63,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, onSave }) => {
               <Controller
                 name="outputFolder"
                 control={control}
+                disabled={isDisabled}
                 render={({ field, fieldState }) => (
                   <FolderInput
                     name={field.name}
@@ -73,6 +75,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, onSave }) => {
                     onChange={(e) => field.onChange(e.target.value)}
                     onSelect={(newPath) => field.onChange(newPath)}
                     fullWidth={true}
+                    isDisabled={field.disabled}
                   />
                 )}
               />
@@ -82,6 +85,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, onSave }) => {
               <Controller
                 name="tempFolder"
                 control={control}
+                disabled={isDisabled}
                 render={({ field, fieldState }) => (
                   <FolderInput
                     name={field.name}
@@ -93,6 +97,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, onSave }) => {
                     onChange={(e) => field.onChange(e.target.value)}
                     onSelect={(newPath) => field.onChange(newPath)}
                     fullWidth={true}
+                    isDisabled={field.disabled}
                   />
                 )}
               />
@@ -102,11 +107,13 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, onSave }) => {
               <Controller
                 name="maxThreads"
                 control={control}
+                disabled={isDisabled}
                 render={({ field, fieldState }) => (
                   <TextField
                     type="number"
                     name={field.name}
                     value={field.value}
+                    disabled={field.disabled}
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
                     label={fieldsLexemes.maxThreads.label()}
@@ -124,6 +131,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, onSave }) => {
                 <Controller
                   name="autoProcessOnScan"
                   control={control}
+                  disabled={isDisabled}
                   render={({ field }) => (
                     <FormControlLabel
                       label={fieldsLexemes.autoProcessOnScan.label()}
@@ -142,6 +150,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, onSave }) => {
                 <Controller
                   name="autoArchiveOnComplete"
                   control={control}
+                  disabled={isDisabled}
                   render={({ field }) => (
                     <FormControlLabel
                       label={fieldsLexemes.autoArchiveOnComplete.label()}
@@ -160,6 +169,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, onSave }) => {
                 <Controller
                   name="useMultithreading"
                   control={control}
+                  disabled={isDisabled}
                   render={({ field }) => (
                     <FormControlLabel
                       label={fieldsLexemes.useMultithreading.label()}
@@ -178,6 +188,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, onSave }) => {
                 <Controller
                   name="debugMode"
                   control={control}
+                  disabled={true}
                   render={({ field }) => (
                     <FormControlLabel
                       label={fieldsLexemes.debugMode.label()}
@@ -196,7 +207,12 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, onSave }) => {
         </CardContent>
 
         <CardActions sx={{ justifyContent: 'flex-end', px: 2, pt: 0, pb: 2 }}>
-          <Button type="submit" variant="contained" sx={{ alignSelf: 'flex-start' }}>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ alignSelf: 'flex-start' }}
+            disabled={isDisabled}
+          >
             {actionsLexemes.save()}
           </Button>
         </CardActions>
