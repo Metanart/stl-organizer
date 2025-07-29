@@ -10,6 +10,8 @@ import { AppProvidersContainer } from './domains/App/containers/AppProvidersCont
 import { AppRoutesContainerMemo } from './domains/App/containers/AppRoutesContainer'
 import { theme } from './theme'
 
+import './styles/mui.overrides.css'
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 await loadLocaleAsync(LOCALE)

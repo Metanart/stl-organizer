@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles'
+import type {} from '@mui/x-data-grid/themeAugmentation'
 
 import { TOKENS_COLORS, TOKENS_SHAPE, TOKENS_SPACING, TOKENS_TYPOGRAPHY } from './tokens'
 
@@ -31,7 +32,12 @@ export const theme = createTheme({
       primary: TOKENS_COLORS.text.primary,
       secondary: TOKENS_COLORS.text.secondary
     },
-    divider: TOKENS_COLORS.divider
+    divider: TOKENS_COLORS.divider,
+    DataGrid: {
+      bg: TOKENS_COLORS.background.paper,
+      pinnedBg: TOKENS_COLORS.background.paper,
+      headerBg: TOKENS_COLORS.background.paper
+    }
   },
   spacing: TOKENS_SPACING.unit,
   typography: {
