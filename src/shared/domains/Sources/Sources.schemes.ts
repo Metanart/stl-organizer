@@ -5,7 +5,7 @@ import { SOURCE_NAME_REGEX } from '@shared/utils/regexp'
 
 const fieldsLexemes = LL.sources.createForm.fields
 
-export const SourcesCreateFormSchema = z.object({
+export const SourceCreateFormSchema = z.object({
   name: z
     .string()
     .min(1, fieldsLexemes.name.errors.required())
