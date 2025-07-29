@@ -15,7 +15,7 @@ import {
 import { FolderInput } from '@renderer/domains/Common/components/FolderInput'
 
 import { SourceCreateFormDTO } from '@shared/domains/Sources/Sources.dtos'
-import { SourcesCreateFormSchema } from '@shared/domains/Sources/Sources.schemes'
+import { SourceCreateFormSchema } from '@shared/domains/Sources/Sources.schemes'
 
 const defaultValues = {
   name: '',
@@ -33,7 +33,7 @@ export const SourcesCreateForm: FC<Props> = ({ onSave, onCancel }) => {
   const { LL } = useI18nContext()
 
   const { control, handleSubmit } = useForm<SourceCreateFormDTO>({
-    resolver: zodResolver(SourcesCreateFormSchema),
+    resolver: zodResolver(SourceCreateFormSchema),
     defaultValues
   })
 

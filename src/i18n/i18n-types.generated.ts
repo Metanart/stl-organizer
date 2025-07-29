@@ -186,6 +186,12 @@ export type NamespaceSourcesTranslation = {
 	 * S​o​u​r​c​e​s
 	 */
 	pageTitle: string
+	errors: {
+		/**
+		 * F​a​i​l​e​d​ ​t​o​ ​c​r​e​a​t​e​ ​a​ ​n​e​w​ ​s​o​u​r​c​e​ ​f​o​l​d​e​r
+		 */
+		failedCreate: string
+	}
 	createForm: {
 		/**
 		 * A​d​d​ ​n​e​w​ ​s​o​u​r​c​e​ ​f​o​l​d​e​r
@@ -470,6 +476,12 @@ export type TranslationFunctions = {
 		 * Sources
 		 */
 		pageTitle: () => LocalizedString
+		errors: {
+			/**
+			 * Failed to create a new source folder
+			 */
+			failedCreate: () => LocalizedString
+		}
 		createForm: {
 			/**
 			 * Add new source folder

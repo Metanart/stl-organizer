@@ -2,7 +2,7 @@ import { createMap, createMapper } from '@automapper/core'
 import { pojos } from '@automapper/pojos'
 
 import {
-  SOURCE_DTO_KEYS,
+  SOURCES_DTO_KEYS,
   SourceCreateDTO,
   SourceCreateFormDTO,
   SourceDTO,
@@ -19,24 +19,24 @@ export const SourcesMapper = createMapper({
 
 createMap<SourceDTO, SourceFormDTO>(
   SourcesMapper,
-  SOURCE_DTO_KEYS.SourceDTO,
-  SOURCE_DTO_KEYS.SourceFormDTO
+  SOURCES_DTO_KEYS.SourceDTO,
+  SOURCES_DTO_KEYS.SourceFormDTO
 )
 
 createMap<SourceFormDTO, SourceDTO>(
   SourcesMapper,
-  SOURCE_DTO_KEYS.SourceFormDTO,
-  SOURCE_DTO_KEYS.SourceDTO
+  SOURCES_DTO_KEYS.SourceFormDTO,
+  SOURCES_DTO_KEYS.SourceDTO
 )
 
 createMap<SourceCreateFormDTO, SourceCreateDTO>(
   SourcesMapper,
-  SOURCE_DTO_KEYS.SourceCreateFormDTO,
-  SOURCE_DTO_KEYS.SourceCreateDTO
+  SOURCES_DTO_KEYS.SourceCreateFormDTO,
+  SOURCES_DTO_KEYS.SourceCreateDTO
 )
 
 createMap<SourceUpdateFormDTO, SourceUpdateDTO>(
   SourcesMapper,
-  SOURCE_DTO_KEYS.SourceUpdateFormDTO,
-  SOURCE_DTO_KEYS.SourceUpdateDTO
+  SOURCES_DTO_KEYS.SourceUpdateFormDTO,
+  SOURCES_DTO_KEYS.SourceUpdateDTO
 )

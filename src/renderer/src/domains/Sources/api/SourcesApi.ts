@@ -1,14 +1,13 @@
-// src/features/config/api/configApi.ts
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseApiQuery } from '@renderer/utils/baseApiQuery'
 
 import { ApiDomain, ApiMethod } from '@shared/domains/Common/types/Api.types'
 import {
-  SOURCE_DTO_KEYS,
   SourceCreateDTO,
   SourceCreateFormDTO,
   SourceDTO,
-  SourceFormDTO
+  SourceFormDTO,
+  SOURCES_DTO_KEYS
 } from '@shared/domains/Sources/Sources.dtos'
 import { createLog } from '@shared/utils/createLog'
 
@@ -45,8 +44,8 @@ export const SourcesApi = createApi({
         const sourcesFormDtos = sourceDtos.map((sourceDto: SourceDTO) =>
           SourcesMapper.map<SourceDTO, SourceFormDTO>(
             sourceDto,
-            SOURCE_DTO_KEYS.SourceDTO,
-            SOURCE_DTO_KEYS.SourceFormDTO
+            SOURCES_DTO_KEYS.SourceDTO,
+            SOURCES_DTO_KEYS.SourceFormDTO
           )
         )
 
@@ -64,8 +63,8 @@ export const SourcesApi = createApi({
 
         const sourceCreateDto = SourcesMapper.map<SourceCreateFormDTO, SourceCreateDTO>(
           sourceCreateFormDto,
-          SOURCE_DTO_KEYS.SourceCreateFormDTO,
-          SOURCE_DTO_KEYS.SourceCreateDTO
+          SOURCES_DTO_KEYS.SourceCreateFormDTO,
+          SOURCES_DTO_KEYS.SourceCreateDTO
         )
 
         log.success('Query - returns mapped source dto', sourceCreateDto)
@@ -83,8 +82,8 @@ export const SourcesApi = createApi({
 
         const sourceFormDto = SourcesMapper.map<SourceDTO, SourceFormDTO>(
           sourceDto,
-          SOURCE_DTO_KEYS.SourceDTO,
-          SOURCE_DTO_KEYS.SourceFormDTO
+          SOURCES_DTO_KEYS.SourceDTO,
+          SOURCES_DTO_KEYS.SourceFormDTO
         )
 
         log.success('Response - returns mapped source form dto', sourceFormDto)

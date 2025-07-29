@@ -1,4 +1,3 @@
-// src/features/config/api/configApi.ts
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseApiQuery } from '@renderer/utils/baseApiQuery'
 

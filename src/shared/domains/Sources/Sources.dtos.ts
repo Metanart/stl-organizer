@@ -43,7 +43,7 @@ export type SourceUpdateFormDTO = {
   isEnabled?: boolean
 }
 
-export enum SOURCE_DTO_KEYS {
+export enum SOURCES_DTO_KEYS {
   Source = 'Source',
   SourceDTO = 'SourceDTO',
   SourceFormDTO = 'SourceFormDTO',

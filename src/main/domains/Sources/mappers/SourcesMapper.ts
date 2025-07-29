@@ -1,16 +1,10 @@
 import { createMap, createMapper } from '@automapper/core'
-import { pojos, PojosMetadataMap } from '@automapper/pojos'
-import { Source } from '@main/domains/Sources/entities/Source'
+import { pojos } from '@automapper/pojos'
 
 import { SOURCES_DTO_KEYS } from '@shared/domains/Sources/Sources.dtos'
 
-PojosMetadataMap.create<Source>('Source', {
-  id: String,
-  path: String,
-  name: String,
-  comment: String,
-  isEnabled: Boolean
-})
+import './SourcesMapper.metadata'
+import '@shared/domains/Sources/SourcesMapper.metadata'
 
 export const SourcesMapper = createMapper({
   strategyInitializer: pojos()

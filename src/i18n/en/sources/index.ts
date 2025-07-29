@@ -2,8 +2,12 @@ import { BaseTranslation } from '../../i18n-types.generated'
 
 const enSources: BaseTranslation = {
   pageTitle: 'Sources',
+  errors: {
+    failedCreate: 'Failed to create a new source folder'
+  },
   createForm: {
     title: 'Add new source folder',
+
     fields: {
       name: {
         label: 'Name',

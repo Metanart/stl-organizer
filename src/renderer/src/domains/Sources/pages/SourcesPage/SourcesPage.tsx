@@ -5,12 +5,15 @@ import { Page } from '@renderer/domains/Common/components/Page/Page'
 import { PageContent } from '@renderer/domains/Common/components/Page/PageContent'
 import { PageHeader } from '@renderer/domains/Common/components/Page/PageHeader'
 
+import { useGetAllSourcesQuery } from '../../api/SourcesApi'
+import { SourcesDataGrid } from '../../components/SourcesDataGrid/SourcesDataGrid'
 import { SourcesCreateFormContainer } from '../../containers/SourcesCreateFormContainer'
-import { SourcesListContainer } from '../../containers/SourcesListContainer'
 
 import { SourcesPageActions } from './SourcesPageActions'
 
 export const SourcesPage: FC = () => {
+  const { data: sourceFormDtos, isLoading, error } = useGetAllSourcesQuery()
+
   const [isCreateFormVisible, setIsCreateFormVisible] = useState(false)
 
   const { LL } = useI18nContext()
@@ -27,7 +30,12 @@ export const SourcesPage: FC = () => {
     <Page>
       <PageHeader title={LL.sources.pageTitle()} actions={actions} />
       <PageContent>
-        <SourcesListContainer />
+        <SourcesDataGrid
+          sources={sourceFormDtos || []}
+          onDelete={() => null}
+          onEdit={() => null}
+          onToggleEnabled={() => null}
+        />
         <Modal
           title={LL.sources.createForm.title()}
           isOpen={isCreateFormVisible}
