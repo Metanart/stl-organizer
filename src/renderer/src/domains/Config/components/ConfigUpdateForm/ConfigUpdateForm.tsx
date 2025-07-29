@@ -188,7 +188,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                 <Controller
                   name="debugMode"
                   control={control}
-                  disabled={true}
+                  disabled={isDisabled}
                   render={({ field }) => (
                     <FormControlLabel
                       label={fieldsLexemes.debugMode.label()}

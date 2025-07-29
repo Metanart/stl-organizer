@@ -17,9 +17,9 @@ export const ConfigUpdateFormContainer: FC = () => {
   const { LL } = useI18nContext()
 
   const handleSave = useCallback(
-    async (updatedConfig: ConfigUpdateFormDTO): Promise<void> => {
+    async (configUpdateFormDTO: ConfigUpdateFormDTO): Promise<void> => {
       try {
-        await updateConfig(updatedConfig).unwrap()
+        await updateConfig(configUpdateFormDTO).unwrap()
       } catch (error) {
         log.error(LL.config.errors.failedUpdate(), error)
       }

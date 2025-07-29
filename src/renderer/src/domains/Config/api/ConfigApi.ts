@@ -27,8 +27,6 @@ const ConfigApiMethods: Record<string, ApiMethod> = {
 
 const ConfigApiDomain = 'Config' as ApiDomain
 
-const log = createLog({ tag: 'ConfigApi', category: 'RENDERER' })
-
 export const ConfigApi = createApi({
   reducerPath,
   baseQuery: baseApiQuery,
@@ -40,6 +38,8 @@ export const ConfigApi = createApi({
         method: ConfigApiMethods.GET
       }),
       transformResponse: (configDto: ConfigDTO): ConfigFormDTO => {
+        const log = createLog({ tag: 'Config.get', category: 'RENDERER' })
+
         log.info('Received raw config', configDto)
 
         const configFormDto = ConfigMapper.map<ConfigDTO, ConfigFormDTO>(
@@ -56,11 +56,17 @@ export const ConfigApi = createApi({
     }),
     updateConfig: builder.mutation<ConfigFormDTO, ConfigUpdateFormDTO>({
       query: (configUpdateFormDTO: ConfigUpdateFormDTO) => {
+        const log = createLog({ tag: 'Config.update', category: 'RENDERER' })
+
+        log.info('Received raw config', configUpdateFormDTO)
+
         const configUpdateDTO = ConfigMapper.map<ConfigUpdateFormDTO, ConfigUpdateDTO>(
           configUpdateFormDTO,
           CONFIG_DTO_KEYS.ConfigUpdateFormDTO,
           CONFIG_DTO_KEYS.ConfigUpdateDTO
         )
+
+        log.success('Returning mapped config form', configUpdateDTO)
 
         return {
           domain: ConfigApiDomain,
