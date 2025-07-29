@@ -1,19 +1,15 @@
 import { FC, ReactNode } from 'react'
-import { Box, CardActions, Divider, Stack, Typography } from '@mui/material'
+import { Box, Divider, Stack, Typography } from '@mui/material'
 
 export type PageHeaderActions = Record<string, ReactNode>
 
 type Props = {
   title: string
-  actions?: PageHeaderActions
+  actions?: ReactNode
 }
 
 export const PageHeader: FC<Props> = (props) => {
   const { title, actions } = props
-
-  const processedActions = Object.entries(actions || {}).map(([key, value]) => (
-    <Box key={key}>{value}</Box>
-  ))
 
   return (
     <Box
@@ -37,9 +33,7 @@ export const PageHeader: FC<Props> = (props) => {
           {title}
         </Typography>
 
-        {actions && (
-          <CardActions sx={{ justifyContent: 'flex-end' }}>{processedActions}</CardActions>
-        )}
+        {actions}
       </Stack>
       <Divider />
     </Box>

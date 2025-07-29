@@ -188,7 +188,7 @@ export type NamespaceSourcesTranslation = {
 	pageTitle: string
 	createForm: {
 		/**
-		 * C​r​e​a​t​e​ ​S​o​u​r​c​e
+		 * A​d​d​ ​n​e​w​ ​s​o​u​r​c​e​ ​f​o​l​d​e​r
 		 */
 		title: string
 		fields: {
@@ -472,7 +472,7 @@ export type TranslationFunctions = {
 		pageTitle: () => LocalizedString
 		createForm: {
 			/**
-			 * Create Source
+			 * Add new source folder
 			 */
 			title: () => LocalizedString
 			fields: {

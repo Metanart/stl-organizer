@@ -3,7 +3,7 @@ import { BaseTranslation } from '../../i18n-types.generated'
 const enSources: BaseTranslation = {
   pageTitle: 'Sources',
   createForm: {
-    title: 'Create Source',
+    title: 'Add new source folder',
     fields: {
       name: {
         label: 'Name',
