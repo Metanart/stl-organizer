@@ -23,6 +23,7 @@ export const AppNavigationContainer: FC<Props> = (props) => {
     <AppNavigation onToggleClick={onToggleClick} isOpen={isOpen}>
       {ROUTES.map((item) => (
         <AppNavigationButton
+          id={item.id}
           key={item.id}
           text={LL.app.navigation[item.namespace]()}
           icon={item.icon}

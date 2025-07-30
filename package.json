@@ -22,7 +22,7 @@
     "storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",
     "i18n": "typesafe-i18n",
-    "test:e2e": "cross-env NODE_ENV=test NODE_NO_WARNINGS=1 playwright test ./src/renderer/src/tests/electron.spec.ts",
+    "test:e2e": "cross-env NODE_ENV=test NODE_NO_WARNINGS=1 playwright test",
     "test:unit": "vitest --project unit",
     "test:ui": "vitest --environment storybook"
   },

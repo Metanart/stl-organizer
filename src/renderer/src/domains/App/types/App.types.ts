@@ -2,6 +2,7 @@ import { JSX, ReactElement } from 'react'
 import { Namespaces } from '@i18n/i18n-types.generated'
 
 export type AppNavigationItem = {
+  id: string
   text: string
   icon: JSX.Element
 }
