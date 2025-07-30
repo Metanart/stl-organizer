@@ -22,7 +22,9 @@
     "storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",
     "i18n": "typesafe-i18n",
-    "test:e2e": "cross-env NODE_ENV=test NODE_NO_WARNINGS=1 playwright test ./src/renderer/src/tests/electron.spec.ts"
+    "test:e2e": "cross-env NODE_ENV=test NODE_NO_WARNINGS=1 playwright test ./src/renderer/src/tests/electron.spec.ts",
+    "test:unit": "vitest --project unit",
+    "test:ui": "vitest --environment storybook"
   },
   "dependencies": {
     "@automapper/core": "^8.8.1",
@@ -39,6 +41,7 @@
     "consola": "^3.4.2",
     "dotenv": "^16.5.0",
     "electron-updater": "^6.3.9",
+    "jsdom": "^26.1.0",
     "react-error-boundary": "^6.0.0",
     "react-hook-form": "^7.61.1",
     "react-redux": "^9.2.0",
@@ -61,6 +64,7 @@
     "@storybook/addon-vitest": "9.0.17",
     "@storybook/react-vite": "9.0.17",
     "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.3.0",
     "@types/node": "^22.15.29",
     "@types/react": "^19.1.9",

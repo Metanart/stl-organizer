@@ -5,6 +5,7 @@ out
 .eslintcache
 *.log*
 *.notes.md
+/docs
 
 *storybook.log
 storybook-static
