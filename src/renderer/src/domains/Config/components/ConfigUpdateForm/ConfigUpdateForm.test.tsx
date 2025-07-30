@@ -27,18 +27,6 @@ vi.mock('@i18n/i18n-react.generated', () => ({
   })
 }))
 
-vi.mock('@renderer/domains/Common/components/FolderInput', () => ({
-  FolderInput: ({
-    label,
-    value,
-    onChange
-  }: {
-    label: string
-    value: string
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  }) => <input aria-label={label} value={value} onChange={(e) => onChange(e)} data-testid={label} />
-}))
-
 describe('ConfigUpdateForm', () => {
   it('Initialized with values from configFormDto', async () => {
     const mockConfig: ConfigFormDTO = {
@@ -62,10 +50,8 @@ describe('ConfigUpdateForm', () => {
     expect(screen.getByLabelText('Use Multithreading')).toBeChecked()
     expect(screen.getByLabelText('Debug Mode')).not.toBeChecked()
   })
-})
 
-describe('ConfigUpdateForm - maxThreads validation', () => {
-  it('Shows an error when the value is incorrect', async () => {
+  it('Shows an error when the maxThreads value is incorrect', async () => {
     const user = userEvent.setup()
     const onSave = vi.fn()
 
@@ -83,9 +69,7 @@ describe('ConfigUpdateForm - maxThreads validation', () => {
 
     expect(onSave).not.toHaveBeenCalled()
   })
-})
 
-describe('ConfigUpdateForm - switches validation', () => {
   it('Сorrectly handles Switches and passes their values on submit', async () => {
     const user = userEvent.setup()
     const onSave = vi.fn()
@@ -137,5 +121,46 @@ describe('ConfigUpdateForm - switches validation', () => {
       useMultithreading: true,
       debugMode: true
     })
+  })
+
+  it('Disables all fields and buttons when isDisabled=true', async () => {
+    const onSave = vi.fn()
+
+    render(
+      <ConfigUpdateForm
+        onSave={onSave}
+        isDisabled={true}
+        configFormDto={{
+          outputFolder: 'out',
+          tempFolder: 'tmp',
+          maxThreads: 2,
+          autoProcessOnScan: true,
+          autoArchiveOnComplete: false,
+          useMultithreading: false,
+          debugMode: true
+        }}
+      />
+    )
+
+    const switchAutoProcess = screen.getByLabelText(/auto process on scan/i)
+    const switchAutoArchive = screen.getByLabelText(/auto archive on complete/i)
+    const switchMultithreading = screen.getByLabelText(/use multithreading/i)
+    const switchDebug = screen.getByLabelText(/debug mode/i)
+
+    expect(switchAutoProcess).toBeDisabled()
+    expect(switchAutoArchive).toBeDisabled()
+    expect(switchMultithreading).toBeDisabled()
+    expect(switchDebug).toBeDisabled()
+
+    const threadsInput = screen.getByRole('spinbutton', { name: /max threads/i })
+    const outputInput = screen.getByRole('textbox', { name: /output folder/i })
+    const tempInput = screen.getByRole('textbox', { name: /temp folder/i })
+
+    expect(threadsInput).toBeDisabled()
+    expect(outputInput).toBeDisabled()
+    expect(tempInput).toBeDisabled()
+
+    const submit = screen.getByRole('button', { name: /save/i })
+    expect(submit).toBeDisabled()
   })
 })

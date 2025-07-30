@@ -71,7 +71,7 @@ export const FolderInput: FC<Props> = (props) => {
           readOnly: false,
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton onClick={handleSelectFolder}>
+              <IconButton onClick={handleSelectFolder} disabled={isDisabled || isSelecting}>
                 <FolderOpenIcon />
               </IconButton>
             </InputAdornment>

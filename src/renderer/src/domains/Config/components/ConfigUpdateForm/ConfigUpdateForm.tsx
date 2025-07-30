@@ -75,7 +75,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                     onChange={(e) => field.onChange(e.target.value)}
                     onSelect={(newPath) => field.onChange(newPath)}
                     fullWidth={true}
-                    isDisabled={field.disabled}
+                    isDisabled={isDisabled || field.disabled}
                   />
                 )}
               />
@@ -97,7 +97,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                     onChange={(e) => field.onChange(e.target.value)}
                     onSelect={(newPath) => field.onChange(newPath)}
                     fullWidth={true}
-                    isDisabled={field.disabled}
+                    isDisabled={isDisabled || field.disabled}
                   />
                 )}
               />
@@ -113,7 +113,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                     type="number"
                     name={field.name}
                     value={field.value}
-                    disabled={field.disabled}
+                    disabled={isDisabled || field.disabled}
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
                     label={fieldsLexemes.maxThreads.label()}
@@ -137,6 +137,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                       label={fieldsLexemes.autoProcessOnScan.label()}
                       control={
                         <Switch
+                          disabled={isDisabled || field.disabled}
                           checked={field.value}
                           onChange={(e) => field.onChange(e.target.checked)}
                         />
@@ -156,6 +157,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                       label={fieldsLexemes.autoArchiveOnComplete.label()}
                       control={
                         <Switch
+                          disabled={isDisabled || field.disabled}
                           checked={field.value}
                           onChange={(e) => field.onChange(e.target.checked)}
                         />
@@ -175,6 +177,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                       label={fieldsLexemes.useMultithreading.label()}
                       control={
                         <Switch
+                          disabled={isDisabled || field.disabled}
                           checked={field.value}
                           onChange={(e) => field.onChange(e.target.checked)}
                         />
@@ -194,6 +197,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                       label={fieldsLexemes.debugMode.label()}
                       control={
                         <Switch
+                          disabled={isDisabled || field.disabled}
                           checked={field.value}
                           onChange={(e) => field.onChange(e.target.checked)}
                         />
