@@ -1,17 +1,15 @@
 import { Source } from '@main/domains/Sources/entities/Source'
-import { app } from 'electron'
-import path from 'path'
 import { DataSource } from 'typeorm'
 
 import { AppPaths } from '@shared/paths'
 
 import { Config } from '../domains/Config/entities/Config'
 
-export const dbPath = path.join(app.getPath('userData'), 'stl-organizer.sqlite')
+const isTest = process.env.NODE_ENV === 'test'
 
 export const AppDataSource = new DataSource({
   type: 'sqlite',
-  database: AppPaths.defaultDBFile,
+  database: isTest ? ':memory:' : AppPaths.defaultDBFile,
   entities: [Config, Source],
   synchronize: true, // 🔧 DEV FLAG
   logging: false,
