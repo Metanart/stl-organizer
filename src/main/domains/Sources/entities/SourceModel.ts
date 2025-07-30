@@ -1,8 +1,7 @@
 import { _AbstractEntity } from '@main/domains/Common/entities/abstract/core/_AbstractEntity'
 import { ModelExtensions } from '@main/domains/Common/enums'
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm'
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
 
-import { Source } from './Source'
 import { SourceArchive } from './SourceArchive'
 import { SourceImage } from './SourceImage'
 
@@ -34,7 +33,7 @@ export class SourceModel extends _AbstractEntity {
   })
   images!: SourceImage[]
 
-  @ManyToOne(() => Source, (source) => source.models, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'sourceId' })
-  source!: Source
+  // @ManyToOne(() => Source, (source) => source.models, { onDelete: 'CASCADE' })
+  // @JoinColumn({ name: 'sourceId' })
+  // source!: Source
 }

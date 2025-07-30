@@ -12,7 +12,7 @@ import { SourcesCreateFormContainer } from '../../containers/SourcesCreateFormCo
 import { SourcesPageActions } from './SourcesPageActions'
 
 export const SourcesPage: FC = () => {
-  const { data: sourceFormDtos, isLoading, error } = useGetAllSourcesQuery()
+  const { data: sourceFormDtos } = useGetAllSourcesQuery()
 
   const [isCreateFormVisible, setIsCreateFormVisible] = useState(false)
 

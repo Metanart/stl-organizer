@@ -9,10 +9,12 @@ foreach ($path in $pathsToDelete) {
     try {
       Remove-Item -Recurse -Force $path
       Write-Host "✓ Removed $path"
-    } catch {
+    }
+    catch {
       Write-Host "⚠ Failed to remove $path: $_"
     }
-  } else {
+  }
+  else {
     Write-Host "Skipped $path (does not exist)"
   }
 }

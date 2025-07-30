@@ -9,8 +9,8 @@ import { SourcesCreateForm } from '../components/SourcesCreateForm/SourcesCreate
 
 const log = createLog({ category: 'RENDERER', tag: 'Sources' })
 
-export const SourcesCreateFormContainer: FC<PropsWithChildren> = (props) => {
-  const [createSource, { isLoading: isUpdating }] = useCreateSourceMutation()
+export const SourcesCreateFormContainer: FC<PropsWithChildren> = () => {
+  const [createSource] = useCreateSourceMutation()
 
   const { LL } = useI18nContext()
 
