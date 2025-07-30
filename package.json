@@ -6,7 +6,6 @@
   "author": "github.com/Metanart",
   "license": "MIT",
   "scripts": {
-    "clean": "powershell -ExecutionPolicy Bypass -File ./scripts/clean.ps1",
     "format": "prettier --write .",
     "lint": "eslint --cache .",
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
