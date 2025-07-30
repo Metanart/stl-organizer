@@ -4,6 +4,7 @@ out
 .DS_Store
 .eslintcache
 *.log*
+*.notes.md
 
 *storybook.log
 storybook-static
