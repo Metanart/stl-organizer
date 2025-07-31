@@ -5,7 +5,7 @@ import { vi } from 'vitest'
 import { ConfigFormDTO } from '@shared/domains/Config/Config.dtos'
 
 import { ConfigUpdateForm } from './ConfigUpdateForm'
-import { ConfigUpdateFormDataQa } from './ConfigUpdateForm.data-qa'
+import { ConfigUpdateFormDataQa } from './ConfigUpdateForm.testid'
 
 // Helper function to get element by ID with proper typing
 const getElementById = (id: string): HTMLElement => {

@@ -17,7 +17,7 @@ import { FolderInput } from '@renderer/domains/Common/components/FolderInput'
 import { ConfigFormDTO, ConfigUpdateFormDTO } from '@shared/domains/Config/Config.dtos'
 import { ConfigUpdateFormSchema } from '@shared/domains/Config/Config.schemes'
 
-import { ConfigUpdateFormDataQa } from './ConfigUpdateForm.data-qa'
+import { ConfigUpdateFormDataQa } from './ConfigUpdateForm.testid'
 
 type Props = {
   configFormDto?: ConfigFormDTO
@@ -68,7 +68,6 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                 disabled={isDisabled}
                 render={({ field, fieldState }) => (
                   <FolderInput
-                    id={ConfigUpdateFormDataQa.outputFolderInput}
                     name={field.name}
                     value={field.value}
                     error={!!fieldState.error}
@@ -79,6 +78,9 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                     onSelect={(newPath) => field.onChange(newPath)}
                     fullWidth={true}
                     isDisabled={isDisabled || field.disabled}
+                    slotProps={{
+                      htmlInput: { 'data-testid': ConfigUpdateFormDataQa.outputFolderInput }
+                    }}
                   />
                 )}
               />
@@ -91,7 +93,6 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                 disabled={isDisabled}
                 render={({ field, fieldState }) => (
                   <FolderInput
-                    id={ConfigUpdateFormDataQa.tempFolderInput}
                     name={field.name}
                     value={field.value}
                     error={!!fieldState.error}
@@ -102,6 +103,9 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                     onSelect={(newPath) => field.onChange(newPath)}
                     fullWidth={true}
                     isDisabled={isDisabled || field.disabled}
+                    slotProps={{
+                      htmlInput: { 'data-testid': ConfigUpdateFormDataQa.tempFolderInput }
+                    }}
                   />
                 )}
               />
@@ -114,7 +118,6 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                 disabled={isDisabled}
                 render={({ field, fieldState }) => (
                   <TextField
-                    id={ConfigUpdateFormDataQa.maxThreadsInput}
                     type="number"
                     name={field.name}
                     value={field.value}
@@ -126,6 +129,9 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                       field.onChange(e.target.value === '' ? 1 : Number(e.target.value))
                     }
                     fullWidth={true}
+                    slotProps={{
+                      htmlInput: { 'data-testid': ConfigUpdateFormDataQa.maxThreadsInput }
+                    }}
                   />
                 )}
               />
@@ -142,10 +148,14 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                       label={fieldsLexemes.autoProcessOnScan.label()}
                       control={
                         <Switch
-                          id={ConfigUpdateFormDataQa.autoProcessOnScanSwitch}
                           disabled={isDisabled || field.disabled}
                           checked={field.value}
                           onChange={(e) => field.onChange(e.target.checked)}
+                          slotProps={{
+                            input: {
+                              'data-testid': ConfigUpdateFormDataQa.autoProcessOnScanSwitch
+                            }
+                          }}
                         />
                       }
                     />
@@ -163,10 +173,14 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                       label={fieldsLexemes.autoArchiveOnComplete.label()}
                       control={
                         <Switch
-                          id={ConfigUpdateFormDataQa.autoArchiveOnCompleteSwitch}
                           disabled={isDisabled || field.disabled}
                           checked={field.value}
                           onChange={(e) => field.onChange(e.target.checked)}
+                          slotProps={{
+                            input: {
+                              'data-testid': ConfigUpdateFormDataQa.autoArchiveOnCompleteSwitch
+                            }
+                          }}
                         />
                       }
                     />
@@ -184,10 +198,14 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                       label={fieldsLexemes.useMultithreading.label()}
                       control={
                         <Switch
-                          id={ConfigUpdateFormDataQa.useMultithreadingSwitch}
                           disabled={isDisabled || field.disabled}
                           checked={field.value}
                           onChange={(e) => field.onChange(e.target.checked)}
+                          slotProps={{
+                            input: {
+                              'data-testid': ConfigUpdateFormDataQa.useMultithreadingSwitch
+                            }
+                          }}
                         />
                       }
                     />
@@ -205,10 +223,14 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                       label={fieldsLexemes.debugMode.label()}
                       control={
                         <Switch
-                          id={ConfigUpdateFormDataQa.debugModeSwitch}
                           disabled={isDisabled || field.disabled}
                           checked={field.value}
                           onChange={(e) => field.onChange(e.target.checked)}
+                          slotProps={{
+                            input: {
+                              'data-testid': ConfigUpdateFormDataQa.debugModeSwitch
+                            }
+                          }}
                         />
                       }
                     />
@@ -226,6 +248,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
             variant="contained"
             sx={{ alignSelf: 'flex-start' }}
             disabled={isDisabled}
+            data-testid={ConfigUpdateFormDataQa.submitButton}
           >
             {actionsLexemes.save()}
           </Button>

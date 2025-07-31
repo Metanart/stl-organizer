@@ -23,7 +23,8 @@ export default defineConfig({
     headless: false,
     screenshot: 'on',
     video: 'on',
-    trace: 'on-first-retry'
+    trace: 'on-first-retry',
+    testIdAttribute: 'data-testid'
   },
   projects: [
     {

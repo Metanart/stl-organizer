@@ -15,6 +15,7 @@ type Props = {
   helperText?: string
   isDisabled?: boolean
   id?: string
+  slotProps?: StandardTextFieldProps['slotProps']
 }
 
 export const FolderInput: FC<Props> = (props) => {
@@ -30,7 +31,8 @@ export const FolderInput: FC<Props> = (props) => {
     error,
     helperText,
     isDisabled,
-    id
+    id,
+    slotProps
   } = props
 
   const [isSelecting, setIsSelecting] = useState(false)
@@ -70,7 +72,9 @@ export const FolderInput: FC<Props> = (props) => {
       error={error}
       helperText={helperText}
       slotProps={{
+        ...slotProps,
         input: {
+          ...slotProps?.input,
           readOnly: false,
           endAdornment: (
             <InputAdornment position="end">

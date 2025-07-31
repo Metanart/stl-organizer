@@ -1,38 +1,60 @@
-import { _electron as electron, expect, test } from '@playwright/test'
+import { _electron as electron, expect, Page, test } from '@playwright/test'
+
+import { ConfigUpdateFormDataQa } from '../components/ConfigUpdateForm/ConfigUpdateForm.testid'
 
 test('Config page - form submit flow', async () => {
   const electronApp = await electron.launch({ args: ['out/main/index.js'] })
-  const window = await electronApp.firstWindow()
+  const page: Page = await electronApp.firstWindow()
 
-  await window.waitForLoadState('domcontentloaded')
+  await page.waitForLoadState('domcontentloaded')
 
-  const settingsButton = window.locator('#ConfigRoute')
+  const settingsButton = page.locator('#ConfigRoute')
   await settingsButton.click()
 
   await expect(settingsButton).toBeEnabled()
 
-  const outputFolderInput = window.locator('input[name="outputFolder"]')
-  await expect(outputFolderInput).toBeVisible()
+  const outputFolderInput = page.getByTestId(ConfigUpdateFormDataQa.outputFolderInput)
+  await expect(outputFolderInput).toBeVisible({ timeout: 5000 })
   await outputFolderInput.fill('C:/out')
 
-  const tempFolderInput = window.locator('input[name="tempFolder"]')
+  const tempFolderInput = page.getByTestId(ConfigUpdateFormDataQa.tempFolderInput)
   await expect(tempFolderInput).toBeVisible()
   await tempFolderInput.fill('C:/tmp')
 
-  const maxThreadsInput = window.locator('input[name="maxThreads"]')
+  const maxThreadsInput = page.getByTestId(ConfigUpdateFormDataQa.maxThreadsInput)
   await expect(maxThreadsInput).toBeVisible()
   await maxThreadsInput.fill('3')
 
-  await window.locator('label:has-text("Auto Process On Scan") input[type=checkbox]').check()
-  await window.locator('label:has-text("Use Multithreading") input[type=checkbox]').check()
+  const autoProcessSwitch = page.getByTestId(ConfigUpdateFormDataQa.autoProcessOnScanSwitch)
+  await expect(autoProcessSwitch).toBeVisible()
+  await autoProcessSwitch.check()
 
-  const saveButton = window.locator('button:has-text("Save")')
+  const useMultithreadingSwitch = page.getByTestId(ConfigUpdateFormDataQa.useMultithreadingSwitch)
+  await expect(useMultithreadingSwitch).toBeVisible()
+  await useMultithreadingSwitch.check()
+
+  const autoArchiveOnCompleteSwitch = page.getByTestId(
+    ConfigUpdateFormDataQa.autoArchiveOnCompleteSwitch
+  )
+  await expect(autoArchiveOnCompleteSwitch).toBeVisible()
+  await autoArchiveOnCompleteSwitch.check()
+
+  const debugModeSwitch = page.getByTestId(ConfigUpdateFormDataQa.debugModeSwitch)
+  await expect(debugModeSwitch).toBeVisible()
+  await debugModeSwitch.check()
+
+  const saveButton = page.getByTestId(ConfigUpdateFormDataQa.submitButton)
+  await expect(saveButton).toBeVisible()
   await expect(saveButton).toBeEnabled()
   await saveButton.click()
 
   await expect(outputFolderInput).toHaveValue('C:/out')
   await expect(tempFolderInput).toHaveValue('C:/tmp')
   await expect(maxThreadsInput).toHaveValue('3')
+  await expect(autoProcessSwitch).toBeChecked()
+  await expect(useMultithreadingSwitch).toBeChecked()
+  await expect(autoArchiveOnCompleteSwitch).toBeChecked()
+  await expect(debugModeSwitch).toBeChecked()
 
   await electronApp.close()
 })
