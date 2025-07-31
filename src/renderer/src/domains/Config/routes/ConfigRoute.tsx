@@ -5,6 +5,7 @@ import { ConfigPage } from '../pages/ConfigPage'
 
 export const ConfigRoute: AppRoute = {
   id: 'ConfigRoute',
+  testId: 'config-route',
   icon: <SettingsIcon />,
   path: '/Config',
   element: <ConfigPage />,

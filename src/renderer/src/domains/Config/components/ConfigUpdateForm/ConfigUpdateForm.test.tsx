@@ -7,15 +7,6 @@ import { ConfigFormDTO } from '@shared/domains/Config/Config.dtos'
 import { ConfigUpdateForm } from './ConfigUpdateForm'
 import { ConfigUpdateFormDataQa } from './ConfigUpdateForm.testid'
 
-// Helper function to get element by ID with proper typing
-const getElementById = (id: string): HTMLElement => {
-  const element = document.getElementById(id)
-  if (!element) {
-    throw new Error(`Element with id "${id}" not found`)
-  }
-  return element
-}
-
 // Helper function to create mock config data
 const createMockConfig = (overrides: Partial<ConfigFormDTO> = {}): ConfigFormDTO => ({
   outputFolder: 'C:/output',
@@ -57,15 +48,15 @@ describe('ConfigUpdateForm', () => {
     render(<ConfigUpdateForm configFormDto={mockConfig} onSave={onSave} isDisabled={false} />)
 
     // Verify input values
-    expect(getElementById(ConfigUpdateFormDataQa.outputFolderInput)).toHaveValue('C:/output')
-    expect(getElementById(ConfigUpdateFormDataQa.tempFolderInput)).toHaveValue('C:/temp')
-    expect(getElementById(ConfigUpdateFormDataQa.maxThreadsInput)).toHaveValue(4)
+    expect(screen.getByTestId(ConfigUpdateFormDataQa.outputFolderInput)).toHaveValue('C:/output')
+    expect(screen.getByTestId(ConfigUpdateFormDataQa.tempFolderInput)).toHaveValue('C:/temp')
+    expect(screen.getByTestId(ConfigUpdateFormDataQa.maxThreadsInput)).toHaveValue(4)
 
     // Verify switch states
-    expect(getElementById(ConfigUpdateFormDataQa.autoProcessOnScanSwitch)).toBeChecked()
-    expect(getElementById(ConfigUpdateFormDataQa.autoArchiveOnCompleteSwitch)).not.toBeChecked()
-    expect(getElementById(ConfigUpdateFormDataQa.useMultithreadingSwitch)).toBeChecked()
-    expect(getElementById(ConfigUpdateFormDataQa.debugModeSwitch)).not.toBeChecked()
+    expect(screen.getByTestId(ConfigUpdateFormDataQa.autoProcessOnScanSwitch)).toBeChecked()
+    expect(screen.getByTestId(ConfigUpdateFormDataQa.autoArchiveOnCompleteSwitch)).not.toBeChecked()
+    expect(screen.getByTestId(ConfigUpdateFormDataQa.useMultithreadingSwitch)).toBeChecked()
+    expect(screen.getByTestId(ConfigUpdateFormDataQa.debugModeSwitch)).not.toBeChecked()
   })
 
   it('shows validation error when maxThreads value is invalid', async () => {
@@ -74,10 +65,10 @@ describe('ConfigUpdateForm', () => {
 
     render(<ConfigUpdateForm onSave={onSave} isDisabled={false} />)
 
-    const maxThreadsInput = getElementById(
+    const maxThreadsInput = screen.getByTestId(
       ConfigUpdateFormDataQa.maxThreadsInput
     ) as HTMLInputElement
-    const submitButton = getElementById(ConfigUpdateFormDataQa.submitButton)
+    const submitButton = screen.getByTestId(ConfigUpdateFormDataQa.submitButton)
 
     await user.clear(maxThreadsInput)
     await user.type(maxThreadsInput, '0')
@@ -104,10 +95,10 @@ describe('ConfigUpdateForm', () => {
 
     // Get switch elements
     const switches = {
-      autoProcess: getElementById(ConfigUpdateFormDataQa.autoProcessOnScanSwitch),
-      autoArchive: getElementById(ConfigUpdateFormDataQa.autoArchiveOnCompleteSwitch),
-      multithreading: getElementById(ConfigUpdateFormDataQa.useMultithreadingSwitch),
-      debug: getElementById(ConfigUpdateFormDataQa.debugModeSwitch)
+      autoProcess: screen.getByTestId(ConfigUpdateFormDataQa.autoProcessOnScanSwitch),
+      autoArchive: screen.getByTestId(ConfigUpdateFormDataQa.autoArchiveOnCompleteSwitch),
+      multithreading: screen.getByTestId(ConfigUpdateFormDataQa.useMultithreadingSwitch),
+      debug: screen.getByTestId(ConfigUpdateFormDataQa.debugModeSwitch)
     }
 
     // Verify initial states (all switches should be unchecked)
@@ -124,7 +115,7 @@ describe('ConfigUpdateForm', () => {
     })
 
     // Submit form
-    const submitButton = getElementById(ConfigUpdateFormDataQa.submitButton)
+    const submitButton = screen.getByTestId(ConfigUpdateFormDataQa.submitButton)
     await user.click(submitButton)
 
     // Verify onSave was called with correct data
@@ -156,18 +147,18 @@ describe('ConfigUpdateForm', () => {
     // Get all form elements
     const formElements = {
       switches: {
-        autoProcess: getElementById(ConfigUpdateFormDataQa.autoProcessOnScanSwitch),
-        autoArchive: getElementById(ConfigUpdateFormDataQa.autoArchiveOnCompleteSwitch),
-        multithreading: getElementById(ConfigUpdateFormDataQa.useMultithreadingSwitch),
-        debug: getElementById(ConfigUpdateFormDataQa.debugModeSwitch)
+        autoProcess: screen.getByTestId(ConfigUpdateFormDataQa.autoProcessOnScanSwitch),
+        autoArchive: screen.getByTestId(ConfigUpdateFormDataQa.autoArchiveOnCompleteSwitch),
+        multithreading: screen.getByTestId(ConfigUpdateFormDataQa.useMultithreadingSwitch),
+        debug: screen.getByTestId(ConfigUpdateFormDataQa.debugModeSwitch)
       },
       inputs: {
-        maxThreads: getElementById(ConfigUpdateFormDataQa.maxThreadsInput),
-        outputFolder: getElementById(ConfigUpdateFormDataQa.outputFolderInput),
-        tempFolder: getElementById(ConfigUpdateFormDataQa.tempFolderInput)
+        maxThreads: screen.getByTestId(ConfigUpdateFormDataQa.maxThreadsInput),
+        outputFolder: screen.getByTestId(ConfigUpdateFormDataQa.outputFolderInput),
+        tempFolder: screen.getByTestId(ConfigUpdateFormDataQa.tempFolderInput)
       },
       buttons: {
-        submit: getElementById(ConfigUpdateFormDataQa.submitButton)
+        submit: screen.getByTestId(ConfigUpdateFormDataQa.submitButton)
       }
     }
 

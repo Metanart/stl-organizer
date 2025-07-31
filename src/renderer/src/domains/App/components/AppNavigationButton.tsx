@@ -10,11 +10,12 @@ type Props = AppNavigationItem & {
 }
 
 export const AppNavigationButton: FC<Props> = (props) => {
-  const { id, text, icon, to, isOpen } = props
+  const { id, testId, text, icon, to, isOpen } = props
 
   return (
     <ListItemButton
       id={id}
+      data-testid={testId}
       sx={{
         minHeight: 48,
         justifyContent: isOpen ? 'center' : 'initial',

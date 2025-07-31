@@ -243,7 +243,6 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
 
         <CardActions sx={{ justifyContent: 'flex-end', px: 2, pt: 0, pb: 2 }}>
           <Button
-            id={ConfigUpdateFormDataQa.submitButton}
             type="submit"
             variant="contained"
             sx={{ alignSelf: 'flex-start' }}

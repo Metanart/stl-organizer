@@ -24,6 +24,7 @@ export const AppNavigationContainer: FC<Props> = (props) => {
       {ROUTES.map((item) => (
         <AppNavigationButton
           id={item.id}
+          testId={item.testId}
           key={item.id}
           text={LL.app.navigation[item.namespace]()}
           icon={item.icon}

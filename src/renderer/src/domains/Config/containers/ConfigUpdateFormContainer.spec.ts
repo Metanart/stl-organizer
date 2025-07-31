@@ -8,7 +8,7 @@ test('Config page - form submit flow', async () => {
 
   await page.waitForLoadState('domcontentloaded')
 
-  const settingsButton = page.locator('#ConfigRoute')
+  const settingsButton = page.getByTestId('config-route')
   await settingsButton.click()
 
   await expect(settingsButton).toBeEnabled()
