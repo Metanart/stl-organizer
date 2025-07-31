@@ -17,6 +17,8 @@ import { FolderInput } from '@renderer/domains/Common/components/FolderInput'
 import { ConfigFormDTO, ConfigUpdateFormDTO } from '@shared/domains/Config/Config.dtos'
 import { ConfigUpdateFormSchema } from '@shared/domains/Config/Config.schemes'
 
+import { ConfigUpdateFormDataQa } from './ConfigUpdateForm.data-qa'
+
 type Props = {
   configFormDto?: ConfigFormDTO
   isDisabled?: boolean
@@ -66,6 +68,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                 disabled={isDisabled}
                 render={({ field, fieldState }) => (
                   <FolderInput
+                    id={ConfigUpdateFormDataQa.outputFolderInput}
                     name={field.name}
                     value={field.value}
                     error={!!fieldState.error}
@@ -88,6 +91,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                 disabled={isDisabled}
                 render={({ field, fieldState }) => (
                   <FolderInput
+                    id={ConfigUpdateFormDataQa.tempFolderInput}
                     name={field.name}
                     value={field.value}
                     error={!!fieldState.error}
@@ -110,6 +114,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                 disabled={isDisabled}
                 render={({ field, fieldState }) => (
                   <TextField
+                    id={ConfigUpdateFormDataQa.maxThreadsInput}
                     type="number"
                     name={field.name}
                     value={field.value}
@@ -137,6 +142,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                       label={fieldsLexemes.autoProcessOnScan.label()}
                       control={
                         <Switch
+                          id={ConfigUpdateFormDataQa.autoProcessOnScanSwitch}
                           disabled={isDisabled || field.disabled}
                           checked={field.value}
                           onChange={(e) => field.onChange(e.target.checked)}
@@ -157,6 +163,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                       label={fieldsLexemes.autoArchiveOnComplete.label()}
                       control={
                         <Switch
+                          id={ConfigUpdateFormDataQa.autoArchiveOnCompleteSwitch}
                           disabled={isDisabled || field.disabled}
                           checked={field.value}
                           onChange={(e) => field.onChange(e.target.checked)}
@@ -177,6 +184,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                       label={fieldsLexemes.useMultithreading.label()}
                       control={
                         <Switch
+                          id={ConfigUpdateFormDataQa.useMultithreadingSwitch}
                           disabled={isDisabled || field.disabled}
                           checked={field.value}
                           onChange={(e) => field.onChange(e.target.checked)}
@@ -197,6 +205,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
                       label={fieldsLexemes.debugMode.label()}
                       control={
                         <Switch
+                          id={ConfigUpdateFormDataQa.debugModeSwitch}
                           disabled={isDisabled || field.disabled}
                           checked={field.value}
                           onChange={(e) => field.onChange(e.target.checked)}
@@ -212,6 +221,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
 
         <CardActions sx={{ justifyContent: 'flex-end', px: 2, pt: 0, pb: 2 }}>
           <Button
+            id={ConfigUpdateFormDataQa.submitButton}
             type="submit"
             variant="contained"
             sx={{ alignSelf: 'flex-start' }}

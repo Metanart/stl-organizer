@@ -14,6 +14,7 @@ type Props = {
   error?: boolean
   helperText?: string
   isDisabled?: boolean
+  id?: string
 }
 
 export const FolderInput: FC<Props> = (props) => {
@@ -28,7 +29,8 @@ export const FolderInput: FC<Props> = (props) => {
     onChange,
     error,
     helperText,
-    isDisabled
+    isDisabled,
+    id
   } = props
 
   const [isSelecting, setIsSelecting] = useState(false)
@@ -52,6 +54,7 @@ export const FolderInput: FC<Props> = (props) => {
 
   return (
     <TextField
+      id={id}
       label={label}
       value={value}
       name={name}

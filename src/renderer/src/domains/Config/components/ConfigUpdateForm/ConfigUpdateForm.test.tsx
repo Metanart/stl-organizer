@@ -5,6 +5,28 @@ import { vi } from 'vitest'
 import { ConfigFormDTO } from '@shared/domains/Config/Config.dtos'
 
 import { ConfigUpdateForm } from './ConfigUpdateForm'
+import { ConfigUpdateFormDataQa } from './ConfigUpdateForm.data-qa'
+
+// Helper function to get element by ID with proper typing
+const getElementById = (id: string): HTMLElement => {
+  const element = document.getElementById(id)
+  if (!element) {
+    throw new Error(`Element with id "${id}" not found`)
+  }
+  return element
+}
+
+// Helper function to create mock config data
+const createMockConfig = (overrides: Partial<ConfigFormDTO> = {}): ConfigFormDTO => ({
+  outputFolder: 'C:/output',
+  tempFolder: 'C:/temp',
+  maxThreads: 4,
+  autoProcessOnScan: true,
+  autoArchiveOnComplete: false,
+  useMultithreading: true,
+  debugMode: false,
+  ...overrides
+})
 
 vi.mock('@i18n/i18n-react.generated', () => ({
   useI18nContext: () => ({
@@ -28,139 +50,138 @@ vi.mock('@i18n/i18n-react.generated', () => ({
 }))
 
 describe('ConfigUpdateForm', () => {
-  it('Initialized with values from configFormDto', async () => {
-    const mockConfig: ConfigFormDTO = {
-      outputFolder: 'C:/output',
-      tempFolder: 'C:/temp',
-      maxThreads: 4,
-      autoProcessOnScan: true,
-      autoArchiveOnComplete: false,
-      useMultithreading: true,
-      debugMode: false
-    }
+  it('initializes with values from configFormDto', () => {
+    const mockConfig = createMockConfig()
+    const onSave = vi.fn()
 
-    render(<ConfigUpdateForm configFormDto={mockConfig} onSave={vi.fn()} isDisabled={false} />)
+    render(<ConfigUpdateForm configFormDto={mockConfig} onSave={onSave} isDisabled={false} />)
 
-    expect(screen.getByLabelText('Output Folder')).toHaveValue('C:/output')
-    expect(screen.getByLabelText('Temp Folder')).toHaveValue('C:/temp')
-    expect(screen.getByLabelText('Max Threads')).toHaveValue(4)
+    // Verify input values
+    expect(getElementById(ConfigUpdateFormDataQa.outputFolderInput)).toHaveValue('C:/output')
+    expect(getElementById(ConfigUpdateFormDataQa.tempFolderInput)).toHaveValue('C:/temp')
+    expect(getElementById(ConfigUpdateFormDataQa.maxThreadsInput)).toHaveValue(4)
 
-    expect(screen.getByLabelText('Auto Process On Scan')).toBeChecked()
-    expect(screen.getByLabelText('Auto Archive On Complete')).not.toBeChecked()
-    expect(screen.getByLabelText('Use Multithreading')).toBeChecked()
-    expect(screen.getByLabelText('Debug Mode')).not.toBeChecked()
+    // Verify switch states
+    expect(getElementById(ConfigUpdateFormDataQa.autoProcessOnScanSwitch)).toBeChecked()
+    expect(getElementById(ConfigUpdateFormDataQa.autoArchiveOnCompleteSwitch)).not.toBeChecked()
+    expect(getElementById(ConfigUpdateFormDataQa.useMultithreadingSwitch)).toBeChecked()
+    expect(getElementById(ConfigUpdateFormDataQa.debugModeSwitch)).not.toBeChecked()
   })
 
-  it('Shows an error when the maxThreads value is incorrect', async () => {
+  it('shows validation error when maxThreads value is invalid', async () => {
     const user = userEvent.setup()
     const onSave = vi.fn()
 
     render(<ConfigUpdateForm onSave={onSave} isDisabled={false} />)
 
-    const input = screen.getByLabelText('Max Threads')
-    const submit = screen.getByRole('button', { name: /save/i })
+    const maxThreadsInput = getElementById(
+      ConfigUpdateFormDataQa.maxThreadsInput
+    ) as HTMLInputElement
+    const submitButton = getElementById(ConfigUpdateFormDataQa.submitButton)
 
-    await user.clear(input)
-    await user.type(input, '0')
-
-    await user.click(submit)
+    await user.clear(maxThreadsInput)
+    await user.type(maxThreadsInput, '0')
+    await user.click(submitButton)
 
     expect(await screen.findByText(/at least 1 and up to 6/i)).toBeInTheDocument()
-
     expect(onSave).not.toHaveBeenCalled()
   })
 
-  it('Сorrectly handles Switches and passes their values on submit', async () => {
+  it('correctly handles switches and submits data', async () => {
     const user = userEvent.setup()
     const onSave = vi.fn()
-
-    render(
-      <ConfigUpdateForm
-        onSave={onSave}
-        isDisabled={false}
-        configFormDto={{
-          outputFolder: 'out',
-          tempFolder: 'tmp',
-          maxThreads: 1,
-          autoProcessOnScan: false,
-          autoArchiveOnComplete: false,
-          useMultithreading: false,
-          debugMode: false
-        }}
-      />
-    )
-
-    const switchAutoProcess = screen.getByLabelText(/auto process on scan/i)
-    const switchAutoArchive = screen.getByLabelText(/auto archive on complete/i)
-    const switchMultithreading = screen.getByLabelText(/use multithreading/i)
-    const switchDebug = screen.getByLabelText(/debug mode/i)
-
-    expect(switchAutoProcess).not.toBeChecked()
-    expect(switchAutoArchive).not.toBeChecked()
-    expect(switchMultithreading).not.toBeChecked()
-    expect(switchDebug).not.toBeChecked()
-
-    await user.click(switchAutoProcess)
-    await user.click(switchAutoArchive)
-    await user.click(switchMultithreading)
-    await user.click(switchDebug)
-
-    expect(switchAutoProcess).toBeChecked()
-    expect(switchAutoArchive).toBeChecked()
-    expect(switchMultithreading).toBeChecked()
-    expect(switchDebug).toBeChecked()
-
-    const submit = screen.getByRole('button', { name: /save/i })
-    await user.click(submit)
-
-    expect(onSave).toHaveBeenCalledTimes(1)
-    const submittedData = onSave.mock.calls[0][0]
-    expect(submittedData).toMatchObject({
-      autoProcessOnScan: true,
-      autoArchiveOnComplete: true,
-      useMultithreading: true,
-      debugMode: true
+    const mockConfig = createMockConfig({
+      outputFolder: 'out',
+      tempFolder: 'tmp',
+      maxThreads: 1,
+      autoProcessOnScan: false,
+      autoArchiveOnComplete: false,
+      useMultithreading: false,
+      debugMode: false
     })
+
+    render(<ConfigUpdateForm onSave={onSave} isDisabled={false} configFormDto={mockConfig} />)
+
+    // Get switch elements
+    const switches = {
+      autoProcess: getElementById(ConfigUpdateFormDataQa.autoProcessOnScanSwitch),
+      autoArchive: getElementById(ConfigUpdateFormDataQa.autoArchiveOnCompleteSwitch),
+      multithreading: getElementById(ConfigUpdateFormDataQa.useMultithreadingSwitch),
+      debug: getElementById(ConfigUpdateFormDataQa.debugModeSwitch)
+    }
+
+    // Verify initial states (all switches should be unchecked)
+    Object.values(switches).forEach((switchElement) => {
+      expect(switchElement).not.toBeChecked()
+    })
+
+    // Toggle all switches
+    await Promise.all(Object.values(switches).map((switchElement) => user.click(switchElement)))
+
+    // Verify all switches are now checked
+    Object.values(switches).forEach((switchElement) => {
+      expect(switchElement).toBeChecked()
+    })
+
+    // Submit form
+    const submitButton = getElementById(ConfigUpdateFormDataQa.submitButton)
+    await user.click(submitButton)
+
+    // Verify onSave was called with correct data
+    expect(onSave).toHaveBeenCalledTimes(1)
+    expect(onSave).toHaveBeenCalledWith(
+      expect.objectContaining({
+        autoProcessOnScan: true,
+        autoArchiveOnComplete: true,
+        useMultithreading: true,
+        debugMode: true
+      })
+    )
   })
 
-  it('Disables all fields and buttons when isDisabled=true', async () => {
+  it('disables all form elements when isDisabled is true', () => {
     const onSave = vi.fn()
+    const mockConfig = createMockConfig({
+      outputFolder: 'out',
+      tempFolder: 'tmp',
+      maxThreads: 2,
+      autoProcessOnScan: true,
+      autoArchiveOnComplete: false,
+      useMultithreading: false,
+      debugMode: true
+    })
 
-    render(
-      <ConfigUpdateForm
-        onSave={onSave}
-        isDisabled={true}
-        configFormDto={{
-          outputFolder: 'out',
-          tempFolder: 'tmp',
-          maxThreads: 2,
-          autoProcessOnScan: true,
-          autoArchiveOnComplete: false,
-          useMultithreading: false,
-          debugMode: true
-        }}
-      />
-    )
+    render(<ConfigUpdateForm onSave={onSave} isDisabled={true} configFormDto={mockConfig} />)
 
-    const switchAutoProcess = screen.getByLabelText(/auto process on scan/i)
-    const switchAutoArchive = screen.getByLabelText(/auto archive on complete/i)
-    const switchMultithreading = screen.getByLabelText(/use multithreading/i)
-    const switchDebug = screen.getByLabelText(/debug mode/i)
+    // Get all form elements
+    const formElements = {
+      switches: {
+        autoProcess: getElementById(ConfigUpdateFormDataQa.autoProcessOnScanSwitch),
+        autoArchive: getElementById(ConfigUpdateFormDataQa.autoArchiveOnCompleteSwitch),
+        multithreading: getElementById(ConfigUpdateFormDataQa.useMultithreadingSwitch),
+        debug: getElementById(ConfigUpdateFormDataQa.debugModeSwitch)
+      },
+      inputs: {
+        maxThreads: getElementById(ConfigUpdateFormDataQa.maxThreadsInput),
+        outputFolder: getElementById(ConfigUpdateFormDataQa.outputFolderInput),
+        tempFolder: getElementById(ConfigUpdateFormDataQa.tempFolderInput)
+      },
+      buttons: {
+        submit: getElementById(ConfigUpdateFormDataQa.submitButton)
+      }
+    }
 
-    expect(switchAutoProcess).toBeDisabled()
-    expect(switchAutoArchive).toBeDisabled()
-    expect(switchMultithreading).toBeDisabled()
-    expect(switchDebug).toBeDisabled()
+    // Verify all switches are disabled
+    Object.values(formElements.switches).forEach((switchElement) => {
+      expect(switchElement).toBeDisabled()
+    })
 
-    const threadsInput = screen.getByRole('spinbutton', { name: /max threads/i })
-    const outputInput = screen.getByRole('textbox', { name: /output folder/i })
-    const tempInput = screen.getByRole('textbox', { name: /temp folder/i })
+    // Verify all inputs are disabled
+    Object.values(formElements.inputs).forEach((inputElement) => {
+      expect(inputElement).toBeDisabled()
+    })
 
-    expect(threadsInput).toBeDisabled()
-    expect(outputInput).toBeDisabled()
-    expect(tempInput).toBeDisabled()
-
-    const submit = screen.getByRole('button', { name: /save/i })
-    expect(submit).toBeDisabled()
+    // Verify submit button is disabled
+    expect(formElements.buttons.submit).toBeDisabled()
   })
 })
