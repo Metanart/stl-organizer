@@ -20,7 +20,14 @@ export class SourcesService {
 
     log.info(`Create a new source with params`, source)
 
-    const existing = await repo.findOneBy({ path: source.path })
+    let existing: Source | null
+
+    try {
+      existing = await repo.findOneBy({ path: source.path })
+    } catch (error) {
+      log.error('Failed to check for existing source:', (error as Error).message)
+      throw error
+    }
 
     if (existing) {
       log.error(`Found an existing source with the same path`, existing)
@@ -29,22 +36,45 @@ export class SourcesService {
 
     log.info(`Creating a new source`)
 
-    const created = repo.create(source)
-    const saved = await repo.save(created)
+    let created: Source
+    let saved: Source
 
-    log.success(`New source has been saved`, saved)
+    try {
+      created = repo.create(source)
+      saved = await repo.save(created)
+      log.success(`New source has been saved`, saved)
+    } catch (error) {
+      log.error('Failed to create and save source:', (error as Error).message)
+      throw error
+    }
 
-    return SourcesMapper.map<Source, SourceDTO>(
-      saved,
-      SOURCES_DTO_KEYS.Source,
-      SOURCES_DTO_KEYS.SourceDTO
-    )
+    let mappedDTO: SourceDTO
+    try {
+      mappedDTO = SourcesMapper.map<Source, SourceDTO>(
+        saved,
+        SOURCES_DTO_KEYS.Source,
+        SOURCES_DTO_KEYS.SourceDTO
+      )
+      log.info('Mapped source to DTO', mappedDTO)
+    } catch (error) {
+      log.error('Failed to map source to DTO:', (error as Error).message)
+      throw error
+    }
+
+    return mappedDTO
   }
 
   static async getAll(): Promise<SourceDTO[] | null> {
     const log = createLog({ tag: 'SourcesService.getAll' })
 
-    const sources = await repo.find({ order: { createdAt: 'ASC' } })
+    let sources: Source[]
+
+    try {
+      sources = await repo.find({ order: { createdAt: 'ASC' } })
+    } catch (error) {
+      log.error('Failed to query sources from database:', (error as Error).message)
+      throw error
+    }
 
     if (!sources || sources.length === 0) {
       log.error(`Sources are not found`)
@@ -53,30 +83,65 @@ export class SourcesService {
 
     log.success(`Sources are found`)
 
-    return SourcesMapper.mapArray<Source, SourceDTO>(
-      sources,
-      SOURCES_DTO_KEYS.Source,
-      SOURCES_DTO_KEYS.SourceDTO
-    )
+    let mappedDTOs: SourceDTO[]
+    try {
+      mappedDTOs = SourcesMapper.mapArray<Source, SourceDTO>(
+        sources,
+        SOURCES_DTO_KEYS.Source,
+        SOURCES_DTO_KEYS.SourceDTO
+      )
+      log.info('Mapped sources to DTOs', mappedDTOs)
+    } catch (error) {
+      log.error('Failed to map sources to DTOs:', (error as Error).message)
+      throw error
+    }
+
+    return mappedDTOs
   }
 
   static async update(source: SourceUpdateDTO): Promise<SourceDTO | null> {
     const log = createLog({ tag: 'SourcesService.update' })
 
-    const existingSource = await repo.findOne({ where: { id: source.id } })
+    log.info('Updating source with payload', source)
+
+    let existingSource: Source | null
+
+    try {
+      existingSource = await repo.findOne({ where: { id: source.id } })
+    } catch (error) {
+      log.error('Failed to fetch existing source from database:', (error as Error).message)
+      throw error
+    }
 
     if (existingSource) {
       log.info(`Found existing source - start merge`, existingSource)
-      const mergedSource = repo.merge(existingSource, { ...source, id: existingSource.id })
-      const savedSource = await repo.save(mergedSource)
 
-      log.success(`Source updated`, savedSource)
+      let mergedSource: Source
+      let savedSource: Source
 
-      return SourcesMapper.map<Source, SourceDTO>(
-        savedSource,
-        SOURCES_DTO_KEYS.Source,
-        SOURCES_DTO_KEYS.SourceDTO
-      )
+      try {
+        mergedSource = repo.merge(existingSource, { ...source, id: existingSource.id })
+        savedSource = await repo.save(mergedSource)
+        log.success(`Source updated`, savedSource)
+      } catch (error) {
+        log.error('Failed to merge and save source:', (error as Error).message)
+        throw error
+      }
+
+      let mappedDTO: SourceDTO
+      try {
+        mappedDTO = SourcesMapper.map<Source, SourceDTO>(
+          savedSource,
+          SOURCES_DTO_KEYS.Source,
+          SOURCES_DTO_KEYS.SourceDTO
+        )
+        log.info('Mapped updated source to DTO', mappedDTO)
+      } catch (error) {
+        log.error('Failed to map updated source:', (error as Error).message)
+        throw error
+      }
+
+      return mappedDTO
     }
 
     log.error(`Source wasn't found - update skipped`)
@@ -87,9 +152,18 @@ export class SourcesService {
   static async remove(source: RemoveDTO): Promise<boolean> {
     const log = createLog({ tag: 'SourcesService.remove' })
 
-    const deleted = await repo.delete({ id: source.id })
+    log.info('Removing source with id', source.id)
 
-    if (deleted) {
+    let deleted: { affected?: number | null }
+
+    try {
+      deleted = await repo.delete({ id: source.id })
+    } catch (error) {
+      log.error('Failed to delete source from database:', (error as Error).message)
+      throw error
+    }
+
+    if (deleted.affected && deleted.affected > 0) {
       log.info(`Deleted source by id ${source.id}`)
       return true
     }

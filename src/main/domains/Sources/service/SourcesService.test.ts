@@ -119,6 +119,48 @@ describe('SourcesService', () => {
       expect(result).toEqual(sampleDTO)
       expect(mockLog.success).toHaveBeenCalledWith('New source has been saved', sampleSource)
     })
+
+    it('throws error when trying to create source with duplicate path due to database constraint', async () => {
+      mockFindOneBy.mockResolvedValue(null)
+      mockCreate.mockReturnValue(sampleSource)
+      mockSave.mockRejectedValue(new Error('UNIQUE constraint failed: Source.path'))
+
+      await expect(SourcesService.create(sampleCreateDTO)).rejects.toThrow(
+        'Failed to create source in database'
+      )
+
+      expect(mockFindOneBy).toHaveBeenCalledWith({ path: sampleCreateDTO.path })
+      expect(mockCreate).toHaveBeenCalledWith(sampleCreateDTO)
+      expect(mockSave).toHaveBeenCalledWith(sampleSource)
+      expect(mockLog.error).toHaveBeenCalledWith(
+        'Failed to create and save source:',
+        'UNIQUE constraint failed: Source.path'
+      )
+    })
+
+    it('throws error when trying to create source with duplicate name due to database constraint', async () => {
+      const duplicateNameDTO: SourceCreateDTO = {
+        path: '/different/path',
+        name: sampleCreateDTO.name, // Same name as existing
+        isEnabled: true
+      }
+
+      mockFindOneBy.mockResolvedValue(null)
+      mockCreate.mockReturnValue(sampleSource)
+      mockSave.mockRejectedValue(new Error('UNIQUE constraint failed: Source.name'))
+
+      await expect(SourcesService.create(duplicateNameDTO)).rejects.toThrow(
+        'Failed to create source in database'
+      )
+
+      expect(mockFindOneBy).toHaveBeenCalledWith({ path: duplicateNameDTO.path })
+      expect(mockCreate).toHaveBeenCalledWith(duplicateNameDTO)
+      expect(mockSave).toHaveBeenCalledWith(sampleSource)
+      expect(mockLog.error).toHaveBeenCalledWith(
+        'Failed to create and save source:',
+        'UNIQUE constraint failed: Source.name'
+      )
+    })
   })
 
   describe('getAll', () => {
@@ -187,21 +229,23 @@ describe('SourcesService', () => {
 
   describe('remove', () => {
     it('returns true when a source is successfully deleted', async () => {
-      mockDelete.mockResolvedValue(true)
+      mockDelete.mockResolvedValue({ affected: 1 })
 
       const result = await SourcesService.remove({ id: '1' })
 
       expect(mockDelete).toHaveBeenCalledWith({ id: '1' })
+      expect(mockLog.info).toHaveBeenCalledWith('Removing source with id', '1')
       expect(mockLog.info).toHaveBeenCalledWith('Deleted source by id 1')
       expect(result).toBe(true)
     })
 
     it('returns false when a source cannot be deleted', async () => {
-      mockDelete.mockResolvedValue(false)
+      mockDelete.mockResolvedValue({ affected: 0 })
 
       const result = await SourcesService.remove({ id: '1' })
 
       expect(mockDelete).toHaveBeenCalledWith({ id: '1' })
+      expect(mockLog.info).toHaveBeenCalledWith('Removing source with id', '1')
       expect(mockLog.error).toHaveBeenCalledWith('Source by id "1" is not deleted')
       expect(result).toBe(false)
     })
