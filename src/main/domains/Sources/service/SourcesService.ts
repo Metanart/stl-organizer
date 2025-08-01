@@ -63,7 +63,7 @@ export class SourcesService {
   static async update(source: SourceUpdateDTO): Promise<SourceDTO | null> {
     const log = createLog({ tag: 'SourcesService.update' })
 
-    const existingSource = await repo.findOne({})
+    const existingSource = await repo.findOne({ where: { id: source.id } })
 
     if (existingSource) {
       log.info(`Found existing source - start merge`, existingSource)

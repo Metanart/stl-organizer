@@ -159,7 +159,7 @@ describe('SourcesService', () => {
 
       const result = await SourcesService.update(sampleUpdateDTO)
 
-      expect(mockFindOne).toHaveBeenCalledWith({})
+      expect(mockFindOne).toHaveBeenCalledWith({ where: { id: sampleUpdateDTO.id } })
       expect(mockMerge).toHaveBeenCalledWith(sampleSource, {
         ...sampleUpdateDTO,
         id: sampleSource.id
@@ -179,7 +179,7 @@ describe('SourcesService', () => {
 
       const result = await SourcesService.update(sampleUpdateDTO)
 
-      expect(mockFindOne).toHaveBeenCalledWith({})
+      expect(mockFindOne).toHaveBeenCalledWith({ where: { id: sampleUpdateDTO.id } })
       expect(mockLog.error).toHaveBeenCalledWith("Source wasn't found - update skipped")
       expect(result).toBeNull()
     })
