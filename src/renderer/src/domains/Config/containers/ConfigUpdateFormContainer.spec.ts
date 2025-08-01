@@ -48,6 +48,9 @@ test('Config page - form submit flow', async () => {
   await expect(saveButton).toBeEnabled()
   await saveButton.click()
 
+  await expect(page.getByTestId('notification-success')).toBeVisible({ timeout: 1000 })
+  await page.waitForSelector('[data-testid="notification-success"]', { state: 'detached' })
+
   await expect(outputFolderInput).toHaveValue('C:/out')
   await expect(tempFolderInput).toHaveValue('C:/tmp')
   await expect(maxThreadsInput).toHaveValue('3')
@@ -55,6 +58,28 @@ test('Config page - form submit flow', async () => {
   await expect(useMultithreadingSwitch).toBeChecked()
   await expect(autoArchiveOnCompleteSwitch).toBeChecked()
   await expect(debugModeSwitch).toBeChecked()
+
+  await electronApp.close()
+})
+
+test('Config page - form submit flow - no changes', async () => {
+  const electronApp = await electron.launch({ args: ['out/main/index.js'] })
+  const page: Page = await electronApp.firstWindow()
+
+  await page.waitForLoadState('domcontentloaded')
+
+  const settingsButton = page.getByTestId('config-route')
+  await settingsButton.click()
+
+  await expect(settingsButton).toBeEnabled()
+
+  const saveButton = page.getByTestId(ConfigUpdateFormDataQa.submitButton)
+  await expect(saveButton).toBeVisible()
+  await expect(saveButton).toBeEnabled()
+  await saveButton.click()
+
+  await expect(page.getByTestId('notification-warning')).toBeVisible({ timeout: 1000 })
+  await page.waitForSelector('[data-testid="notification-warning"]', { state: 'detached' })
 
   await electronApp.close()
 })

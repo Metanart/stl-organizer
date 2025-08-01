@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Box } from '@mui/material'
 
-import { Loader, LoaderProps } from '../../Generic/Loader/Loader'
+import { Loader, LoaderProps } from '../../Loader/Loader'
 
 export type PageLoaderProps = {
   height?: number

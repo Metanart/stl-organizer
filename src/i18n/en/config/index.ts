@@ -6,6 +6,10 @@ const enConfig: BaseTranslation = {
     failedUpdate: 'Failed to update config'
   },
   updateForm: {
+    notify: {
+      success: 'Config updated successfully',
+      noChanges: 'Config has no changes to save'
+    },
     fields: {
       outputFolder: {
         label: 'Output folder',

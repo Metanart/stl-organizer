@@ -1,5 +1,6 @@
 import { FC, Fragment, JSX, useCallback } from 'react'
 import { useI18nContext } from '@i18n/i18n-react.generated'
+import { notify } from '@renderer/utils/notify'
 
 import { ConfigUpdateFormDTO } from '@shared/domains/Config/Config.dtos'
 import { createLog } from '@shared/utils/createLog'
@@ -17,14 +18,20 @@ export const ConfigUpdateFormContainer: FC = () => {
   const { LL } = useI18nContext()
 
   const handleSave = useCallback(
-    async (configUpdateFormDTO: ConfigUpdateFormDTO): Promise<void> => {
+    async (configUpdateFormDTO: ConfigUpdateFormDTO, isDirty: boolean): Promise<void> => {
+      if (!isDirty) {
+        notify(LL.config.updateForm.notify.noChanges(), 'warning')
+        return
+      }
+
       try {
         await updateConfig(configUpdateFormDTO).unwrap()
+        notify(LL.config.updateForm.notify.success(), 'success')
       } catch (error) {
         log.error(LL.config.errors.failedUpdate(), error)
       }
     },
-    [updateConfig, LL.config.errors]
+    [updateConfig, LL.config.errors, LL.config.updateForm.notify]
   )
 
   const renderContent = (): JSX.Element => {

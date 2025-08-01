@@ -78,6 +78,16 @@ export type NamespaceConfigTranslation = {
 		failedUpdate: string
 	}
 	updateForm: {
+		notify: {
+			/**
+			 * C​o​n​f​i​g​ ​u​p​d​a​t​e​d​ ​s​u​c​c​e​s​s​f​u​l​l​y
+			 */
+			success: string
+			/**
+			 * C​o​n​f​i​g​ ​h​a​s​ ​n​o​ ​c​h​a​n​g​e​s​ ​t​o​ ​s​a​v​e
+			 */
+			noChanges: string
+		}
 		fields: {
 			outputFolder: {
 				/**
@@ -371,6 +381,16 @@ export type TranslationFunctions = {
 			failedUpdate: () => LocalizedString
 		}
 		updateForm: {
+			notify: {
+				/**
+				 * Config updated successfully
+				 */
+				success: () => LocalizedString
+				/**
+				 * Config has no changes to save
+				 */
+				noChanges: () => LocalizedString
+			}
 			fields: {
 				outputFolder: {
 					/**

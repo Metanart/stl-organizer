@@ -22,7 +22,7 @@ import { ConfigUpdateFormDataQa } from './ConfigUpdateForm.testid'
 type Props = {
   configFormDto?: ConfigFormDTO
   isDisabled?: boolean
-  onSave: (configUpdateFormDto: ConfigUpdateFormDTO) => void
+  onSave: (configUpdateFormDto: ConfigUpdateFormDTO, isDirty: boolean) => void
 }
 
 const defaultValues = {
@@ -38,7 +38,12 @@ const defaultValues = {
 export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave }) => {
   const { LL } = useI18nContext()
 
-  const { control, reset, handleSubmit } = useForm<ConfigUpdateFormDTO>({
+  const {
+    control,
+    reset,
+    handleSubmit,
+    formState: { isDirty }
+  } = useForm<ConfigUpdateFormDTO>({
     resolver: zodResolver(ConfigUpdateFormSchema),
     defaultValues
   })
@@ -50,7 +55,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
   }, [configFormDto, reset])
 
   const onSubmit = (configUpdateFormDto: ConfigUpdateFormDTO): void => {
-    onSave(configUpdateFormDto)
+    onSave(configUpdateFormDto, isDirty)
   }
 
   const fieldsLexemes = LL.config.updateForm.fields
