@@ -24,8 +24,10 @@
     "build:storybook": "storybook build",
     "i18n": "typesafe-i18n",
     "test:e2e": "cross-env NODE_ENV=test NODE_NO_WARNINGS=1 playwright test",
+    "test:e2e:ui": "cross-env NODE_ENV=test NODE_NO_WARNINGS=1 playwright test --ui",
     "test:unit": "vitest run --project unit",
-    "test:ui": "vitest --environment storybook"
+    "test:unit:ui": "vitest --project unit --ui",
+    "test:sb": "vitest --environment storybook"
   },
   "dependencies": {
     "@automapper/core": "^8.8.1",
