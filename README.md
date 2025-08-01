@@ -5,6 +5,7 @@ This file outlines the main development phases and tasks for STL Organizer, whic
 ---
 
 ## ✅ Phase 1 — Architecture & Database Design
+
 - [x] Define core entities (`Model`, `ModelImage`, `ModelFile`, `Tag`, etc.)
 - [x] Separate `input` vs `final` archives/images/files
 - [x] Set up `AppConfig` and `InputDir` tables
@@ -16,10 +17,11 @@ This file outlines the main development phases and tasks for STL Organizer, whic
   - [x] Main
   - [x] Renderer
   - [x] Preload
-  
+
 ---
 
 ## 🚧 Phase 2 — App configuration
+
 - [x] Create Config UI
 - [x] Provide IPC API methods
 - [x] Cover Config UI with logic
@@ -29,12 +31,13 @@ This file outlines the main development phases and tasks for STL Organizer, whic
 ---
 
 ## 🚧 Phase 3 — Source folders
+
 - [x] Create Config UI
 - [x] Provide IPC API methods
 - [x] Cover Sources UI with logic
 - [ ] Cover Sources UI container with tests
 - [ ] Cover Sources UI with validation
-      
+
 ---
 
 ## 🚧 Phase 2 — Source folders
@@ -44,6 +47,7 @@ This file outlines the main development phases and tasks for STL Organizer, whic
 - [x] Cover Sources UI with logic
 - [ ] Cover Sources UI container with tests
 - [ ] Cover Sources UI with validation
+
 ---
 
 ## 🚧 Phase 3 — Models catalog

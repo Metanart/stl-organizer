@@ -23,11 +23,13 @@
     "storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",
     "i18n": "typesafe-i18n",
+    "test": "yarn test:unit && yarn test:e2e",
     "test:e2e": "cross-env NODE_ENV=test NODE_NO_WARNINGS=1 playwright test",
     "test:e2e:ui": "cross-env NODE_ENV=test NODE_NO_WARNINGS=1 playwright test --ui",
     "test:unit": "vitest run --project unit",
     "test:unit:ui": "vitest --project unit --ui",
-    "test:sb": "vitest --environment storybook"
+    "test:sb": "vitest --environment storybook",
+    "prepare": "husky"
   },
   "dependencies": {
     "@automapper/core": "^8.8.1",
@@ -88,6 +90,7 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-storybook": "9.0.17",
     "eslint-plugin-unused-imports": "^4.1.4",
+    "husky": "^9.1.7",
     "playwright": "^1.54.1",
     "prettier": "^3.5.3",
     "react": "^19.1.0",
