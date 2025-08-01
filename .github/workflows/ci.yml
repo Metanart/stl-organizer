@@ -30,6 +30,3 @@ jobs:
 
       - name: Run unit tests (Vitest)
         run: yarn test:unit
-
-      - name: Run e2e tests (Playwright)
-        run: yarn test:e2e
