@@ -2,11 +2,11 @@ import { createMap, createMapper } from '@automapper/core'
 import { pojos } from '@automapper/pojos'
 
 import {
-  SOURCES_DTO_KEYS,
   SourceCreateDTO,
   SourceCreateFormDTO,
   SourceDTO,
   SourceFormDTO,
+  SOURCES_DTO_KEYS,
   SourceUpdateDTO,
   SourceUpdateFormDTO
 } from '@shared/domains/Sources/Sources.dtos'

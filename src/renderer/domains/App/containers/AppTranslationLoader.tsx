@@ -10,7 +10,7 @@ export const AppTranslationLoader: FC<Props> = ({ namespace, children }) => {
 
   useEffect(() => {
     loadNamespaceAsync(locale, namespace).then(() => setLocale(locale))
-  }, [locale, namespace])
+  }, [locale, namespace, setLocale])
 
   return <Fragment>{children}</Fragment>
 }

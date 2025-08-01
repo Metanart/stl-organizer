@@ -1,6 +1,5 @@
 import { JSX, PropsWithChildren, useState } from 'react'
 import { loadNamespaceAsync } from '@i18n/i18n-util.generated.async'
-
 import { LOCALE } from '@i18n/locale'
 
 import { App } from '../components/App'
