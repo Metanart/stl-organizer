@@ -29,7 +29,8 @@
     "test:unit": "vitest run --project unit",
     "test:unit:ui": "vitest --project unit --ui",
     "test:sb": "vitest --environment storybook",
-    "prepare": "husky"
+    "prepare": "husky",
+    "check-branch-name": "node scripts/check-branch-name.js"
   },
   "dependencies": {
     "@automapper/core": "^8.8.1",
