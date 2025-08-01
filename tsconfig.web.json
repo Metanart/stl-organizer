@@ -1,8 +1,8 @@
 {
   "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
   "include": [
-    "src/renderer/src/env.d.ts",
-    "src/renderer/src/**/*",
+    "src/renderer/env.d.ts",
+    "src/renderer/**/*",
     "src/preload/*.d.ts",
     "src/shared/**/*",
     "src/i18n/**/*",
@@ -24,7 +24,7 @@
         "src/preload/*"
       ],
       "@renderer/*": [
-        "src/renderer/src/*"
+        "src/renderer/*"
       ],
       "@shared/*": [
         "src/shared/*"

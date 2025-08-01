@@ -17,7 +17,7 @@ const config: StorybookConfig = {
       ...config.resolve,
       alias: {
         ...config.resolve?.alias,
-        '@renderer': resolve(__dirname, '../src/renderer/src'),
+        '@renderer': resolve(__dirname, '../src/renderer'),
         '@shared': resolve(__dirname, '../src/shared'),
         '@i18n': resolve(__dirname, '../src/i18n')
       }

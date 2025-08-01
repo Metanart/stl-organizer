@@ -26,7 +26,7 @@ export default defineConfig({
     resolve: {
       alias: {
         '@preload': resolve('src/preload'),
-        '@renderer': resolve('src/renderer/src'),
+        '@renderer': resolve('src/renderer'),
         '@shared': resolve('src/shared'),
         '@i18n': resolve('src/i18n')
       }

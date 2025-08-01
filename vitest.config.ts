@@ -16,7 +16,8 @@ export default defineConfig({
         resolve: {
           alias: {
             '@i18n': path.resolve(__dirname, 'src/i18n'),
-            '@renderer': path.resolve(__dirname, 'src/renderer/src'),
+            '@renderer': path.resolve(__dirname, 'src/renderer'),
+            '@main': path.resolve(__dirname, 'src/main'),
             '@shared': path.resolve(__dirname, 'src/shared')
           }
         },
@@ -33,7 +34,7 @@ export default defineConfig({
         resolve: {
           alias: {
             '@i18n': path.resolve(__dirname, 'src/i18n'),
-            '@renderer': path.resolve(__dirname, 'src/renderer/src'),
+            '@renderer': path.resolve(__dirname, 'src/renderer'),
             '@shared': path.resolve(__dirname, 'src/shared')
           }
         },
