@@ -125,8 +125,12 @@ describe('ConfigUpdateForm', () => {
         autoProcessOnScan: true,
         autoArchiveOnComplete: true,
         useMultithreading: true,
-        debugMode: true
-      })
+        debugMode: true,
+        maxThreads: 1,
+        outputFolder: 'out',
+        tempFolder: 'tmp'
+      }),
+      true
     )
   })
 

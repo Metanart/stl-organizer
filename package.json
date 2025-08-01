@@ -23,7 +23,7 @@
     "build:storybook": "storybook build",
     "i18n": "typesafe-i18n",
     "test:e2e": "cross-env NODE_ENV=test NODE_NO_WARNINGS=1 playwright test",
-    "test:unit": "vitest --project unit",
+    "test:unit": "vitest run --project unit",
     "test:ui": "vitest --environment storybook"
   },
   "dependencies": {
