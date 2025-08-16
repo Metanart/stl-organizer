@@ -64,6 +64,12 @@ export type NamespaceCommonTranslation = {
 		 */
 		save: string
 	}
+	dbErrors: {
+		/**
+		 * T​h​e​ ​v​a​l​u​e​ ​i​s​ ​n​o​t​ ​u​n​i​q​u​e​ ​f​o​r​ ​"​{​{​c​o​l​u​m​n​s​}​}​"
+		 */
+		notUnique: string
+	}
 }
 
 export type NamespaceConfigTranslation = {
@@ -367,6 +373,12 @@ export type TranslationFunctions = {
 			 * Save
 			 */
 			save: () => LocalizedString
+		}
+		dbErrors: {
+			/**
+			 * The value is not unique for "{{columns}}"
+			 */
+			notUnique: (arg0: number | string | boolean) => LocalizedString
 		}
 	}
 	config: {

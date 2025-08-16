@@ -1,5 +1,4 @@
 import { FC, PropsWithChildren, useCallback } from 'react'
-import { useI18nContext } from '@i18n/i18n-react.generated'
 
 import { SourceCreateFormDTO } from '@shared/domains/Sources/Sources.dtos'
 import { createLog } from '@shared/utils/createLog'
@@ -12,17 +11,15 @@ const log = createLog({ category: 'RENDERER', tag: 'Sources' })
 export const SourcesCreateFormContainer: FC<PropsWithChildren> = () => {
   const [createSource] = useCreateSourceMutation()
 
-  const { LL } = useI18nContext()
-
   const handleCreate = useCallback(
     async (sourceCreateFormDTO: SourceCreateFormDTO): Promise<void> => {
       try {
         await createSource(sourceCreateFormDTO).unwrap()
       } catch (error) {
-        log.error(LL.sources.errors.failedCreate(), error)
+        log.error(error)
       }
     },
-    [createSource, LL.sources.errors]
+    [createSource]
   )
 
   return <SourcesCreateForm onSave={handleCreate} />

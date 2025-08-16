@@ -5,6 +5,8 @@ import { ApiResponse } from '@shared/domains/Common/types/Api.types'
 import { IpcTag } from '@shared/domains/Common/types/IPC.types'
 import { createLog } from '@shared/utils/createLog'
 
+import { mapDbError } from './mapDBError'
+
 type ServiceHandler<R, P> = (() => Promise<R>) | ((payload: P) => Promise<R>)
 
 export function handleServiceToIpc<R, P = void>(
@@ -33,9 +35,20 @@ export function handleServiceToIpc<R, P = void>(
         }
       }
     } catch (error) {
-      log.error(error)
+      console.log('Received TYPEORM error', error)
+
+      const errorMessage = error instanceof Error ? error.message : String(error) || 'Unknown error'
+
+      const mappedDbError = mapDbError(errorMessage)
+      if (mappedDbError) {
+        log.error('DB error', mappedDbError)
+        return mappedDbError
+      }
+
+      log.error(errorMessage)
+
       return {
-        error: (error as Error).message || 'Unknown error'
+        error: errorMessage
       }
     }
   }
