@@ -1,3 +1,4 @@
+import { LL } from '@i18n/utils/i18n-LL.sync'
 import { ipcMain } from 'electron'
 import { IpcMainInvokeEvent } from 'electron/main'
 
@@ -5,6 +6,7 @@ import { ApiResponse } from '@shared/domains/Common/types/Api.types'
 import { IpcTag } from '@shared/domains/Common/types/IPC.types'
 import { createLog } from '@shared/utils/createLog'
 
+import { convertDBErrorToMessage } from './convertDBErrorToMessage'
 import { mapDbError } from './mapDBError'
 
 type ServiceHandler<R, P> = (() => Promise<R>) | ((payload: P) => Promise<R>)
@@ -35,20 +37,26 @@ export function handleServiceToIpc<R, P = void>(
         }
       }
     } catch (error) {
-      console.log('Received TYPEORM error', error)
+      log.error('Error', error)
 
-      const errorMessage = error instanceof Error ? error.message : String(error) || 'Unknown error'
+      const dbError = mapDbError(error)
 
-      const mappedDbError = mapDbError(errorMessage)
-      if (mappedDbError) {
-        log.error('DB error', mappedDbError)
-        return mappedDbError
+      if (dbError) {
+        log.error('DB error', dbError)
+
+        const errorMessage = convertDBErrorToMessage(dbError)
+
+        log.error('DB error message', errorMessage)
+
+        return { error: errorMessage || LL.app.dbErrors.unknown() }
       }
 
-      log.error(errorMessage)
+      const errorMessage = error instanceof Error ? error.message : String(error)
+
+      log.error('Error message', errorMessage)
 
       return {
-        error: errorMessage
+        error: errorMessage || LL.app.dbErrors.unknown()
       }
     }
   }

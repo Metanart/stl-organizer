@@ -19,13 +19,7 @@ import { ConfigUpdateFormSchema } from '@shared/domains/Config/Config.schemes'
 
 import { ConfigUpdateFormDataQa } from './ConfigUpdateForm.testid'
 
-type Props = {
-  configFormDto?: ConfigFormDTO
-  isDisabled?: boolean
-  onSave: (configUpdateFormDto: ConfigUpdateFormDTO, isDirty: boolean) => void
-}
-
-const defaultValues = {
+const DEFAULT_VALUES = {
   outputFolder: '',
   tempFolder: '',
   maxThreads: 1,
@@ -33,6 +27,12 @@ const defaultValues = {
   autoArchiveOnComplete: false,
   useMultithreading: false,
   debugMode: false
+}
+
+type Props = {
+  configFormDto?: ConfigFormDTO
+  isDisabled?: boolean
+  onSave: (configUpdateFormDto: ConfigUpdateFormDTO, isDirty: boolean) => void
 }
 
 export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave }) => {
@@ -45,7 +45,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
     formState: { isDirty }
   } = useForm<ConfigUpdateFormDTO>({
     resolver: zodResolver(ConfigUpdateFormSchema),
-    defaultValues
+    defaultValues: DEFAULT_VALUES
   })
 
   useEffect(() => {
@@ -59,7 +59,7 @@ export const ConfigUpdateForm: FC<Props> = ({ configFormDto, isDisabled, onSave 
   }
 
   const fieldsLexemes = LL.config.updateForm.fields
-  const actionsLexemes = LL.common.actions
+  const actionsLexemes = LL.app.actions
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

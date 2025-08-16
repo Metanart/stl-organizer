@@ -8,7 +8,6 @@ import { loadedFormatters, loadedLocales, locales } from './i18n-util.generated'
 import en from './en'
 
 import en_app from './en/app'
-import en_common from './en/common'
 import en_config from './en/config'
 import en_home from './en/home'
 import en_models from './en/models'
@@ -19,7 +18,6 @@ const localeTranslations = {
 	en: {
 		...en,
 		app: en_app,
-		common: en_common,
 		config: en_config,
 		home: en_home,
 		models: en_models,

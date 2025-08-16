@@ -1,24 +1,7 @@
+import { ServerError } from '@main/types/ServerError'
 import { QueryFailedError } from 'typeorm'
 
-/**
- * Унифицированные коды ошибок для клиента
- */
-export type ClientErrorCode =
-  | 'UNIQUE_VIOLATION'
-  | 'FOREIGN_KEY_VIOLATION'
-  | 'NOT_NULL_VIOLATION'
-  | 'CHECK_VIOLATION'
-  | 'CONSTRAINT_VIOLATION'
-
-export interface DBError {
-  errorCode: ClientErrorCode
-  details: {
-    table?: string
-    columns?: string[]
-  }
-}
-
-export function mapDbError(error: unknown): DBError | null {
+export function mapDbError(error: unknown): ServerError | null {
   if (!(error instanceof QueryFailedError)) return null
 
   const driverErr = error.driverError as { message: string; errno: number }
@@ -33,44 +16,36 @@ export function mapDbError(error: unknown): DBError | null {
         match && match[1] ? match[1].split(',').map((f) => f.trim().split('.')[1] || f.trim()) : []
 
       return {
-        errorCode: 'UNIQUE_VIOLATION',
-        details: {
-          table: match && match[1] ? match[1].split('.')[0] : undefined,
-          columns
-        }
+        code: 'UNIQUE_VIOLATION',
+        table: match && match[1] ? match[1].split('.')[0] : undefined,
+        columns
       }
-    }
-
-    if (message.includes('FOREIGN KEY constraint failed')) {
-      return {
-        errorCode: 'FOREIGN_KEY_VIOLATION',
-        details: {}
-      }
-    }
-
-    if (message.includes('NOT NULL constraint failed')) {
-      const regex = /NOT NULL constraint failed:\s*(.+)$/
-      const match = message.match(regex)
-      return {
-        errorCode: 'NOT_NULL_VIOLATION',
-        details: {
-          columns: match && match[1] ? [match[1]] : []
-        }
-      }
-    }
-
-    if (message.includes('CHECK constraint failed')) {
-      return {
-        errorCode: 'CHECK_VIOLATION',
-        details: {}
-      }
-    }
-
-    return {
-      errorCode: 'CONSTRAINT_VIOLATION',
-      details: {}
     }
   }
 
-  return null
+  if (message.includes('FOREIGN KEY constraint failed')) {
+    return {
+      code: 'FOREIGN_KEY_VIOLATION'
+    }
+  }
+
+  if (message.includes('NOT NULL constraint failed')) {
+    const regex = /NOT NULL constraint failed:\s*(.+)$/
+    const match = message.match(regex)
+    return {
+      code: 'NOT_NULL_VIOLATION',
+      table: match && match[1] ? match[1].split('.')[0] : undefined,
+      columns: match && match[1] ? [match[1]] : []
+    }
+  }
+
+  if (message.includes('CHECK constraint failed')) {
+    return {
+      code: 'CHECK_VIOLATION'
+    }
+  }
+
+  return {
+    code: 'CONSTRAINT_VIOLATION'
+  }
 }

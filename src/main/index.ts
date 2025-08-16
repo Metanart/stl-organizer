@@ -19,11 +19,15 @@ import '@main/domains/Sources/mappers/SourcesMapper'
 
 const log = createLog({ category: 'MAIN' })
 
+import '@i18n/utils/i18n-loadTranslations.sync'
+
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: 1000,
+    height: 600,
+    x: 4,
+    y: 4,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),

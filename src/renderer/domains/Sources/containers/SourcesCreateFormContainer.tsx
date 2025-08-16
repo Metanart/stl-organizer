@@ -1,26 +1,42 @@
 import { FC, PropsWithChildren, useCallback } from 'react'
+import { useI18nContext } from '@i18n/i18n-react.generated'
+import { notify } from '@renderer/utils/notify'
 
 import { SourceCreateFormDTO } from '@shared/domains/Sources/Sources.dtos'
 import { createLog } from '@shared/utils/createLog'
 
-import { useCreateSourceMutation } from '../api/SourcesApi'
+import { SourcesApi, useCreateSourceMutation } from '../api/SourcesApi'
 import { SourcesCreateForm } from '../components/SourcesCreateForm/SourcesCreateForm'
 
 const log = createLog({ category: 'RENDERER', tag: 'Sources' })
 
 export const SourcesCreateFormContainer: FC<PropsWithChildren> = () => {
-  const [createSource] = useCreateSourceMutation()
+  const [createSource, { isLoading: isCreating }] = useCreateSourceMutation()
+  const { LL } = useI18nContext()
 
-  const handleCreate = useCallback(
-    async (sourceCreateFormDTO: SourceCreateFormDTO): Promise<void> => {
+  const handleSave = useCallback(
+    async (sourceCreateFormDTO: SourceCreateFormDTO, isDirty: boolean): Promise<void> => {
+      if (!isDirty) {
+        notify(LL.sources.createForm.notify.isEmpty(), 'warning')
+        return
+      }
+
       try {
-        await createSource(sourceCreateFormDTO).unwrap()
+        const sourceDto = await createSource(sourceCreateFormDTO).unwrap()
+
+        SourcesApi.util.updateQueryData('getAllSources', undefined, (draft) => {
+          draft.push(sourceDto)
+        })
+
+        notify(LL.sources.createForm.notify.success(), 'success')
       } catch (error) {
-        log.error(error)
+        const errorMessage = String(error)
+        log.error(errorMessage || LL.sources.createForm.notify.failedCreate(), error)
+        notify(errorMessage || LL.sources.createForm.notify.failedCreate(), 'error')
       }
     },
-    [createSource]
+    [createSource, LL.sources.createForm.notify]
   )
 
-  return <SourcesCreateForm onSave={handleCreate} />
+  return <SourcesCreateForm onSave={handleSave} isDisabled={isCreating} />
 }
