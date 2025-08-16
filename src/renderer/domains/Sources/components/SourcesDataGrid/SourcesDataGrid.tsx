@@ -47,13 +47,11 @@ export const SourcesDataGrid: FC<Props> = ({ sources, onEdit, onDelete, onToggle
   )
 
   return (
-    <div style={{ width: '100%', height: 500 }}>
-      <DataGrid<SourceFormDTO>
-        rows={sources}
-        columns={columns}
-        getRowId={(row) => row.id}
-        disableRowSelectionOnClick
-      />
-    </div>
+    <DataGrid<SourceFormDTO>
+      rows={sources}
+      columns={columns}
+      getRowId={(row) => row.id}
+      disableRowSelectionOnClick
+    />
   )
 }

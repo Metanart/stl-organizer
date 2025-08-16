@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import Paper from '@mui/material/Paper'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 
 const columns: GridColDef[] = [
@@ -35,17 +34,14 @@ const rows = [
 
 const paginationModel = { page: 0, pageSize: 5 }
 
-export const Tasks: FC = () => {
+export const TasksDataGrid: FC = () => {
   return (
-    <Paper sx={{ height: 400 }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{ pagination: { paginationModel } }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
-        sx={{ border: 0 }}
-      />
-    </Paper>
+    <DataGrid
+      rows={rows}
+      columns={columns}
+      initialState={{ pagination: { paginationModel } }}
+      pageSizeOptions={[5, 10]}
+      checkboxSelection
+    />
   )
 }
