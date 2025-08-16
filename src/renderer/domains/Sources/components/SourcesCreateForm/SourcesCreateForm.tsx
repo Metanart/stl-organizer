@@ -17,7 +17,7 @@ import { FolderInput } from '@renderer/domains/Common/components/FolderInput'
 import { SourceCreateFormDTO } from '@shared/domains/Sources/Sources.dtos'
 import { SourceCreateFormSchema } from '@shared/domains/Sources/Sources.schemes'
 
-const defaultValues = {
+const DEFAULT_VALUES = {
   name: '',
   path: '',
   isEnabled: true,
@@ -25,24 +25,29 @@ const defaultValues = {
 }
 
 type Props = {
-  onSave: (sourceCreateFormDto: SourceCreateFormDTO) => void
+  onSave: (sourceCreateFormDto: SourceCreateFormDTO, isDirty: boolean) => void
   onCancel?: () => void
+  isDisabled?: boolean
 }
 
-export const SourcesCreateForm: FC<Props> = ({ onSave, onCancel }) => {
+export const SourcesCreateForm: FC<Props> = ({ onSave, onCancel, isDisabled }) => {
   const { LL } = useI18nContext()
 
-  const { control, handleSubmit } = useForm<SourceCreateFormDTO>({
+  const {
+    control,
+    handleSubmit,
+    formState: { isDirty }
+  } = useForm<SourceCreateFormDTO>({
     resolver: zodResolver(SourceCreateFormSchema),
-    defaultValues
+    defaultValues: DEFAULT_VALUES
   })
 
   const onSubmit = (sourceCreateFormDto: SourceCreateFormDTO): void => {
-    onSave(sourceCreateFormDto)
+    onSave(sourceCreateFormDto, isDirty)
   }
 
   const fieldsLexemes = LL.sources.createForm.fields
-  const actionsLexemes = LL.common.actions
+  const actionsLexemes = LL.app.actions
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -53,15 +58,17 @@ export const SourcesCreateForm: FC<Props> = ({ onSave, onCancel }) => {
               <Controller
                 name="name"
                 control={control}
+                disabled={isDisabled}
                 render={({ field, fieldState }) => (
                   <TextField
                     {...field}
+                    disabled={isDisabled || field.disabled}
                     label={fieldsLexemes.name.label()}
                     placeholder={fieldsLexemes.name.placeholder()}
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
-                    fullWidth
-                    autoFocus
+                    fullWidth={true}
+                    autoFocus={true}
                   />
                 )}
               />
@@ -71,17 +78,18 @@ export const SourcesCreateForm: FC<Props> = ({ onSave, onCancel }) => {
               <Controller
                 name="path"
                 control={control}
+                disabled={isDisabled}
                 render={({ field, fieldState }) => (
                   <FolderInput
+                    {...field}
+                    isDisabled={isDisabled || field.disabled}
                     label={fieldsLexemes.path.label()}
                     placeholder={fieldsLexemes.path.placeholder()}
-                    name={field.name}
-                    value={field.value}
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
                     onChange={(e) => field.onChange(e.target.value)}
                     onSelect={(newPath) => field.onChange(newPath)}
-                    fullWidth
+                    fullWidth={true}
                   />
                 )}
               />
@@ -91,16 +99,18 @@ export const SourcesCreateForm: FC<Props> = ({ onSave, onCancel }) => {
               <Controller
                 name="comment"
                 control={control}
+                disabled={isDisabled}
                 render={({ field, fieldState }) => (
                   <TextField
                     {...field}
+                    disabled={isDisabled || field.disabled}
                     label={fieldsLexemes.comment.label()}
                     placeholder={fieldsLexemes.comment.placeholder()}
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
                     rows={3}
-                    multiline
-                    fullWidth
+                    multiline={true}
+                    fullWidth={true}
                   />
                 )}
               />
@@ -110,11 +120,13 @@ export const SourcesCreateForm: FC<Props> = ({ onSave, onCancel }) => {
               <Controller
                 name="isEnabled"
                 control={control}
+                disabled={isDisabled}
                 render={({ field }) => (
                   <FormControlLabel
                     label={fieldsLexemes.isEnabled.label()}
                     control={
                       <Switch
+                        disabled={isDisabled || field.disabled}
                         checked={field.value}
                         onChange={(e) => field.onChange(e.target.checked)}
                       />
@@ -132,7 +144,7 @@ export const SourcesCreateForm: FC<Props> = ({ onSave, onCancel }) => {
               {actionsLexemes.cancel()}
             </Button>
           )}
-          <Button type="submit" variant="contained" color="primary">
+          <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>
             {actionsLexemes.save()}
           </Button>
         </CardActions>

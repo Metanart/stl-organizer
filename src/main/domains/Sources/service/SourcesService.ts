@@ -20,22 +20,6 @@ export class SourcesService {
 
     log.info(`Create a new source with params`, source)
 
-    let existing: Source | null
-
-    try {
-      existing = await repo.findOneBy({ path: source.path })
-    } catch (error) {
-      log.error('Failed to check for existing source:', (error as Error).message)
-      throw error
-    }
-
-    if (existing) {
-      log.error(`Found an existing source with the same path`, existing)
-      return null
-    }
-
-    log.info(`Creating a new source`)
-
     let created: Source
     let saved: Source
 

@@ -1,5 +1,3 @@
-import { DBError } from '@main/utils/mapDBError'
-
 import { Action, Domain } from './Common.types'
 
 export type ApiDomain = Domain
@@ -8,7 +6,7 @@ export type ApiMethod = Action
 
 export type ApiTag = `${ApiDomain}.${ApiMethod}` | `${ApiDomain}Api`
 
-export type ApiResponse<R> = { data: R } | { error: string } | DBError
+export type ApiResponse<R> = { data: R } | { error: string }
 
 export type ApiHandlerNoPayload<R> = () => Promise<ApiResponse<R>>
 

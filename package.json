@@ -14,6 +14,7 @@
     "typecheck": "yarn typecheck:node && yarn typecheck:web",
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
+    "dev:main": "electron-vite dev --watch",
     "build": "yarn typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "yarn build && electron-builder --dir",

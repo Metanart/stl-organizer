@@ -15,7 +15,7 @@ import { SourcesMapper } from '../mappers/SourcesMapper'
 
 const reducerPath = 'SourcesApi'
 
-const SourcesApiTags = {
+export const SourcesApiTags = {
   Base: 'Sources'
 } as const
 
@@ -39,7 +39,7 @@ export const SourcesApi = createApi({
       transformResponse: (sourceDtos: SourceDTO[]): SourceFormDTO[] => {
         const log = createLog({ tag: 'Sources.getAll', category: 'RENDERER' })
 
-        log.info('Response - received raw source dtos', sourceDtos)
+        log.info('Getting raw source dtos', sourceDtos)
 
         const sourcesFormDtos = sourceDtos.map((sourceDto: SourceDTO) =>
           SourcesMapper.map<SourceDTO, SourceFormDTO>(
@@ -49,7 +49,7 @@ export const SourcesApi = createApi({
           )
         )
 
-        log.success('Response - returns mapped source form dtos', sourcesFormDtos)
+        log.success('Returning mapped source form dtos', sourcesFormDtos)
 
         return sourcesFormDtos
       },
@@ -59,7 +59,7 @@ export const SourcesApi = createApi({
       query: (sourceCreateFormDto: SourceCreateFormDTO) => {
         const log = createLog({ tag: 'Sources.create', category: 'RENDERER' })
 
-        log.info('Query - received raw source form dto', sourceCreateFormDto)
+        log.info('Taking raw source form dto', sourceCreateFormDto)
 
         const sourceCreateDto = SourcesMapper.map<SourceCreateFormDTO, SourceCreateDTO>(
           sourceCreateFormDto,
@@ -67,7 +67,7 @@ export const SourcesApi = createApi({
           SOURCES_DTO_KEYS.SourceCreateDTO
         )
 
-        log.success('Query - returns mapped source dto', sourceCreateDto)
+        log.success('Sending mapped source dto', sourceCreateDto)
 
         return {
           domain: SourcesApiDomain,
@@ -78,7 +78,7 @@ export const SourcesApi = createApi({
       transformResponse: (sourceDto: SourceDTO): SourceFormDTO => {
         const log = createLog({ tag: 'Sources.create', category: 'RENDERER' })
 
-        log.info('Response - received raw source dto', sourceDto)
+        log.info('Getting raw source dto', sourceDto)
 
         const sourceFormDto = SourcesMapper.map<SourceDTO, SourceFormDTO>(
           sourceDto,
@@ -86,11 +86,14 @@ export const SourcesApi = createApi({
           SOURCES_DTO_KEYS.SourceFormDTO
         )
 
-        log.success('Response - returns mapped source form dto', sourceFormDto)
+        log.success('Returning mapped source form dto', sourceFormDto)
 
         return sourceFormDto
       },
-      invalidatesTags: [SourcesApiTags.Base]
+      invalidatesTags: (result, error) => {
+        if (error || !result) return []
+        return [SourcesApiTags.Base]
+      }
     })
   })
 })

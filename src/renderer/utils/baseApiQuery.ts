@@ -1,3 +1,4 @@
+import { LL } from '@i18n/utils/i18n-LL.async'
 import { BaseQueryFn } from '@reduxjs/toolkit/query'
 
 import { ApiDomain, ApiMethod, ApiResponse, ApiTag } from '@shared/domains/Common/types/Api.types'
@@ -17,7 +18,7 @@ export const baseApiQuery: BaseQueryFn<
     if (!api || typeof api[method] !== 'function') {
       const error = `API method ${tag} not found`
       log.error(error)
-      return { error }
+      throw { error }
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,20 +26,20 @@ export const baseApiQuery: BaseQueryFn<
 
     if ('error' in response) {
       log.error(response.error)
-      return { error: response.error }
+      throw new Error(response.error)
     }
 
     if (!response.data) {
-      const error = 'Empty response'
-      log.error(error)
-      return { error }
+      log.error(LL.app.dbErrors.responseIsEmpty())
+      throw new Error(LL.app.dbErrors.responseIsEmpty())
     }
 
-    return { data: response.data }
+    return response
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    const message = error?.message || 'Unknown error'
-    log.error(message)
+    log.error(error)
+    const message = error?.message || LL.app.dbErrors.unknown()
     return { error: message }
   }
 }

@@ -1,4 +1,4 @@
-import { LL } from '@i18n/i18n'
+import { LL } from '@i18n/utils/i18n-LL.sync'
 import { z } from 'zod'
 
 const fieldsLexemes = LL.config.updateForm.fields

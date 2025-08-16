@@ -6,15 +6,15 @@ import type { Decorator, Preview } from '@storybook/react-vite'
 import TypesafeI18n from '../src/i18n/i18n-react.generated'
 import { ThemeProvider } from '@mui/material'
 import { theme } from '../src/renderer/theme'
-import { LOCALE } from '../src/i18n/locale'
 
-import '../src/i18n/loadTranslations'
+import { BASE_LOCALE } from '../src/i18n/utils/i18n-constants'
+import '../src/i18n/utils/i18n-loadTranslations.async'
 
 const decorators: Decorator[] = [
   (Story) => {
     return (
       <ThemeProvider theme={theme}>
-        <TypesafeI18n locale={LOCALE}>
+        <TypesafeI18n locale={BASE_LOCALE}>
           <Story />
         </TypesafeI18n>
       </ThemeProvider>

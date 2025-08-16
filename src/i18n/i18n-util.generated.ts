@@ -16,7 +16,6 @@ export const locales: Locales[] = [
 
 export const namespaces: Namespaces[] = [
 	'app',
-	'common',
 	'config',
 	'home',
 	'models',
