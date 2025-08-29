@@ -10,8 +10,7 @@ import { createLog } from '@shared/utils/createLog'
 
 import { SourcesMapper } from '../mappers/SourcesMapper'
 
-import { SourcesApi } from './SourcesApi'
-import { SourcesApiTags } from './types'
+import { SourcesApi, SourcesApiTags } from './SourcesApi'
 
 type QueryReturn = {
   domain: ApiDomain

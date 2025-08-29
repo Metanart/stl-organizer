@@ -6,7 +6,8 @@ import { ConfigUpdateFormDTO } from '@shared/domains/Config/Config.dtos'
 import { createLog } from '@shared/utils/createLog'
 
 import { Message } from '../../Common/components/Message'
-import { useGetConfigQuery, useUpdateConfigMutation } from '../api/ConfigApi'
+import { useGetConfigQuery } from '../api/useGetConfigQuery'
+import { useUpdateConfigMutation } from '../api/useUpdateConfigMutation'
 import { ConfigUpdateForm } from '../components/ConfigUpdateForm/ConfigUpdateForm'
 
 const log = createLog({ category: 'RENDERER', tag: 'Config' })

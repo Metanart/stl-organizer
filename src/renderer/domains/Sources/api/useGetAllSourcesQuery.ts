@@ -4,7 +4,7 @@ import { createLog } from '@shared/utils/createLog'
 
 import { SourcesMapper } from '../mappers/SourcesMapper'
 
-import { SourcesApi } from './SourcesApi'
+import { SourcesApi, SourcesApiTags } from './SourcesApi'
 
 type QueryReturn = {
   domain: ApiDomain
@@ -36,12 +36,14 @@ function transformResponse(sourceDtos: SourceDTO[]): SourceFormDTO[] {
   return sourcesFormDtos
 }
 
+const providesTags: SourcesApiTags[] = ['Sources']
+
 export const { useGetAllSourcesQuery } = SourcesApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllSources: builder.query<SourceFormDTO[], void>({
       query,
       transformResponse,
-      providesTags: ['Sources']
+      providesTags
     })
   }),
   overrideExisting: false
