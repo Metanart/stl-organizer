@@ -5,7 +5,7 @@ import { notify } from '@renderer/utils/notify'
 import { SourceCreateFormDTO } from '@shared/domains/Sources/Sources.dtos'
 import { createLog } from '@shared/utils/createLog'
 
-import { SourcesApi, useCreateSourceMutation } from '../api/SourcesApi'
+import { useCreateSourceMutation } from '../api/useCreateSourceMutation'
 import { SourcesCreateForm } from '../components/SourcesCreateForm/SourcesCreateForm'
 
 const log = createLog({ category: 'RENDERER', tag: 'Sources' })
@@ -22,12 +22,7 @@ export const SourcesCreateFormContainer: FC<PropsWithChildren> = () => {
       }
 
       try {
-        const sourceDto = await createSource(sourceCreateFormDTO).unwrap()
-
-        SourcesApi.util.updateQueryData('getAllSources', undefined, (draft) => {
-          draft.push(sourceDto)
-        })
-
+        await createSource(sourceCreateFormDTO).unwrap()
         notify(LL.sources.createForm.notify.success(), 'success')
       } catch (error) {
         const errorMessage = String(error)
@@ -35,7 +30,7 @@ export const SourcesCreateFormContainer: FC<PropsWithChildren> = () => {
         notify(errorMessage || LL.sources.createForm.notify.failedCreate(), 'error')
       }
     },
-    [createSource, LL.sources.createForm.notify]
+    [createSource, LL]
   )
 
   return <SourcesCreateForm onSave={handleSave} isDisabled={isCreating} />

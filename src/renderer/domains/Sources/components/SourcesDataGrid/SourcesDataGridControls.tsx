@@ -8,7 +8,7 @@ type Props = {
   onDelete: () => void
 }
 
-export const SourcesDataGridActions: FC<Props> = (props) => {
+export const SourcesDataGridControls: FC<Props> = (props) => {
   const { onEdit, onDelete } = props
 
   return (

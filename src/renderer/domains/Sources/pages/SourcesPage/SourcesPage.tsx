@@ -5,15 +5,12 @@ import { Page } from '@renderer/domains/Common/components/Page/Page'
 import { PageContent } from '@renderer/domains/Common/components/Page/PageContent'
 import { PageHeader } from '@renderer/domains/Common/components/Page/PageHeader'
 
-import { useGetAllSourcesQuery } from '../../api/SourcesApi'
-import { SourcesDataGrid } from '../../components/SourcesDataGrid/SourcesDataGrid'
 import { SourcesCreateFormContainer } from '../../containers/SourcesCreateFormContainer'
+import { SourcesDataGridContainer } from '../../containers/SourcesDataGridContainer'
 
-import { SourcesPageActions } from './SourcesPageActions'
+import { SourcesPageControls } from './SourcesPageControls'
 
 export const SourcesPage: FC = () => {
-  const { data: sourceFormDtos } = useGetAllSourcesQuery()
-
   const [isCreateFormVisible, setIsCreateFormVisible] = useState(false)
 
   const { LL } = useI18nContext()
@@ -24,18 +21,13 @@ export const SourcesPage: FC = () => {
     })
   }
 
-  const actions = <SourcesPageActions onAddNew={handleToggleCreateModal} />
+  const controls = <SourcesPageControls onAddNew={handleToggleCreateModal} />
 
   return (
     <Page>
-      <PageHeader title={LL.sources.pageTitle()} actions={actions} />
+      <PageHeader title={LL.sources.pageTitle()} controls={controls} />
       <PageContent>
-        <SourcesDataGrid
-          sources={sourceFormDtos || []}
-          onDelete={() => null}
-          onEdit={() => null}
-          onToggleEnabled={() => null}
-        />
+        <SourcesDataGridContainer />
         <Modal
           title={LL.sources.createForm.title()}
           isOpen={isCreateFormVisible}

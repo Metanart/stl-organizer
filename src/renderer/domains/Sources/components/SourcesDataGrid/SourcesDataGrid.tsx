@@ -4,7 +4,7 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { SourceFormDTO } from '@shared/domains/Sources/Sources.dtos'
 
-import { SourcesDataGridActions } from './SourcesDataGridActions'
+import { SourcesDataGridControls } from './SourcesDataGridControls'
 
 type Props = {
   sources: SourceFormDTO[]
@@ -36,7 +36,7 @@ export const SourcesDataGrid: FC<Props> = ({ sources, onEdit, onDelete, onToggle
         sortable: false,
         flex: 1,
         renderCell: (params: GridRenderCellParams<SourceFormDTO>) => (
-          <SourcesDataGridActions
+          <SourcesDataGridControls
             onEdit={() => onEdit(params.row.id)}
             onDelete={() => onDelete(params.row.id)}
           />

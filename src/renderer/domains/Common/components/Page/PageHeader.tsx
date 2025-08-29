@@ -5,11 +5,11 @@ export type PageHeaderActions = Record<string, ReactNode>
 
 type Props = {
   title: string
-  actions?: ReactNode
+  controls?: ReactNode
 }
 
 export const PageHeader: FC<Props> = (props) => {
-  const { title, actions } = props
+  const { title, controls } = props
 
   return (
     <Box
@@ -33,7 +33,7 @@ export const PageHeader: FC<Props> = (props) => {
           {title}
         </Typography>
 
-        {actions}
+        {controls}
       </Stack>
       <Divider />
     </Box>

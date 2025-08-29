@@ -4,7 +4,7 @@ import { CardActions, IconButton, Tooltip } from '@mui/material'
 
 type Props = { onAddNew: () => void }
 
-export const SourcesPageActions: FC<Props> = (props) => {
+export const SourcesPageControls: FC<Props> = (props) => {
   const { onAddNew } = props
 
   return (
