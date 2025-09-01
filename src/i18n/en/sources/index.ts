@@ -2,6 +2,12 @@ import { BaseTranslation } from '../../i18n-types.generated'
 
 const enSources: BaseTranslation = {
   pageTitle: 'Sources',
+  dataGrid: {
+    notify: {
+      removed: 'Source removed',
+      failedRemove: 'Failed to remove source'
+    }
+  },
   createForm: {
     title: 'Add new source folder',
     notify: {

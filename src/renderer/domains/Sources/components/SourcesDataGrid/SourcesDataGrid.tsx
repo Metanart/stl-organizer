@@ -11,9 +11,12 @@ type Props = {
   onEdit: (id: string) => void
   onDelete: (id: string) => void
   onToggleEnabled: (id: string, value: boolean) => void
+  isLoading: boolean
 }
 
-export const SourcesDataGrid: FC<Props> = ({ sources, onEdit, onDelete, onToggleEnabled }) => {
+export const SourcesDataGrid: FC<Props> = (props) => {
+  const { sources, onEdit, onDelete, onToggleEnabled, isLoading } = props
+
   const columns = useMemo<GridColDef<SourceFormDTO>[]>(
     () => [
       { field: 'name', headerName: 'Name', flex: 1, editable: false },
@@ -52,6 +55,7 @@ export const SourcesDataGrid: FC<Props> = ({ sources, onEdit, onDelete, onToggle
       columns={columns}
       getRowId={(row) => row.id}
       disableRowSelectionOnClick
+      loading={isLoading}
     />
   )
 }

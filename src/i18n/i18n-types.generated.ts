@@ -224,6 +224,18 @@ export type NamespaceSourcesTranslation = {
 	 * S​o​u​r​c​e​s
 	 */
 	pageTitle: string
+	dataGrid: {
+		notify: {
+			/**
+			 * S​o​u​r​c​e​ ​r​e​m​o​v​e​d
+			 */
+			removed: string
+			/**
+			 * F​a​i​l​e​d​ ​t​o​ ​r​e​m​o​v​e​ ​s​o​u​r​c​e
+			 */
+			failedRemove: string
+		}
+	}
 	createForm: {
 		/**
 		 * A​d​d​ ​n​e​w​ ​s​o​u​r​c​e​ ​f​o​l​d​e​r
@@ -553,6 +565,18 @@ export type TranslationFunctions = {
 		 * Sources
 		 */
 		pageTitle: () => LocalizedString
+		dataGrid: {
+			notify: {
+				/**
+				 * Source removed
+				 */
+				removed: () => LocalizedString
+				/**
+				 * Failed to remove source
+				 */
+				failedRemove: () => LocalizedString
+			}
+		}
 		createForm: {
 			/**
 			 * Add new source folder

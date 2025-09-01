@@ -60,9 +60,9 @@ export class SourcesService {
       throw error
     }
 
-    if (!sources || sources.length === 0) {
-      log.error(`Sources are not found`)
-      return null
+    if (sources.length === 0) {
+      log.info(`Sources are empty`)
+      return []
     }
 
     log.success(`Sources are found`)
