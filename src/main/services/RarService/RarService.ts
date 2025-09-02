@@ -1,4 +1,7 @@
 import { spawn } from 'node:child_process'
+import { existsSync } from 'node:fs'
+import { mkdir } from 'node:fs/promises'
+import { join, resolve } from 'node:path'
 
 import { detectPlatform } from '@main/utils/detectPlatform'
 
@@ -79,10 +82,6 @@ export async function listRar(
   )
   return rawStdout.split(/\r?\n/).filter(Boolean)
 }
-
-import { existsSync } from 'node:fs'
-import { mkdir } from 'node:fs/promises'
-import { join, resolve } from 'node:path'
 
 export interface ExtractRarOptions {
   overwrite?: boolean
