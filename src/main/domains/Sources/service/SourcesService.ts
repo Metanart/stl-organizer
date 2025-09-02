@@ -4,8 +4,8 @@ import { removeSource } from './removeSource'
 import { updateSource } from './updateSource'
 
 export const SourcesService = {
-  createSource,
-  removeSource,
-  updateSource,
-  getAllSources
+  create: createSource,
+  remove: removeSource,
+  update: updateSource,
+  getAll: getAllSources
 }

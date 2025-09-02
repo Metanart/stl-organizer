@@ -90,7 +90,7 @@ describe('SourcesService', () => {
     it('returns null when a source with the same path already exists', async () => {
       mockFindOneBy.mockResolvedValue(sampleSource)
 
-      const result = await SourcesService.createSource(sampleCreateDTO)
+      const result = await SourcesService.create(sampleCreateDTO)
 
       expect(mockFindOneBy).toHaveBeenCalledWith({ path: sampleCreateDTO.path })
       expect(mockLog.error).toHaveBeenCalledWith(
@@ -106,7 +106,7 @@ describe('SourcesService', () => {
       mockSave.mockResolvedValue(sampleSource)
       mockMap.mockReturnValue(sampleDTO)
 
-      const result = await SourcesService.createSource(sampleCreateDTO)
+      const result = await SourcesService.create(sampleCreateDTO)
 
       expect(mockFindOneBy).toHaveBeenCalledWith({ path: sampleCreateDTO.path })
       expect(mockCreate).toHaveBeenCalledWith(sampleCreateDTO)
@@ -125,7 +125,7 @@ describe('SourcesService', () => {
       mockCreate.mockReturnValue(sampleSource)
       mockSave.mockRejectedValue(new Error('UNIQUE constraint failed: Source.path'))
 
-      await expect(SourcesService.createSource(sampleCreateDTO)).rejects.toThrow(
+      await expect(SourcesService.create(sampleCreateDTO)).rejects.toThrow(
         'Failed to create source in database'
       )
 
@@ -149,7 +149,7 @@ describe('SourcesService', () => {
       mockCreate.mockReturnValue(sampleSource)
       mockSave.mockRejectedValue(new Error('UNIQUE constraint failed: Source.name'))
 
-      await expect(SourcesService.createSource(duplicateNameDTO)).rejects.toThrow(
+      await expect(SourcesService.create(duplicateNameDTO)).rejects.toThrow(
         'Failed to create source in database'
       )
 
@@ -167,7 +167,7 @@ describe('SourcesService', () => {
     it('returns null when no sources exist', async () => {
       mockFind.mockResolvedValue([])
 
-      const result = await SourcesService.getAllSources()
+      const result = await SourcesService.getAll()
 
       expect(mockFind).toHaveBeenCalledWith({ order: { createdAt: 'ASC' } })
       expect(mockLog.error).toHaveBeenCalledWith('Sources are not found')
@@ -178,7 +178,7 @@ describe('SourcesService', () => {
       mockFind.mockResolvedValue([sampleSource])
       mockMapArray.mockReturnValue([sampleDTO])
 
-      const result = await SourcesService.getAllSources()
+      const result = await SourcesService.getAll()
 
       expect(mockFind).toHaveBeenCalledWith({ order: { createdAt: 'ASC' } })
       expect(mockMapArray).toHaveBeenCalledWith(
@@ -199,7 +199,7 @@ describe('SourcesService', () => {
       mockSave.mockResolvedValue(merged)
       mockMap.mockReturnValue(sampleDTO)
 
-      const result = await SourcesService.updateSource(sampleUpdateDTO)
+      const result = await SourcesService.update(sampleUpdateDTO)
 
       expect(mockFindOne).toHaveBeenCalledWith({ where: { id: sampleUpdateDTO.id } })
       expect(mockMerge).toHaveBeenCalledWith(sampleSource, {
@@ -219,7 +219,7 @@ describe('SourcesService', () => {
     it('returns null when no source is found', async () => {
       mockFindOne.mockResolvedValue(null)
 
-      const result = await SourcesService.updateSource(sampleUpdateDTO)
+      const result = await SourcesService.update(sampleUpdateDTO)
 
       expect(mockFindOne).toHaveBeenCalledWith({ where: { id: sampleUpdateDTO.id } })
       expect(mockLog.error).toHaveBeenCalledWith("Source wasn't found - update skipped")
@@ -231,7 +231,7 @@ describe('SourcesService', () => {
     it('returns true when a source is successfully deleted', async () => {
       mockDelete.mockResolvedValue({ affected: 1 })
 
-      const result = await SourcesService.removeSource({ id: '1' })
+      const result = await SourcesService.remove({ id: '1' })
 
       expect(mockDelete).toHaveBeenCalledWith({ id: '1' })
       expect(mockLog.info).toHaveBeenCalledWith('Removing source with id', '1')
@@ -242,7 +242,7 @@ describe('SourcesService', () => {
     it('returns false when a source cannot be deleted', async () => {
       mockDelete.mockResolvedValue({ affected: 0 })
 
-      const result = await SourcesService.removeSource({ id: '1' })
+      const result = await SourcesService.remove({ id: '1' })
 
       expect(mockDelete).toHaveBeenCalledWith({ id: '1' })
       expect(mockLog.info).toHaveBeenCalledWith('Removing source with id', '1')
