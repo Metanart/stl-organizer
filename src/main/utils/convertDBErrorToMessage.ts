@@ -1,5 +1,5 @@
 import { LL } from '@i18n/utils/i18n-LL.sync'
-import { ServerError } from '@main/types/ServerError'
+import { ServerError } from '@main/types/DBError.types'
 
 export const convertDBErrorToMessage = (error: ServerError): string | null => {
   if (!error) return null

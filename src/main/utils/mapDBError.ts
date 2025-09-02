@@ -1,4 +1,4 @@
-import { ServerError } from '@main/types/ServerError'
+import { ServerError } from '@main/types/DBError.types'
 import { QueryFailedError } from 'typeorm'
 
 export function mapDbError(error: unknown): ServerError | null {
