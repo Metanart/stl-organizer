@@ -2482,6 +2482,11 @@ browserslist@^4.24.0:
     node-releases "^2.0.19"
     update-browserslist-db "^1.1.3"
 
+buffer-crc32@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/buffer-crc32/-/buffer-crc32-1.0.0.tgz#a10993b9055081d55304bd9feb4a072de179f405"
+  integrity sha512-Db1SbgBS/fg/392AblrMJk97KggmvYhr4pB5ZIMTWtaivCPMWLkmb7m21cJvpvgK+J3nsU2CmmixNBZx4vFj/w==
+
 buffer-crc32@~0.2.3:
   version "0.2.13"
   resolved "https://registry.yarnpkg.com/buffer-crc32/-/buffer-crc32-0.2.13.tgz#0d333e3f00eac50aa1454abd30ef8c2a5d9a7242"
@@ -5205,6 +5210,11 @@ node-releases@^2.0.19:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.19.tgz#9e445a52950951ec4d177d843af370b411caf314"
   integrity sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==
 
+node-stream-zip@^1.15.0:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/node-stream-zip/-/node-stream-zip-1.15.0.tgz#158adb88ed8004c6c49a396b50a6a5de3bca33ea"
+  integrity sha512-LN4fydt9TqhZhThkZIVQnF9cwjU3qmUH9h78Mx/K7d3VvfRqqwthLwJEUOEL0QPZ0XQmNN7be5Ggit5+4dq3Bw==
+
 nopt@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/nopt/-/nopt-5.0.0.tgz#530942bb58a512fccafe53fe210f13a25355dc88"
@@ -7237,6 +7247,13 @@ yauzl@^2.10.0:
   dependencies:
     buffer-crc32 "~0.2.3"
     fd-slicer "~1.1.0"
+
+yazl@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/yazl/-/yazl-3.3.1.tgz#a69abad02d80739d3b1a7ffcca8434422477432c"
+  integrity sha512-BbETDVWG+VcMUle37k5Fqp//7SDOK2/1+T7X8TD96M3D9G8jK5VLUdQVdVjGi8im7FGkazX7kk5hkU8X4L5Bng==
+  dependencies:
+    buffer-crc32 "^1.0.0"
 
 yocto-queue@^0.1.0:
   version "0.1.0"
