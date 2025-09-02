@@ -11,8 +11,29 @@ files:
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
 asarUnpack:
   - resources/**
+extraResources:
+  - from: resources/bin/win-x64
+    to: bin/win-x64
+    filter:
+      - unrar.exe
+  - from: resources/bin/macos-x64
+    to: bin/macos-x64
+    filter:
+      - unrar
+  - from: resources/bin/macos-arm
+    to: bin/macos-arm
+    filter:
+      - unrar
+  - from: resources/bin/linux-x64
+    to: bin/linux-x64
+    filter:
+      - unrar
+  - from: resources/bin/linux-freebsd
+    to: bin/linux-freebsd
+    filter:
+      - unrar
 win:
-  executableName: stl
+  executableName: StlOrganizer
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
