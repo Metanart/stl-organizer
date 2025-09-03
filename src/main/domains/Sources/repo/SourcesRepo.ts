@@ -1,3 +1,4 @@
+import { checkSourceUnique } from './checkSourceUnique'
 import { createSource } from './createSource'
 import { getAllSources } from './getAllSources'
 import { removeSource } from './removeSource'
@@ -7,5 +8,6 @@ export const SourcesRepo = {
   create: createSource,
   remove: removeSource,
   update: updateSource,
-  getAll: getAllSources
+  getAll: getAllSources,
+  checkUnique: checkSourceUnique
 }
