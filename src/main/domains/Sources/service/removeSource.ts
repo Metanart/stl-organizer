@@ -8,7 +8,7 @@ import { Source } from '../entities/Source'
 const repo = AppDataSource.getRepository(Source)
 
 export async function removeSource(source: RemoveDTO): Promise<boolean> {
-  const log = createLog({ tag: 'SourcesService.remove' })
+  const log = createLog({ tag: 'SourcesRepo.remove' })
 
   log.info('Removing source with id', source.id)
 

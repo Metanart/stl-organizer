@@ -9,7 +9,7 @@ import { SourcesMapper } from '../mappers/SourcesMapper'
 const repo = AppDataSource.getRepository(Source)
 
 export async function updateSource(source: SourceUpdateDTO): Promise<SourceDTO | null> {
-  const log = createLog({ tag: 'SourcesService.update' })
+  const log = createLog({ tag: 'SourcesRepo.update' })
 
   log.info('Updating source with payload', source)
 

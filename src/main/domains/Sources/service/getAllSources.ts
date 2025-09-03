@@ -9,7 +9,7 @@ import { SourcesMapper } from '../mappers/SourcesMapper'
 const repo = AppDataSource.getRepository(Source)
 
 export async function getAllSources(): Promise<SourceDTO[] | null> {
-  const log = createLog({ tag: 'SourcesService.getAll' })
+  const log = createLog({ tag: 'SourcesRepo.getAll' })
 
   let sources: Source[]
 

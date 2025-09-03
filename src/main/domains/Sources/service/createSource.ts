@@ -9,7 +9,7 @@ import { SourcesMapper } from '../mappers/SourcesMapper'
 const repo = AppDataSource.getRepository(Source)
 
 export async function createSource(source: SourceCreateDTO): Promise<SourceDTO | null> {
-  const log = createLog({ tag: 'SourcesService.create' })
+  const log = createLog({ tag: 'SourcesRepo.create' })
 
   log.info(`Create a new source with params`, source)
 
