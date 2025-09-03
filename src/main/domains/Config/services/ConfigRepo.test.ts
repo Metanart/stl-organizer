@@ -49,9 +49,9 @@ import { ConfigMapper } from '@main/domains/Config/mappers/ConfigMapper'
 
 import { createLog } from '@shared/utils/createLog'
 
-import { ConfigService } from './ConfigService'
+import { ConfigRepo } from './ConfigRepo'
 
-describe('ConfigService', () => {
+describe('ConfigRepo', () => {
   // Mock logger type - subset of ConsolaInstance methods used in tests
   type MockLogger = Pick<ConsolaInstance, 'error' | 'warn' | 'info' | 'success'>
 
@@ -108,7 +108,7 @@ describe('ConfigService', () => {
       mockRepository.findOne.mockResolvedValue(mockConfig)
 
       // Act
-      const result = await ConfigService.get()
+      const result = await ConfigRepo.get()
 
       // Assert
       expect(mockRepository.findOne).toHaveBeenCalledWith({
@@ -131,7 +131,7 @@ describe('ConfigService', () => {
       mockRepository.save.mockResolvedValue(mockConfig)
 
       // Act
-      const result = await ConfigService.get()
+      const result = await ConfigRepo.get()
 
       // Assert
       expect(mockRepository.findOne).toHaveBeenCalledWith({
@@ -155,7 +155,7 @@ describe('ConfigService', () => {
       mockRepository.findOne.mockRejectedValue(dbError)
 
       // Act & Assert
-      await expect(ConfigService.get()).rejects.toThrow('Error getting configuration from database')
+      await expect(ConfigRepo.get()).rejects.toThrow('Error getting configuration from database')
       expect(mockLog.error).toHaveBeenCalledWith(
         'Failed to query config from database:',
         'Database connection failed'
@@ -170,7 +170,7 @@ describe('ConfigService', () => {
       mockRepository.save.mockRejectedValue(saveError)
 
       // Act & Assert
-      await expect(ConfigService.get()).rejects.toThrow('Failed to create new configuration')
+      await expect(ConfigRepo.get()).rejects.toThrow('Failed to create new configuration')
       expect(mockLog.error).toHaveBeenCalledWith('Failed to create new config:', 'Save failed')
     })
 
@@ -183,7 +183,7 @@ describe('ConfigService', () => {
       })
 
       // Act & Assert
-      await expect(ConfigService.get()).rejects.toThrow('Failed to map config')
+      await expect(ConfigRepo.get()).rejects.toThrow('Failed to map config')
       expect(mockLog.error).toHaveBeenCalledWith('Failed to map config to DTO:', 'Mapping failed')
     })
   })
@@ -197,7 +197,7 @@ describe('ConfigService', () => {
       mockRepository.save.mockResolvedValue(mergedConfig)
 
       // Act
-      const result = await ConfigService.update(mockUpdateDTO)
+      const result = await ConfigRepo.update(mockUpdateDTO)
 
       // Assert
       expect(mockRepository.findOne).toHaveBeenCalledWith({
@@ -227,7 +227,7 @@ describe('ConfigService', () => {
       mockRepository.save.mockResolvedValue(newConfig)
 
       // Act
-      const result = await ConfigService.update(mockUpdateDTO)
+      const result = await ConfigRepo.update(mockUpdateDTO)
 
       // Assert
       expect(mockRepository.findOne).toHaveBeenCalledWith({
@@ -250,7 +250,7 @@ describe('ConfigService', () => {
       mockRepository.findOne.mockRejectedValue(fetchError)
 
       // Act & Assert
-      await expect(ConfigService.update(mockUpdateDTO)).rejects.toThrow(
+      await expect(ConfigRepo.update(mockUpdateDTO)).rejects.toThrow(
         'Failed to fetch config from the database'
       )
       expect(mockLog.error).toHaveBeenCalledWith(
@@ -268,7 +268,7 @@ describe('ConfigService', () => {
       mockRepository.save.mockRejectedValue(saveError)
 
       // Act & Assert
-      await expect(ConfigService.update(mockUpdateDTO)).rejects.toThrow(
+      await expect(ConfigRepo.update(mockUpdateDTO)).rejects.toThrow(
         'Failed to save config to the database'
       )
       expect(mockLog.error).toHaveBeenCalledWith(
@@ -289,9 +289,7 @@ describe('ConfigService', () => {
       })
 
       // Act & Assert
-      await expect(ConfigService.update(mockUpdateDTO)).rejects.toThrow(
-        'Failed to map saved config'
-      )
+      await expect(ConfigRepo.update(mockUpdateDTO)).rejects.toThrow('Failed to map saved config')
       expect(mockLog.error).toHaveBeenCalledWith(
         'Failed to map saved config:',
         'Mapping operation failed'

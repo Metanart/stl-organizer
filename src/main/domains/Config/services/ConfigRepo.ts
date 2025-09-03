@@ -9,9 +9,9 @@ import { Config } from '../entities/Config'
 
 const repo = AppDataSource.getRepository(Config)
 
-export class ConfigService {
+export class ConfigRepo {
   static async get(): Promise<ConfigDTO> {
-    const log = createLog({ tag: 'ConfigService.get' })
+    const log = createLog({ tag: 'ConfigRepo.get' })
 
     let config: Config | null
 
@@ -58,7 +58,7 @@ export class ConfigService {
   }
 
   static async update(updatedConfig: ConfigUpdateDTO): Promise<ConfigDTO | null> {
-    const log = createLog({ tag: 'ConfigService.update' })
+    const log = createLog({ tag: 'ConfigRepo.update' })
 
     log.info('Updating config with payload', updatedConfig)
 

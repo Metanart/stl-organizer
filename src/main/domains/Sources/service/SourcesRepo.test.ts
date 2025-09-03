@@ -9,7 +9,7 @@ import {
 
 import { Source } from '../entities/Source'
 
-import { SourcesRepo } from './SourcesService'
+import { SourcesRepo } from './SourcesRepo'
 
 const mockFindOneBy = vi.hoisted(() => vi.fn())
 const mockFind = vi.hoisted(() => vi.fn())
