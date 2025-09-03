@@ -2,7 +2,7 @@ export type Domain = 'Config' | 'Sources' | 'Tasks'
 
 export type ProjectArea = 'MAIN' | 'RENDERER' | 'SHARED' | 'PRELOAD'
 
-export type Action = 'get' | 'getAll' | 'getFirst' | 'create' | 'update' | 'remove'
+export type Action = 'get' | 'getAll' | 'getFirst' | 'create' | 'update' | 'remove' | 'checkUnique'
 
 export type HandlerNoPayload<R> = () => R
 

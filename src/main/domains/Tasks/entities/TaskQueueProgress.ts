@@ -1,5 +1,6 @@
-import { _AbstractEntity } from '@main/domains/Common/entities/abstract/core/_AbstractEntity'
 import { Column, Entity, OneToOne } from 'typeorm'
+
+import { _AbstractEntity } from '@main/domains/Common/entities/abstract/core/_AbstractEntity'
 
 import { TaskQueue } from './TaskQueue'
 

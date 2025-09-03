@@ -1,6 +1,7 @@
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
+
 import { _AbstractEntity } from '@main/domains/Common/entities/abstract/core/_AbstractEntity'
 import { ModelExtensions } from '@main/domains/Common/enums'
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
 
 import { SourceArchive } from './SourceArchive'
 import { SourceImage } from './SourceImage'

@@ -2,7 +2,7 @@ import { ipcRenderer } from 'electron'
 
 import { ApiResponse } from '@shared/domains/Common/types/Api.types'
 import { IpcTag } from '@shared/domains/Common/types/IPC.types'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 export function createIpcInvoker<R>(tag: IpcTag): () => Promise<ApiResponse<R>> {
   return async function () {

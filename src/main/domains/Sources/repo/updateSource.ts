@@ -1,7 +1,7 @@
 import { AppDataSource } from '@main/database/AppDataSource'
 
 import { SourceDTO, SOURCES_DTO_KEYS, SourceUpdateDTO } from '@shared/domains/Sources/Sources.dtos'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { Source } from '../entities/Source'
 import { SourcesMapper } from '../mappers/SourcesMapper'

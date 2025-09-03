@@ -50,7 +50,7 @@ vi.mock('@main/domains/Sources/mappers/SourcesMapper', () => ({
     mapArray: mockMapArray
   }
 }))
-vi.mock('@shared/utils/createLog', () => ({
+vi.mock('@shared/utils/logs/createLog', () => ({
   createLog: vi.fn(() => mockLog)
 }))
 
@@ -248,6 +248,107 @@ describe('SourcesRepo', () => {
       expect(mockLog.info).toHaveBeenCalledWith('Removing source with id', '1')
       expect(mockLog.error).toHaveBeenCalledWith('Source by id "1" is not deleted')
       expect(result).toBe(false)
+    })
+  })
+
+  describe('checkUnique', () => {
+    it('returns unique when no conflicts exist', async () => {
+      mockFind.mockResolvedValue([])
+
+      const result = await SourcesRepo.checkUnique(sampleCreateDTO)
+
+      expect(mockFind).toHaveBeenCalledWith({
+        where: [{ name: sampleCreateDTO.name }, { path: sampleCreateDTO.path }]
+      })
+      expect(result).toEqual({
+        isUnique: true,
+        conflicts: {
+          name: false,
+          path: false
+        }
+      })
+      expect(mockLog.info).toHaveBeenCalledWith('Source is unique - no conflicts found')
+    })
+
+    it('returns name conflict when source with same name exists', async () => {
+      const conflictingSource = { ...sampleSource, path: '/different/path' }
+      mockFind.mockResolvedValue([conflictingSource])
+
+      const result = await SourcesRepo.checkUnique(sampleCreateDTO)
+
+      expect(mockFind).toHaveBeenCalledWith({
+        where: [{ name: sampleCreateDTO.name }, { path: sampleCreateDTO.path }]
+      })
+      expect(result).toEqual({
+        isUnique: false,
+        conflicts: {
+          name: true,
+          path: false
+        }
+      })
+      expect(mockLog.warn).toHaveBeenCalledWith('Source has conflicts', {
+        name: true,
+        path: false
+      })
+    })
+
+    it('returns path conflict when source with same path exists', async () => {
+      const conflictingSource = { ...sampleSource, name: 'Different Name' }
+      mockFind.mockResolvedValue([conflictingSource])
+
+      const result = await SourcesRepo.checkUnique(sampleCreateDTO)
+
+      expect(mockFind).toHaveBeenCalledWith({
+        where: [{ name: sampleCreateDTO.name }, { path: sampleCreateDTO.path }]
+      })
+      expect(result).toEqual({
+        isUnique: false,
+        conflicts: {
+          name: false,
+          path: true
+        }
+      })
+      expect(mockLog.warn).toHaveBeenCalledWith('Source has conflicts', {
+        name: false,
+        path: true
+      })
+    })
+
+    it('returns both conflicts when source with same name and path exists', async () => {
+      mockFind.mockResolvedValue([sampleSource])
+
+      const result = await SourcesRepo.checkUnique(sampleCreateDTO)
+
+      expect(mockFind).toHaveBeenCalledWith({
+        where: [{ name: sampleCreateDTO.name }, { path: sampleCreateDTO.path }]
+      })
+      expect(result).toEqual({
+        isUnique: false,
+        conflicts: {
+          name: true,
+          path: true
+        }
+      })
+      expect(mockLog.warn).toHaveBeenCalledWith('Source has conflicts', {
+        name: true,
+        path: true
+      })
+    })
+
+    it('throws error when database query fails', async () => {
+      mockFind.mockRejectedValue(new Error('Database connection failed'))
+
+      await expect(SourcesRepo.checkUnique(sampleCreateDTO)).rejects.toThrow(
+        'Failed to check source Unique in database'
+      )
+
+      expect(mockFind).toHaveBeenCalledWith({
+        where: [{ name: sampleCreateDTO.name }, { path: sampleCreateDTO.path }]
+      })
+      expect(mockLog.error).toHaveBeenCalledWith(
+        'Failed to check source Unique in database:',
+        'Database connection failed'
+      )
     })
   })
 })

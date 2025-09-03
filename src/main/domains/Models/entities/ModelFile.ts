@@ -1,5 +1,6 @@
-import { ModelExtensions } from '@main/domains/Common/enums'
 import { Column, Entity, ManyToOne } from 'typeorm'
+
+import { ModelExtensions } from '@main/domains/Common/enums'
 
 import { _AbstractFile } from '../../../domains/Common/entities/abstract/core/_AbstractFile'
 

@@ -1,10 +1,11 @@
-import { ConsolaInstance } from 'consola'
 import { ipcRenderer } from 'electron'
+
+import { ConsolaInstance } from 'consola'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { ApiResponse } from '@shared/domains/Common/types/Api.types'
 import { IpcTag } from '@shared/domains/Common/types/IPC.types'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { createIpcInvoker, createIpcInvokerWithPayload } from './createIpcInvoker'
 
@@ -15,7 +16,7 @@ vi.mock('electron', () => ({
   }
 }))
 
-vi.mock('@shared/utils/createLog', () => ({
+vi.mock('@shared/utils/logs/createLog', () => ({
   createLog: vi.fn(() => ({
     info: Object.assign(vi.fn(), { raw: vi.fn() }),
     error: Object.assign(vi.fn(), { raw: vi.fn() })

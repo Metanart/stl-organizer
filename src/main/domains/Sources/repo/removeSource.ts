@@ -1,7 +1,7 @@
 import { AppDataSource } from '@main/database/AppDataSource'
 
 import { RemoveDTO } from '@shared/domains/Common/Common.dtos'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { Source } from '../entities/Source'
 

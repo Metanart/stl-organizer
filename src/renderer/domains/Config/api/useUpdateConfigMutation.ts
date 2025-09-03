@@ -6,7 +6,7 @@ import {
   ConfigUpdateDTO,
   ConfigUpdateFormDTO
 } from '@shared/domains/Config/Config.dtos'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { ConfigMapper } from '../mappers/ConfigMapper'
 

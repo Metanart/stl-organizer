@@ -1,5 +1,3 @@
-import { _AbstractEntity } from '@main/domains/Common/entities/abstract/core/_AbstractEntity'
-import { ModelTag } from '@main/domains/Models/entities/ModelTag'
 import {
   Column,
   Entity,
@@ -11,6 +9,9 @@ import {
   OneToMany,
   UpdateDateColumn
 } from 'typeorm'
+
+import { _AbstractEntity } from '@main/domains/Common/entities/abstract/core/_AbstractEntity'
+import { ModelTag } from '@main/domains/Models/entities/ModelTag'
 
 import { ModelAuthor } from './ModelAuthor'
 import { ModelCategory } from './ModelCategory'

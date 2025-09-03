@@ -6,8 +6,6 @@ export const convertDBErrorToMessage = (error: DBError): string | null => {
 
   if (error.message) return error.message
 
-  console.log('ЕБАНЫЕ ПЕРЕВОДЫ БЛЯТЬ', LL)
-
   switch (error.code) {
     case 'UNIQUE_VIOLATION':
       return LL.app.dbErrors.uniqueViolation({

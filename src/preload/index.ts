@@ -1,5 +1,6 @@
-import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge } from 'electron'
+
+import { electronAPI } from '@electron-toolkit/preload'
 
 import { commonIpcInvokers } from './domains/Common/api/CommonIpcInvokers'
 import { configIpcInvokers } from './domains/Config/api/ConfigIpcInvokers'

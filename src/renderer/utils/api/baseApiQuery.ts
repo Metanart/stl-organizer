@@ -2,7 +2,7 @@ import { LL } from '@i18n/utils/i18n-LL.async'
 import { BaseQueryFn } from '@reduxjs/toolkit/query'
 
 import { ApiDomain, ApiMethod, ApiResponse, ApiTag } from '@shared/domains/Common/types/Api.types'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 export const baseApiQuery: BaseQueryFn<
   { domain: ApiDomain; method: ApiMethod; payload?: unknown },

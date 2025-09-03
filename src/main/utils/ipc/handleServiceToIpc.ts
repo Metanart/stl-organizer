@@ -1,10 +1,11 @@
-import { LL } from '@i18n/utils/i18n-LL.sync'
 import { ipcMain } from 'electron'
 import { IpcMainInvokeEvent } from 'electron/main'
 
+import { LL } from '@i18n/utils/i18n-LL.sync'
+
 import { ApiResponse } from '@shared/domains/Common/types/Api.types'
 import { IpcTag } from '@shared/domains/Common/types/IPC.types'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { convertDBErrorToMessage } from '../errors/convertDBErrorToMessage'
 import { mapDbError } from '../errors/mapDBError'

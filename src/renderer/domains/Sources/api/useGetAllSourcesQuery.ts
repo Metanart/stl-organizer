@@ -1,6 +1,6 @@
 import { ApiDomain, ApiMethod } from '@shared/domains/Common/types/Api.types'
 import { SourceDTO, SourceFormDTO, SOURCES_DTO_KEYS } from '@shared/domains/Sources/Sources.dtos'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { SourcesMapper } from '../mappers/SourcesMapper'
 

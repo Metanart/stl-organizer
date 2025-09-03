@@ -5,11 +5,9 @@
     "src/main/**/*",
     "src/preload/**/*",
     "src/shared/**/*",
-    "src/renderer/domains/Config/mappers/ConfigMapperMetadata.ts",
     "src/i18n/**/*",
     "src/i18n/en",
-    "src/shared/domains/Sources/schemes"
-, "src/renderer/utils/text/sanitizeTextInput.ts", "src/renderer/utils/text/sanitizeTextInput.test.ts", "src/renderer/utils/text/normalizeTextOnInput.ts", "src/renderer/utils/text/normalizeTextOnInput.test.ts"  ],
+  ],
   "compilerOptions": {
     "composite": true,
     "types": [
