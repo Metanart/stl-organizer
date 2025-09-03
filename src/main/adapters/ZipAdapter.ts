@@ -15,10 +15,7 @@ export interface ListZipOptions {
  * Возвращает список путей файлов внутри ZIP (без директорий).
  * Использует node-stream-zip (async API).
  */
-export async function listZip(
-  archivePath: string,
-  options: ListZipOptions = {}
-): Promise<string[]> {
+async function listZip(archivePath: string, options: ListZipOptions = {}): Promise<string[]> {
   if (options.signal?.aborted) throw new Error('Aborted')
 
   const zip = new StreamZip.async({
@@ -48,13 +45,13 @@ export async function listZip(
   }
 }
 
-export interface ExtractZipOptions {
+interface ExtractZipOptions {
   password?: string
   signal?: AbortSignal
 }
 
 /** Распаковка всего ZIP-архива в указанный каталог */
-export async function extractZip(
+async function extractZip(
   archivePath: string,
   outputDirectory: string,
   options: ExtractZipOptions = {}
@@ -85,7 +82,7 @@ export async function extractZip(
   }
 }
 
-export interface ZipDirectoryOptions {
+interface ZipDirectoryOptions {
   /** 'deflate' (по умолчанию) или 'store' (без сжатия) */
   compression?: 'deflate' | 'store'
   /** Фиксированное mtime для детерминируемых ZIP (по умолчанию 2000-01-01) */
@@ -102,7 +99,7 @@ export interface ZipDirectoryOptions {
  * Упаковывает каталог целиком в ZIP с помощью yazl.
  * Сохраняет пустые директории, нормализует пути ("/") и может быть детерминируемым.
  */
-export async function archiveDirectory(
+async function archiveDirectory(
   inputDirectory: string,
   outputZipPath: string,
   options: ZipDirectoryOptions = {}
@@ -230,4 +227,10 @@ function toZipEntryName(relPath: string, isDir: boolean): string {
 /** POSIX join для относительных путей (независимо от ОС) */
 function pathJoinRel(baseRel: string, name: string): string {
   return baseRel ? pathPosix.join(baseRel.replace(/\\/g, '/'), name) : name
+}
+
+export const ZipAdapter = {
+  listZip,
+  extractZip,
+  archiveDirectory
 }

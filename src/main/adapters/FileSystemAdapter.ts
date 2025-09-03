@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { createReadStream } from 'node:fs'
 
 import { constants } from 'fs'
-import { access, copyFile as copyFileBase, lstat, stat, unlink } from 'fs/promises'
+import { access, copyFile as copyFileBase, lstat, rename, stat, unlink } from 'fs/promises'
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -13,7 +13,7 @@ async function exists(path: string): Promise<boolean> {
   }
 }
 
-async function fileExists(path: string): Promise<boolean> {
+async function checkFileExists(path: string): Promise<boolean> {
   if (!(await exists(path))) return false
   try {
     const stats = await stat(path)
@@ -23,7 +23,7 @@ async function fileExists(path: string): Promise<boolean> {
   }
 }
 
-async function directoryExists(path: string): Promise<boolean> {
+async function checkDirectoryExists(path: string): Promise<boolean> {
   if (!(await exists(path))) return false
   try {
     const stats = await stat(path)
@@ -33,7 +33,7 @@ async function directoryExists(path: string): Promise<boolean> {
   }
 }
 
-async function symlinkExists(path: string): Promise<boolean> {
+async function checkSymlinkExists(path: string): Promise<boolean> {
   if (!(await exists(path))) return false
   try {
     const stats = await lstat(path)
@@ -98,4 +98,38 @@ export async function calculateHash(
   }
 }
 
-export const FilesService = { fileExists, directoryExists, symlinkExists, copyFile, deleteFile }
+async function moveFile(source: string, destination: string): Promise<boolean> {
+  try {
+    await rename(source, destination)
+    return true
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    // If rename fails due to cross-device link, fallback to copy+delete
+    if (error.code === 'EXDEV') {
+      try {
+        await copyFile(source, destination)
+        await deleteFile(source)
+        return true
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (copyError: any) {
+        throw new Error(
+          `Failed to move "${source}" → "${destination}": ${copyError?.message ?? String(copyError)}`,
+          { cause: copyError }
+        )
+      }
+    }
+    throw new Error(
+      `Failed to move "${source}" → "${destination}": ${error?.message ?? String(error)}`,
+      { cause: error }
+    )
+  }
+}
+
+export const FileSystemAdapter = {
+  checkFileExists,
+  checkDirectoryExists,
+  checkSymlinkExists,
+  copyFile,
+  deleteFile,
+  moveFile
+}

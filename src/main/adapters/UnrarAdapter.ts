@@ -5,7 +5,7 @@ import { join, resolve } from 'node:path'
 
 import { detectPlatform } from '@main/utils/detectPlatform'
 
-export function resolveUnrarPath(): string {
+function resolveUnrarPath(): string {
   const exe: 'unrar.exe' | 'unrar' = process.platform === 'win32' ? 'unrar.exe' : 'unrar'
 
   // prod (packed app)
@@ -70,10 +70,7 @@ function runUnrarProcess(
  * Возвращает список путей файлов внутри RAR (один путь на строку).
  * Требует встроенного бинаря unrar. Для зашифрованных заголовков передай password.
  */
-export async function listRar(
-  archivePath: string,
-  options: ListRarOptions = {}
-): Promise<string[]> {
+async function listRar(archivePath: string, options: ListRarOptions = {}): Promise<string[]> {
   const passwordFlag = options.password ? `-p${options.password}` : '-p-'
   // lb — bare list; -idq — тихий вывод; -scu — UTF-8 для консоли (если поддерживается)
   const rawStdout = await runUnrarProcess(
@@ -83,7 +80,7 @@ export async function listRar(
   return rawStdout.split(/\r?\n/).filter(Boolean)
 }
 
-export interface ExtractRarOptions {
+interface ExtractRarOptions {
   overwrite?: boolean
   password?: string
   signal?: AbortSignal
@@ -93,7 +90,7 @@ export interface ExtractRarOptions {
  * Распаковывает весь архив RAR в указанный каталог.
  * Требует доступной функции runUnrarProcess (см. ранее).
  */
-export async function extractRar(
+async function extractRar(
   archivePath: string,
   outputDirectory: string,
   options: ExtractRarOptions = {}
@@ -111,7 +108,7 @@ export async function extractRar(
   )
 }
 
-export interface IsRarPasswordProtectedOptions {
+interface IsRarPasswordProtectedOptions {
   signal?: AbortSignal
 }
 
@@ -122,7 +119,7 @@ export interface IsRarPasswordProtectedOptions {
  * - Если упала с сообщением про пароль/шифрование → архив запаролен.
  * - Иные ошибки (битый архив, I/O и т.п.) пробрасываем наверх.
  */
-export async function isRarPasswordProtected(
+async function isRarPasswordProtected(
   archivePath: string,
   options: IsRarPasswordProtectedOptions = {}
 ): Promise<boolean> {
@@ -154,7 +151,7 @@ export async function isRarPasswordProtected(
  * @param signal - сигнал отмены
  * @returns - true, если архив целостный, false, если нет
  */
-export async function testRar(
+async function testRarIntegrity(
   archive: string,
   password?: string,
   signal?: AbortSignal
@@ -166,4 +163,11 @@ export async function testRar(
   } catch {
     return false
   }
+}
+
+export const UnrarAdapter = {
+  listRar,
+  extractRar,
+  isRarPasswordProtected,
+  testRarIntegrity
 }
