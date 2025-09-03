@@ -1,4 +1,4 @@
-import { createIpcInvoker, createIpcInvokerWithPayload } from '@preload/utils/createIpcInvoker'
+import { createIpcInvoker, createIpcInvokerWithPayload } from '@preload/utils/ipc/createIpcInvoker'
 
 import { ConfigDTO, ConfigUpdateFormDTO } from '@shared/domains/Config/Config.dtos'
 

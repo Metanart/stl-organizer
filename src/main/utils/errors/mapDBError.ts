@@ -1,7 +1,7 @@
-import { ServerError } from '@main/types/DBError.types'
+import { DBError } from '@main/types/DBError.types'
 import { QueryFailedError } from 'typeorm'
 
-export function mapDbError(error: unknown): ServerError | null {
+export function mapDbError(error: unknown): DBError | null {
   if (!(error instanceof QueryFailedError)) return null
 
   const driverErr = error.driverError as { message: string; errno: number }

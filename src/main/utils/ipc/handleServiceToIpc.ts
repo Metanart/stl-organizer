@@ -6,8 +6,8 @@ import { ApiResponse } from '@shared/domains/Common/types/Api.types'
 import { IpcTag } from '@shared/domains/Common/types/IPC.types'
 import { createLog } from '@shared/utils/createLog'
 
-import { convertDBErrorToMessage } from './convertDBErrorToMessage'
-import { mapDbError } from './mapDBError'
+import { convertDBErrorToMessage } from '../errors/convertDBErrorToMessage'
+import { mapDbError } from '../errors/mapDBError'
 
 type ServiceHandler<R, P> = (() => Promise<R>) | ((payload: P) => Promise<R>)
 

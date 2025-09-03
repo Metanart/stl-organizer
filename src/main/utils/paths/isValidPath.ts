@@ -1,14 +1,15 @@
-import { isWindows } from '../os/isWindows'
 import {
   UNIX_ABSOLUTE_PATH_REGEXP,
   UNIX_RELATIVE_PATH_REGEXP,
   WINDOWS_ABSOLUTE_PATH_REGEXP,
   WINDOWS_RELATIVE_PATH_REGEXP
-} from '../regexp'
+} from '@shared/domains/Common/Common.regexp'
+
+import { isWindows } from '../platform/isWindows'
 
 const WINDOWS_RESERVED_NAMES = /^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])$/i
 
-export function isPathValid(path: string, isRelative = false): boolean {
+export function isValidPath(path: string, isRelative = false): boolean {
   if (!path || typeof path !== 'string') return false
 
   if (isWindows) {

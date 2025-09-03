@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs'
 import { mkdir } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 
-import { detectPlatform } from '@main/utils/detectPlatform'
+import { detectPlatform } from '@main/utils/platform/detectPlatform'
 
 function resolveUnrarPath(): string {
   const exe: 'unrar.exe' | 'unrar' = process.platform === 'win32' ? 'unrar.exe' : 'unrar'

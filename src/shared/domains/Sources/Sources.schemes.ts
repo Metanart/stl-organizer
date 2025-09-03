@@ -1,7 +1,7 @@
 import { LL } from '@i18n/utils/i18n-LL.async'
 import { z } from 'zod'
 
-import { SOURCE_NAME_REGEX } from '@shared/utils/regexp'
+import { SOURCE_NAME_REGEX } from './Sources.regexp'
 
 const fieldsLexemes = LL.sources.createForm.fields
 
