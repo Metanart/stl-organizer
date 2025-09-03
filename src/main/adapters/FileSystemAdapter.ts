@@ -125,10 +125,40 @@ async function moveFile(source: string, destination: string): Promise<boolean> {
   }
 }
 
+/**
+ * Checks if a directory is available for reading.
+ * @param dirPath - Path to the directory.
+ * @returns Promise<boolean> - true if readable, false otherwise.
+ */
+async function checkDirectoryReadable(dirPath: string): Promise<boolean> {
+  try {
+    await access(dirPath, constants.R_OK)
+    return true
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Checks if a directory is available for writing.
+ * @param dirPath - Path to the directory.
+ * @returns Promise<boolean> - true if writable, false otherwise.
+ */
+async function checkDirectoryWritable(dirPath: string): Promise<boolean> {
+  try {
+    await access(dirPath, constants.W_OK)
+    return true
+  } catch {
+    return false
+  }
+}
+
 export const FileSystemAdapter = {
   checkFileExists,
   checkDirectoryExists,
   checkSymlinkExists,
+  checkDirectoryReadable,
+  checkDirectoryWritable,
   copyFile,
   deleteFile,
   moveFile
