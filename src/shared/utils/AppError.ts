@@ -68,6 +68,14 @@ export class AppError extends Error {
     this.meta = options.meta
     Object.setPrototypeOf(this, new.target.prototype)
   }
+
+  toJSON = (): Record<string, unknown> => ({
+    code: this.code,
+    domain: this.domain,
+    severity: this.severity,
+    userMessage: this.userMessage,
+    meta: this.meta
+  })
 }
 
 /**
@@ -82,31 +90,8 @@ export class AppError extends Error {
  */
 export const toAppError = (
   error: unknown,
-  hint: Partial<AppError> & { code: string; domain: Domain }
+  options: Partial<AppError> & { code: string; domain: Domain }
 ): AppError =>
   error instanceof AppError
     ? error
-    : new AppError({ ...hint, message: (error as Error)?.message, cause: error })
-
-/**
- * Serializes an {@link AppError} into a plain object suitable for logging or transport.
- *
- * Includes only safe fields:
- * - `code`
- * - `domain`
- * - `severity`
- * - `userMessage`
- * - `meta`
- *
- * (Note: Does not include stack trace or technical `message` by design.)
- *
- * @param error - The {@link AppError} to serialize.
- * @returns A plain object representation of the error.
- */
-export const appErrorToJSON = (error: AppError): Record<string, unknown> => ({
-  code: error.code,
-  domain: error.domain,
-  severity: error.severity,
-  userMessage: error.userMessage,
-  meta: error.meta
-})
+    : new AppError({ ...options, message: (error as Error)?.message, cause: error })
