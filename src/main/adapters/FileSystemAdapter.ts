@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import { createReadStream } from 'node:fs'
 
 import { constants } from 'fs'
-import { access, copyFile as copyFileBase, lstat, rename, stat, unlink } from 'fs/promises'
+import { access, copyFile as copyFileBase, lstat, mkdir, rename, stat, unlink } from 'fs/promises'
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -69,7 +69,7 @@ async function deleteFile(path: string): Promise<boolean> {
   }
 }
 
-export async function calculateHash(
+async function calculateHash(
   filePath: string,
   options: {
     algorithm?: 'sha256' | 'sha1' | 'md5'
@@ -153,13 +153,30 @@ async function checkDirectoryWritable(dirPath: string): Promise<boolean> {
   }
 }
 
+/**
+ * Creates a directory at the specified path.
+ * @param dirPath - Path where the directory should be created.
+ * @param recursive - Whether to create parent directories if they don't exist. Defaults to true.
+ * @returns Promise<boolean> - true if successful, false otherwise.
+ */
+async function createDir(dirPath: string, recursive = true): Promise<boolean> {
+  try {
+    await mkdir(dirPath, { recursive })
+    return true
+  } catch {
+    return false
+  }
+}
+
 export const FileSystemAdapter = {
   checkFileExists,
   checkDirectoryExists,
   checkSymlinkExists,
   checkDirectoryReadable,
   checkDirectoryWritable,
+  calculateHash,
   copyFile,
+  createDir,
   deleteFile,
   moveFile
 }
