@@ -1,6 +1,13 @@
 type Severity = 'info' | 'warn' | 'error' | 'fatal'
 
-type Domain = 'fs' | 'zip' | 'http' | 'db' | 'ui' | 'ipc'
+type Domain = 'FILE_SYSTEM_ADAPTER' | 'SOURCE_SCAN_ENGINE'
+
+type Code =
+  | 'DIRECTORY_NOT_FOUND'
+  | 'FILE_COPY_FAILED'
+  | 'FILE_HASH_FAILED'
+  | 'FILE_MOVE_FAILED'
+  | 'FILE_MOVE_FALLBACK_FAILED'
 
 /**
  * Options used to construct an {@link AppError}.
@@ -14,7 +21,7 @@ type Domain = 'fs' | 'zip' | 'http' | 'db' | 'ui' | 'ipc'
  * @property cause - Optional original error or value that triggered this error (error chaining).
  */
 type Options = {
-  code: string
+  code: Code
   domain: Domain
   severity?: Severity
   message?: string
@@ -62,7 +69,7 @@ export class AppError extends Error {
  */
 export const toAppError = (
   error: unknown,
-  options: Partial<AppError> & { code: string; domain: Domain }
+  options: Partial<AppError> & { code: Code; domain: Domain }
 ): AppError =>
   error instanceof AppError
     ? error
