@@ -4,8 +4,8 @@ import { access, copyFile as copyFileBase, lstat, mkdir, rename, stat, unlink } 
 import { toAppError } from '@shared/utils/errors/AppError'
 import { createLog } from '@shared/utils/logs/createLog'
 
+import { walkDirectoryTree } from './walkDirectoryTree/walkDirectoryTree'
 import { calculateHash } from './calculateHash'
-import { walkDirectoryTree } from './walkDirectoryTree'
 
 const log = createLog({ tag: 'MAIN' })
 
