@@ -1,4 +1,4 @@
-import { FileSystemAdapter } from '@main/adapters/FileSystemAdapter'
+import { FileSystemAdapter } from '@main/adapters/FileSystemAdapter/FileSystemAdapter'
 
 import { toAppError } from '@shared/utils/errors/AppError'
 
