@@ -1,22 +1,5 @@
-/**
- * Represents the severity level of an error.
- * - `info`: Non-critical information, usually no user action required.
- * - `warn`: A warning about unexpected but non-fatal behavior.
- * - `error`: A recoverable error that blocks normal execution.
- * - `fatal`: A critical error that likely requires process termination.
- */
 type Severity = 'info' | 'warn' | 'error' | 'fatal'
 
-/**
- * Represents the application domain (origin) of an error.
- * Examples:
- * - `fs`: File system operations.
- * - `zip`: Archive/ZIP handling.
- * - `http`: Network/HTTP requests.
- * - `db`: Database queries or connections.
- * - `ui`: User interface components.
- * - `ipc`: Inter-process communication.
- */
 type Domain = 'fs' | 'zip' | 'http' | 'db' | 'ui' | 'ipc'
 
 /**
@@ -40,17 +23,6 @@ type Options = {
   cause?: unknown
 }
 
-/**
- * Application-level error class.
- *
- * Extends the native {@link Error} with:
- * - `code`: Machine-readable error identifier.
- * - `domain`: Logical source of the error (fs, http, db, etc.).
- * - `severity`: Error severity (info, warn, error, fatal).
- * - `userMessage`: Optional human-readable safe message for UI display.
- * - `meta`: Additional structured metadata for debugging and logs.
- * - `cause`: Original error that led to this one (supports error chaining).
- */
 export class AppError extends Error {
   code: string
   domain: Domain

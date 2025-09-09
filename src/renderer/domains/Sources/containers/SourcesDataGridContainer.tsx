@@ -2,7 +2,7 @@ import { FC, useCallback } from 'react'
 import { useI18nContext } from '@i18n/i18n-react.generated'
 import { notify } from '@renderer/utils/notify'
 
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { useGetAllSourcesQuery } from '../api/useGetAllSourcesQuery'
 import { useRemoveSourceMutation } from '../api/useRemoveSourceMutation'

@@ -1,6 +1,6 @@
 import { RemoveDTO } from '@shared/domains/Common/Common.dtos'
 import { ApiDomain, ApiMethod } from '@shared/domains/Common/types/Api.types'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { SourcesApi, SourcesApiTags } from './SourcesApi'
 

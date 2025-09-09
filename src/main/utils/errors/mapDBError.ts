@@ -1,5 +1,6 @@
-import { DBError } from '@main/types/DBError.types'
 import { QueryFailedError } from 'typeorm'
+
+import { DBError } from '@main/types/DBError.types'
 
 export function mapDbError(error: unknown): DBError | null {
   if (!(error instanceof QueryFailedError)) return null

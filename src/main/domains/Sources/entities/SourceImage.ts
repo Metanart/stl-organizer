@@ -1,5 +1,6 @@
-import { AbstractImage } from '@main/domains/Common/entities/abstract/AbstractImage'
 import { Entity, JoinColumn, ManyToOne } from 'typeorm'
+
+import { AbstractImage } from '@main/domains/Common/entities/abstract/AbstractImage'
 
 import { SourceModel } from './SourceModel'
 

@@ -1,10 +1,11 @@
 import 'reflect-metadata'
 
-import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { app, BrowserWindow, shell } from 'electron'
+
+import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { join } from 'path'
 
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import icon from '../../resources/icon.png?asset'
 

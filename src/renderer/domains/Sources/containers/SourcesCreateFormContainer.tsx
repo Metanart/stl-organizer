@@ -3,7 +3,7 @@ import { useI18nContext } from '@i18n/i18n-react.generated'
 import { notify } from '@renderer/utils/notify'
 
 import { SourceCreateFormDTO } from '@shared/domains/Sources/Sources.dtos'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { useCreateSourceMutation } from '../api/useCreateSourceMutation'
 import { SourcesCreateForm } from '../components/SourcesCreateForm/SourcesCreateForm'

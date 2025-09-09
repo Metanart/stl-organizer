@@ -1,5 +1,6 @@
-import { Source } from '@main/domains/Sources/entities/Source'
 import { DataSource } from 'typeorm'
+
+import { Source } from '@main/domains/Sources/entities/Source'
 
 import { AppPaths } from '@shared/paths'
 
