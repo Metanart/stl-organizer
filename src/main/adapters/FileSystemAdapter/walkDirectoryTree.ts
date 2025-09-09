@@ -23,86 +23,105 @@ export type DirectoryNode = {
 export type WalkOptions = {
   /** Максимальная глубина (0 — только корень, 1 — корень + его дети, и т.д.). Отсутствует — без ограничения */
   maxDepth?: number
-  /**
-   * Проверка: заходить ли в директорию (true — заходить).
-   * Если вернёт false, директория полностью пропускается и не попадает в результат.
-   */
+  /** true — заходить в директорию; false — пропустить целиком */
   dirPredicate?: (dirName: string) => boolean
-  /**
-   * Проверка: включать ли файл (true — включать).
-   * Если вернёт false, файл пропускается.
-   */
+  /** true — включать файл */
   filePredicate?: (fileName: string, fileSize: number) => boolean
+  /** true — считать файл «ключевым» для дальнейшей обработки (счётчик keyFiles) */
+  keyFilePredicate?: (fileName: string, fileSize: number) => boolean
 }
 
+export type WalkResult = {
+  tree: DirectoryNode
+  totalFiles: number // количество всех включённых файлов
+  keyFiles: number // количество включённых «ключевых» файлов
+  nonKeyFiles: number // totalFiles - keyFiles
+}
+
+// --- defaults ---
 const defaultDirPredicate = makeDirPredicate(
   BLOCKED_DIR_NAMES,
   BLOCKED_DIR_PATTERNS,
-  false // allowHidden: скрытые директории блокируются
+  false // allowHidden
 )
 
 const defaultFilePredicate = makeFilePredicate(
-  ['zip', 'rar', 'jpg', 'jpeg', 'png', 'webp', 'stl'], // разрешённые расширения
+  ['zip', 'rar', 'jpg', 'jpeg', 'png', 'webp', 'stl'],
   BLOCKED_FILE_NAMES,
   BLOCKED_FILE_PATTERNS,
-  1, // minSize: >0 байт
-  200 * 1024 * 1024 // maxSize: 200 MB
+  1,
+  200 * 1024 * 1024
 )
 
-const defaultOptions: Required<Pick<WalkOptions, 'dirPredicate' | 'filePredicate'>> = {
-  dirPredicate: defaultDirPredicate,
-  filePredicate: defaultFilePredicate
+const defaultKeyFilePredicate = (fileName: string): boolean => {
+  const ext = fileName.includes('.') ? fileName.split('.').pop()!.toLowerCase() : ''
+  return ext === 'zip' || ext === 'rar'
 }
 
 export async function walkDirectoryTree(
   root: string,
   options: WalkOptions = {}
-): Promise<DirectoryNode> {
+): Promise<WalkResult> {
   const {
     maxDepth,
-    dirPredicate = defaultOptions.dirPredicate,
-    filePredicate = defaultOptions.filePredicate
+    dirPredicate = defaultDirPredicate,
+    filePredicate = defaultFilePredicate,
+    keyFilePredicate = defaultKeyFilePredicate
   } = options
-  return walkInternal(root, 0)
 
-  async function walkInternal(currentDir: string, depth: number): Promise<DirectoryNode> {
+  const { tree, totalFiles, keyFiles } = await walkInternal(root, 0)
+  return { tree, totalFiles, keyFiles, nonKeyFiles: totalFiles - keyFiles }
+
+  async function walkInternal(
+    currentDir: string,
+    depth: number
+  ): Promise<{ tree: DirectoryNode; totalFiles: number; keyFiles: number }> {
     const entries = await readdir(currentDir, { withFileTypes: true })
 
     const files: FileNode[] = []
     const subdirs: DirectoryNode[] = []
 
+    let total = 0
+    let key = 0
+
     for (const entry of entries) {
       const fullPath = join(currentDir, entry.name)
 
       if (entry.isDirectory()) {
-        // ограничение глубины
         if (maxDepth != null && depth >= maxDepth) continue
-        // предикат директории
         if (!dirPredicate(entry.name)) continue
 
-        const dirNode = await walkInternal(fullPath, depth + 1)
-        subdirs.push(dirNode)
+        const child = await walkInternal(fullPath, depth + 1)
+        subdirs.push(child.tree)
+        total += child.totalFiles
+        key += child.keyFiles
       } else if (entry.isFile()) {
         const s = await stat(fullPath)
-        // предикат файла
         if (!filePredicate(entry.name, s.size)) continue
 
+        const ext = extname(entry.name).slice(1).toLowerCase()
         files.push({
           path: fullPath,
           name: entry.name,
           size: s.size,
-          ext: extname(entry.name).slice(1).toLowerCase()
+          ext
         })
+
+        total += 1
+        if (keyFilePredicate(entry.name, s.size)) key += 1
       }
-      // при необходимости можно обработать симлинки отдельно:
-      // else if (entry.isSymbolicLink()) { ... }
+      // TODO: обработка симлинков при необходимости
     }
 
     return {
-      path: currentDir,
-      name: basename(currentDir),
-      files,
-      subdirs
+      tree: {
+        path: currentDir,
+        name: basename(currentDir),
+        files,
+        subdirs
+      },
+      totalFiles: total,
+      keyFiles: key
     }
   }
 }
