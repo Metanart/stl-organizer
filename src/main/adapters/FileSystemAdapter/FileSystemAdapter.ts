@@ -1,5 +1,5 @@
 import { constants } from 'fs'
-import { access, copyFile as copyFileBase, lstat, mkdir, rename, stat, unlink } from 'fs/promises'
+import { access, copyFile, lstat, mkdir, rename, stat, unlink } from 'fs/promises'
 
 import { toAppError } from '@shared/utils/errors/AppError'
 import { createLog } from '@shared/utils/logs/createLog'
@@ -83,11 +83,15 @@ async function createDir(dirPath: string, recursive = true): Promise<boolean> {
   }
 }
 
-async function copyFile(source: string, destination: string, overwrite = false): Promise<boolean> {
+async function copyFileSafe(
+  source: string,
+  destination: string,
+  overwrite = false
+): Promise<boolean> {
   const flags = overwrite ? 0 : constants.COPYFILE_EXCL
 
   try {
-    await copyFileBase(source, destination, flags)
+    await copyFile(source, destination, flags)
     return true
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
@@ -141,7 +145,7 @@ export const FileSystemAdapter = {
   checkDirectoryWritable,
   calculateHash,
   walkDirectoryTree,
-  copyFile,
+  copyFileSafe,
   createDir,
   deleteFile,
   moveFile
