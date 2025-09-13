@@ -1,6 +1,6 @@
 import { ApiDomain, ApiMethod } from '@shared/domains/Common/types/Api.types'
 import { CONFIG_DTO_KEYS, ConfigDTO, ConfigFormDTO } from '@shared/domains/Config/Config.dtos'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { ConfigMapper } from '../mappers/ConfigMapper'
 

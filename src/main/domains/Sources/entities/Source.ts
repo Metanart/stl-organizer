@@ -1,5 +1,6 @@
-import { _AbstractEntity } from '@main/domains/Common/entities/abstract/core/_AbstractEntity'
 import { Column, Entity } from 'typeorm'
+
+import { _AbstractEntity } from '@main/domains/Common/entities/abstract/core/_AbstractEntity'
 
 @Entity()
 export class Source extends _AbstractEntity {

@@ -50,6 +50,8 @@ export default tseslint.config(
         {
           groups: [
             ['reflect-metadata'],
+            ['^electron'],
+            ['typeorm'],
             // 1. node built-ins
             ['^node:'],
             // 2. external packages

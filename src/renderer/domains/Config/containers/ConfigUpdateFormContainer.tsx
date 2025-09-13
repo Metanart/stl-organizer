@@ -3,7 +3,7 @@ import { useI18nContext } from '@i18n/i18n-react.generated'
 import { notify } from '@renderer/utils/notify'
 
 import { ConfigUpdateFormDTO } from '@shared/domains/Config/Config.dtos'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { Message } from '../../Common/components/Message'
 import { useGetConfigQuery } from '../api/useGetConfigQuery'

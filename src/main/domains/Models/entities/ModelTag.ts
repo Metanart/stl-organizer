@@ -1,5 +1,6 @@
-import { Model } from '@main/domains/Models/entities/Model'
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm'
+
+import { Model } from '@main/domains/Models/entities/Model'
 
 @Entity()
 export class ModelTag {

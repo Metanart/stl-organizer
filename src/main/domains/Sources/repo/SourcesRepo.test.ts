@@ -50,7 +50,7 @@ vi.mock('@main/domains/Sources/mappers/SourcesMapper', () => ({
     mapArray: mockMapArray
   }
 }))
-vi.mock('@shared/utils/createLog', () => ({
+vi.mock('@shared/utils/logs/createLog', () => ({
   createLog: vi.fn(() => mockLog)
 }))
 

@@ -6,7 +6,7 @@ import {
   SourceFormDTO,
   SOURCES_DTO_KEYS
 } from '@shared/domains/Sources/Sources.dtos'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { SourcesMapper } from '../mappers/SourcesMapper'
 

@@ -1,5 +1,6 @@
-import { ConsolaInstance } from 'consola'
 import { IsNull, Not } from 'typeorm'
+
+import { ConsolaInstance } from 'consola'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { CONFIG_DTO_KEYS, ConfigDTO, ConfigUpdateDTO } from '@shared/domains/Config/Config.dtos'
@@ -40,14 +41,14 @@ vi.mock('@main/domains/Config/mappers/ConfigMapper', () => ({
   }
 }))
 
-vi.mock('@shared/utils/createLog', () => ({
+vi.mock('@shared/utils/logs/createLog', () => ({
   createLog: vi.fn()
 }))
 
 // Import after mocks are set up
 import { ConfigMapper } from '@main/domains/Config/mappers/ConfigMapper'
 
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { ConfigRepo } from './ConfigRepo'
 

@@ -1,9 +1,10 @@
-import { AppDataSource } from '@main/database/AppDataSource'
-import { ConfigMapper } from '@main/domains/Config/mappers/ConfigMapper'
 import { IsNull, Not } from 'typeorm'
 
+import { AppDataSource } from '@main/database/AppDataSource'
+import { ConfigMapper } from '@main/domains/Config/mappers/ConfigMapper'
+
 import { CONFIG_DTO_KEYS, ConfigDTO, ConfigUpdateDTO } from '@shared/domains/Config/Config.dtos'
-import { createLog } from '@shared/utils/createLog'
+import { createLog } from '@shared/utils/logs/createLog'
 
 import { Config } from '../entities/Config'
 
