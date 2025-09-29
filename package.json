@@ -31,7 +31,8 @@
     "test:unit:ui": "vitest --project unit --ui",
     "test:sb": "vitest --environment storybook",
     "prepare": "husky",
-    "check-branch-name": "node scripts/check-branch-name.js"
+    "check-branch-name": "node scripts/check-branch-name.js",
+    "electron:fix-sandbox": "chmod +x scripts/fix-electron-sandbox.sh && scripts/fix-electron-sandbox.sh"
   },
   "dependencies": {
     "@automapper/core": "^8.8.1",
